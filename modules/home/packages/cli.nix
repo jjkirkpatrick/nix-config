@@ -34,6 +34,7 @@
     yq                       # YAML processor
     delta                    # better git diff
     lazygit                  # git TUI
+    claude-code
     
     # Text processing
     gnused                   # stream editor
