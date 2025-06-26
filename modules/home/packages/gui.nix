@@ -3,7 +3,6 @@
   home.packages = with pkgs; [
     # Web browsers
     brave                    # privacy-focused browser
-    firefox                  # open-source browser
     
     # Media players
     vlc                      # versatile media player
@@ -13,7 +12,6 @@
     nemo                     # file manager
     
     # Image viewers/editors
-    gimp                     # image editor
     viewnior                 # image viewer
     
     # Office/productivity
@@ -22,15 +20,14 @@
     
     # Communication
     discord                  # chat platform
-    element-desktop          # Matrix client
     
     # Development
     vscodium                 # code editor
-    
+    neovim 
+
     # System utilities
     pavucontrol              # audio control
     blueman                  # bluetooth manager
-    network-manager-applet   # network management
     
     # Archive managers
     file-roller              # archive manager
@@ -39,12 +36,8 @@
     evince                   # document viewer
     
     # Gaming (commented out as steam is handled separately)
-    # steam
-    # lutris
-    
-    # Graphics/Design
-    inkscape                 # vector graphics
-    krita                    # digital painting
+    #steam
+    runelite
     
     # Screenshots
     grim                     # screenshot tool
@@ -71,17 +64,14 @@
     # Misc utilities
     zenity                   # dialog boxes
     
-    # Audio/Video editing
-    audacity                 # audio editor
-    # kdenlive               # video editor
-    
     # Gaming utilities
     gamemode                 # gaming optimizations
     
     # Virtualization GUIs
     virt-manager             # VM management
     
-    # Torrent client
-    transmission-gtk         # bittorrent client
-  ];
+    # Password client
+    bitwarden-desktop         # bitwarden client
+ 
+ ];
 }

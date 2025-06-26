@@ -38,7 +38,6 @@
     # Text processing
     gnused                   # stream editor
     gawk                     # text processing
-    grep                     # pattern matching
     
     # System monitoring
     lsof                     # list open files
