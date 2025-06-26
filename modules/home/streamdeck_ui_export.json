@@ -7,19 +7,19 @@
                         "state": 0,
                         "states": {
                             "0": {
-                                "text": "REBUILD\nNIXOS",
+                                "text": "🔧 NIXOS\nREBUILD",
                                 "icon": "",
                                 "keys": "",
                                 "write": "",
-                                "command": "kitty -e bash -c 'echo \"Rebuilding NixOS configuration...\"; sudo nixos-rebuild switch --flake /home/josh/nixos-config && echo \"✅ Rebuild complete!\" || echo \"❌ Rebuild failed!\"; read -p \"Press Enter to close...\"'",
+                                "command": "kitty -e bash -c 'echo \"🔧 Rebuilding NixOS configuration...\"; sudo nixos-rebuild switch --flake /home/josh/nixos-config && echo \"✅ Rebuild complete!\" || echo \"❌ Rebuild failed!\"; read -p \"Press Enter to close...\"'",
                                 "brightness_change": 0,
                                 "switch_page": 0,
                                 "switch_state": 0,
                                 "text_vertical_align": "middle",
                                 "text_horizontal_align": "center",
-                                "font": "Arial",
+                                "font": "JetBrains Mono",
                                 "font_color": "#ffffff",
-                                "font_size": 12,
+                                "font_size": 11,
                                 "background_color": "#89b4fa"
                             }
                         }
@@ -28,20 +28,20 @@
                         "state": 0,
                         "states": {
                             "0": {
-                                "text": "UPDATE\nSYSTEM",
+                                "text": "🏠 HOME\nREBUILD",
                                 "icon": "",
                                 "keys": "",
                                 "write": "",
-                                "command": "kitty -e bash -c 'echo \"Updating system...\"; nix flake update /home/josh/nixos-config && echo \"✅ Update complete!\"; read -p \"Press Enter to close...\"'",
+                                "command": "kitty -e bash -c 'echo \"🏠 Rebuilding Home Manager...\"; home-manager switch --flake /home/josh/nixos-config && echo \"✅ Home rebuild complete!\" || echo \"❌ Home rebuild failed!\"; read -p \"Press Enter to close...\"'",
                                 "brightness_change": 0,
                                 "switch_page": 0,
                                 "switch_state": 0,
                                 "text_vertical_align": "middle",
                                 "text_horizontal_align": "center",
-                                "font": "Arial",
+                                "font": "JetBrains Mono",
                                 "font_color": "#ffffff",
-                                "font_size": 12,
-                                "background_color": "#a6e3a1"
+                                "font_size": 11,
+                                "background_color": "#cba6f7"
                             }
                         }
                     },
@@ -49,20 +49,20 @@
                         "state": 0,
                         "states": {
                             "0": {
-                                "text": "GARBAGE\nCOLLECT",
+                                "text": "⬆️ UPDATE\nFLAKE",
                                 "icon": "",
                                 "keys": "",
                                 "write": "",
-                                "command": "kitty -e bash -c 'echo \"Running garbage collection...\"; sudo nix-collect-garbage -d && nix-collect-garbage -d && echo \"✅ Cleanup complete!\"; read -p \"Press Enter to close...\"'",
+                                "command": "kitty -e bash -c 'echo \"⬆️ Updating flake inputs...\"; cd /home/josh/nixos-config && nix flake update && echo \"✅ Update complete!\"; read -p \"Press Enter to close...\"'",
                                 "brightness_change": 0,
                                 "switch_page": 0,
                                 "switch_state": 0,
                                 "text_vertical_align": "middle",
                                 "text_horizontal_align": "center",
-                                "font": "Arial",
+                                "font": "JetBrains Mono",
                                 "font_color": "#ffffff",
-                                "font_size": 12,
-                                "background_color": "#f38ba8"
+                                "font_size": 11,
+                                "background_color": "#a6e3a1"
                             }
                         }
                     },
@@ -70,20 +70,20 @@
                         "state": 0,
                         "states": {
                             "0": {
-                                "text": "SYSTEM\nLOGS",
+                                "text": "🗑️ GARBAGE\nCOLLECT",
                                 "icon": "",
                                 "keys": "",
                                 "write": "",
-                                "command": "kitty -e bash -c 'journalctl -f'",
+                                "command": "kitty -e bash -c 'echo \"🗑️ Running garbage collection...\"; sudo nix-collect-garbage -d && nix-collect-garbage -d && echo \"✅ Cleanup complete!\"; read -p \"Press Enter to close...\"'",
                                 "brightness_change": 0,
                                 "switch_page": 0,
                                 "switch_state": 0,
                                 "text_vertical_align": "middle",
                                 "text_horizontal_align": "center",
-                                "font": "Arial",
+                                "font": "JetBrains Mono",
                                 "font_color": "#ffffff",
-                                "font_size": 12,
-                                "background_color": "#fab387"
+                                "font_size": 11,
+                                "background_color": "#f38ba8"
                             }
                         }
                     },
@@ -91,20 +91,20 @@
                         "state": 0,
                         "states": {
                             "0": {
-                                "text": "HOME\nREBUILD",
+                                "text": "⚡ FULL\nREBUILD",
                                 "icon": "",
                                 "keys": "",
                                 "write": "",
-                                "command": "kitty -e bash -c 'echo \"Rebuilding Home Manager...\"; home-manager switch --flake /home/josh/nixos-config && echo \"✅ Home rebuild complete!\"; read -p \"Press Enter to close...\"'",
+                                "command": "kitty -e bash -c 'echo \"⚡ Full system rebuild (update + rebuild)...\"; cd /home/josh/nixos-config && nix flake update && sudo nixos-rebuild switch --flake . && home-manager switch --flake . && echo \"✅ Full rebuild complete!\"; read -p \"Press Enter to close...\"'",
                                 "brightness_change": 0,
                                 "switch_page": 0,
                                 "switch_state": 0,
                                 "text_vertical_align": "middle",
                                 "text_horizontal_align": "center",
-                                "font": "Arial",
+                                "font": "JetBrains Mono",
                                 "font_color": "#ffffff",
-                                "font_size": 12,
-                                "background_color": "#cba6f7"
+                                "font_size": 10,
+                                "background_color": "#f9e2af"
                             }
                         }
                     },
@@ -112,7 +112,7 @@
                         "state": 0,
                         "states": {
                             "0": {
-                                "text": "EDIT\nCONFIG",
+                                "text": "📝 EDIT\nCONFIG",
                                 "icon": "",
                                 "keys": "",
                                 "write": "",
@@ -122,10 +122,10 @@
                                 "switch_state": 0,
                                 "text_vertical_align": "middle",
                                 "text_horizontal_align": "center",
-                                "font": "Arial",
+                                "font": "JetBrains Mono",
                                 "font_color": "#ffffff",
-                                "font_size": 12,
-                                "background_color": "#f9e2af"
+                                "font_size": 11,
+                                "background_color": "#fab387"
                             }
                         }
                     },
@@ -133,19 +133,19 @@
                         "state": 0,
                         "states": {
                             "0": {
-                                "text": "SYSTEM\nINFO",
+                                "text": "📊 SYSTEM\nINFO",
                                 "icon": "",
                                 "keys": "",
                                 "write": "",
-                                "command": "kitty -e bash -c 'fastfetch; read -p \"Press Enter to close...\"'",
+                                "command": "kitty -e bash -c 'fastfetch; echo \"\"; echo \"=== Disk Usage ===\"; df -h /; echo \"\"; echo \"=== Memory ===\"; free -h; read -p \"Press Enter to close...\"'",
                                 "brightness_change": 0,
                                 "switch_page": 0,
                                 "switch_state": 0,
                                 "text_vertical_align": "middle",
                                 "text_horizontal_align": "center",
-                                "font": "Arial",
-                                "font_color": "#ffffff",
-                                "font_size": 12,
+                                "font": "JetBrains Mono",
+                                "font_color": "#181825",
+                                "font_size": 11,
                                 "background_color": "#94e2d5"
                             }
                         }
@@ -154,19 +154,19 @@
                         "state": 0,
                         "states": {
                             "0": {
-                                "text": "GIT\nSTATUS",
+                                "text": "📋 GIT\nSTATUS",
                                 "icon": "",
                                 "keys": "",
                                 "write": "",
-                                "command": "kitty -e bash -c 'cd /home/josh/nixos-config && git status && echo \"\" && git log --oneline -5; read -p \"Press Enter to close...\"'",
+                                "command": "kitty -e bash -c 'cd /home/josh/nixos-config && echo \"📋 Git Status:\"; git status --short; echo \"\"; echo \"📜 Recent commits:\"; git log --oneline -5; echo \"\"; echo \"📊 Uncommitted changes:\"; git diff --stat; read -p \"Press Enter to close...\"'",
                                 "brightness_change": 0,
                                 "switch_page": 0,
                                 "switch_state": 0,
                                 "text_vertical_align": "middle",
                                 "text_horizontal_align": "center",
-                                "font": "Arial",
+                                "font": "JetBrains Mono",
                                 "font_color": "#ffffff",
-                                "font_size": 12,
+                                "font_size": 11,
                                 "background_color": "#b4befe"
                             }
                         }
@@ -175,7 +175,7 @@
                         "state": 0,
                         "states": {
                             "0": {
-                                "text": "TERMINAL",
+                                "text": "💻 TERMINAL",
                                 "icon": "",
                                 "keys": "",
                                 "write": "",
@@ -185,10 +185,10 @@
                                 "switch_state": 0,
                                 "text_vertical_align": "middle",
                                 "text_horizontal_align": "center",
-                                "font": "Arial",
-                                "font_color": "#000000",
-                                "font_size": 14,
-                                "background_color": "#f5f5f5"
+                                "font": "JetBrains Mono",
+                                "font_color": "#ffffff",
+                                "font_size": 12,
+                                "background_color": "#1e1e2e"
                             }
                         }
                     },
@@ -196,7 +196,7 @@
                         "state": 0,
                         "states": {
                             "0": {
-                                "text": "BROWSER",
+                                "text": "🌐 BROWSER",
                                 "icon": "",
                                 "keys": "",
                                 "write": "",
@@ -206,9 +206,9 @@
                                 "switch_state": 0,
                                 "text_vertical_align": "middle",
                                 "text_horizontal_align": "center",
-                                "font": "Arial",
+                                "font": "JetBrains Mono",
                                 "font_color": "#ffffff",
-                                "font_size": 14,
+                                "font_size": 12,
                                 "background_color": "#ff6600"
                             }
                         }
@@ -217,7 +217,7 @@
                         "state": 0,
                         "states": {
                             "0": {
-                                "text": "CODE\nEDITOR",
+                                "text": "🎯 CODE\nEDITOR",
                                 "icon": "",
                                 "keys": "",
                                 "write": "",
@@ -227,9 +227,9 @@
                                 "switch_state": 0,
                                 "text_vertical_align": "middle",
                                 "text_horizontal_align": "center",
-                                "font": "Arial",
+                                "font": "JetBrains Mono",
                                 "font_color": "#ffffff",
-                                "font_size": 14,
+                                "font_size": 11,
                                 "background_color": "#007acc"
                             }
                         }
@@ -238,7 +238,7 @@
                         "state": 0,
                         "states": {
                             "0": {
-                                "text": "FILE\nMANAGER",
+                                "text": "📁 FILES",
                                 "icon": "",
                                 "keys": "",
                                 "write": "",
@@ -248,9 +248,9 @@
                                 "switch_state": 0,
                                 "text_vertical_align": "middle",
                                 "text_horizontal_align": "center",
-                                "font": "Arial",
+                                "font": "JetBrains Mono",
                                 "font_color": "#ffffff",
-                                "font_size": 14,
+                                "font_size": 13,
                                 "background_color": "#4a90e2"
                             }
                         }
@@ -259,7 +259,7 @@
                         "state": 0,
                         "states": {
                             "0": {
-                                "text": "DISCORD",
+                                "text": "💬 DISCORD",
                                 "icon": "",
                                 "keys": "",
                                 "write": "",
@@ -269,9 +269,9 @@
                                 "switch_state": 0,
                                 "text_vertical_align": "middle",
                                 "text_horizontal_align": "center",
-                                "font": "Arial",
+                                "font": "JetBrains Mono",
                                 "font_color": "#ffffff",
-                                "font_size": 14,
+                                "font_size": 12,
                                 "background_color": "#5865f2"
                             }
                         }
@@ -280,7 +280,7 @@
                         "state": 0,
                         "states": {
                             "0": {
-                                "text": "SYSTEM\nMONITOR",
+                                "text": "⚡ SYSTEM\nMONITOR",
                                 "icon": "",
                                 "keys": "",
                                 "write": "",
@@ -290,9 +290,9 @@
                                 "switch_state": 0,
                                 "text_vertical_align": "middle",
                                 "text_horizontal_align": "center",
-                                "font": "Arial",
+                                "font": "JetBrains Mono",
                                 "font_color": "#ffffff",
-                                "font_size": 12,
+                                "font_size": 11,
                                 "background_color": "#e74c3c"
                             }
                         }
@@ -301,7 +301,7 @@
                         "state": 0,
                         "states": {
                             "0": {
-                                "text": "LAUNCHER",
+                                "text": "🚀 LAUNCHER",
                                 "icon": "",
                                 "keys": "",
                                 "write": "",
@@ -311,9 +311,9 @@
                                 "switch_state": 0,
                                 "text_vertical_align": "middle",
                                 "text_horizontal_align": "center",
-                                "font": "Arial",
+                                "font": "JetBrains Mono",
                                 "font_color": "#ffffff",
-                                "font_size": 14,
+                                "font_size": 12,
                                 "background_color": "#9b59b6"
                             }
                         }
@@ -322,7 +322,7 @@
                         "state": 0,
                         "states": {
                             "0": {
-                                "text": "BITWARDEN",
+                                "text": "🔐 BITWARDEN",
                                 "icon": "",
                                 "keys": "",
                                 "write": "",
@@ -332,9 +332,9 @@
                                 "switch_state": 0,
                                 "text_vertical_align": "middle",
                                 "text_horizontal_align": "center",
-                                "font": "Arial",
+                                "font": "JetBrains Mono",
                                 "font_color": "#ffffff",
-                                "font_size": 12,
+                                "font_size": 11,
                                 "background_color": "#175ddc"
                             }
                         }
@@ -343,7 +343,7 @@
                         "state": 0,
                         "states": {
                             "0": {
-                                "text": "WS 1",
+                                "text": "1️⃣",
                                 "icon": "",
                                 "keys": "",
                                 "write": "",
@@ -353,10 +353,10 @@
                                 "switch_state": 0,
                                 "text_vertical_align": "middle",
                                 "text_horizontal_align": "center",
-                                "font": "Arial",
+                                "font": "JetBrains Mono",
                                 "font_color": "#ffffff",
-                                "font_size": 14,
-                                "background_color": "#34495e"
+                                "font_size": 18,
+                                "background_color": "#585b70"
                             }
                         }
                     },
@@ -364,7 +364,7 @@
                         "state": 0,
                         "states": {
                             "0": {
-                                "text": "WS 2",
+                                "text": "2️⃣",
                                 "icon": "",
                                 "keys": "",
                                 "write": "",
@@ -374,10 +374,10 @@
                                 "switch_state": 0,
                                 "text_vertical_align": "middle",
                                 "text_horizontal_align": "center",
-                                "font": "Arial",
+                                "font": "JetBrains Mono",
                                 "font_color": "#ffffff",
-                                "font_size": 14,
-                                "background_color": "#34495e"
+                                "font_size": 18,
+                                "background_color": "#585b70"
                             }
                         }
                     },
@@ -385,7 +385,7 @@
                         "state": 0,
                         "states": {
                             "0": {
-                                "text": "WS 3",
+                                "text": "3️⃣",
                                 "icon": "",
                                 "keys": "",
                                 "write": "",
@@ -395,10 +395,10 @@
                                 "switch_state": 0,
                                 "text_vertical_align": "middle",
                                 "text_horizontal_align": "center",
-                                "font": "Arial",
+                                "font": "JetBrains Mono",
                                 "font_color": "#ffffff",
-                                "font_size": 14,
-                                "background_color": "#34495e"
+                                "font_size": 18,
+                                "background_color": "#585b70"
                             }
                         }
                     },
@@ -406,7 +406,7 @@
                         "state": 0,
                         "states": {
                             "0": {
-                                "text": "KILL\nACTIVE",
+                                "text": "❌ KILL\nWINDOW",
                                 "icon": "",
                                 "keys": "",
                                 "write": "",
@@ -416,9 +416,9 @@
                                 "switch_state": 0,
                                 "text_vertical_align": "middle",
                                 "text_horizontal_align": "center",
-                                "font": "Arial",
+                                "font": "JetBrains Mono",
                                 "font_color": "#ffffff",
-                                "font_size": 12,
+                                "font_size": 11,
                                 "background_color": "#e74c3c"
                             }
                         }
@@ -427,7 +427,7 @@
                         "state": 0,
                         "states": {
                             "0": {
-                                "text": "TOGGLE\nFLOAT",
+                                "text": "🪟 TOGGLE\nFLOAT",
                                 "icon": "",
                                 "keys": "",
                                 "write": "",
@@ -437,9 +437,9 @@
                                 "switch_state": 0,
                                 "text_vertical_align": "middle",
                                 "text_horizontal_align": "center",
-                                "font": "Arial",
+                                "font": "JetBrains Mono",
                                 "font_color": "#ffffff",
-                                "font_size": 12,
+                                "font_size": 11,
                                 "background_color": "#3498db"
                             }
                         }
@@ -448,7 +448,7 @@
                         "state": 0,
                         "states": {
                             "0": {
-                                "text": "FULLSCREEN",
+                                "text": "🖥️ FULLSCREEN",
                                 "icon": "",
                                 "keys": "",
                                 "write": "",
@@ -458,9 +458,9 @@
                                 "switch_state": 0,
                                 "text_vertical_align": "middle",
                                 "text_horizontal_align": "center",
-                                "font": "Arial",
+                                "font": "JetBrains Mono",
                                 "font_color": "#ffffff",
-                                "font_size": 12,
+                                "font_size": 11,
                                 "background_color": "#2ecc71"
                             }
                         }
@@ -469,7 +469,7 @@
                         "state": 0,
                         "states": {
                             "0": {
-                                "text": "SCREENSHOT",
+                                "text": "📸 SCREENSHOT",
                                 "icon": "",
                                 "keys": "",
                                 "write": "",
@@ -479,9 +479,9 @@
                                 "switch_state": 0,
                                 "text_vertical_align": "middle",
                                 "text_horizontal_align": "center",
-                                "font": "Arial",
-                                "font_color": "#ffffff",
-                                "font_size": 12,
+                                "font": "JetBrains Mono",
+                                "font_color": "#181825",
+                                "font_size": 11,
                                 "background_color": "#f39c12"
                             }
                         }
@@ -490,7 +490,7 @@
                         "state": 0,
                         "states": {
                             "0": {
-                                "text": "LOCK\nSCREEN",
+                                "text": "🔒 LOCK\nSCREEN",
                                 "icon": "",
                                 "keys": "",
                                 "write": "",
@@ -500,9 +500,9 @@
                                 "switch_state": 0,
                                 "text_vertical_align": "middle",
                                 "text_horizontal_align": "center",
-                                "font": "Arial",
+                                "font": "JetBrains Mono",
                                 "font_color": "#ffffff",
-                                "font_size": 12,
+                                "font_size": 11,
                                 "background_color": "#8e44ad"
                             }
                         }
@@ -511,7 +511,7 @@
                         "state": 0,
                         "states": {
                             "0": {
-                                "text": "DEV\nLAYOUT",
+                                "text": "👨‍💻 DEV\nLAYOUT",
                                 "icon": "",
                                 "keys": "",
                                 "write": "",
@@ -521,9 +521,9 @@
                                 "switch_state": 0,
                                 "text_vertical_align": "middle",
                                 "text_horizontal_align": "center",
-                                "font": "Arial",
+                                "font": "JetBrains Mono",
                                 "font_color": "#ffffff",
-                                "font_size": 12,
+                                "font_size": 11,
                                 "background_color": "#27ae60"
                             }
                         }
@@ -532,7 +532,7 @@
                         "state": 0,
                         "states": {
                             "0": {
-                                "text": "WORK\nLAYOUT",
+                                "text": "💼 WORK\nLAYOUT",
                                 "icon": "",
                                 "keys": "",
                                 "write": "",
@@ -542,9 +542,9 @@
                                 "switch_state": 0,
                                 "text_vertical_align": "middle",
                                 "text_horizontal_align": "center",
-                                "font": "Arial",
+                                "font": "JetBrains Mono",
                                 "font_color": "#ffffff",
-                                "font_size": 12,
+                                "font_size": 11,
                                 "background_color": "#3498db"
                             }
                         }
@@ -553,19 +553,19 @@
                         "state": 0,
                         "states": {
                             "0": {
-                                "text": "CLEAN\nSLATE",
+                                "text": "🧹 CLEAN\nSLATE",
                                 "icon": "",
                                 "keys": "",
                                 "write": "",
-                                "command": "bash -c 'for i in {1..10}; do hyprctl dispatch workspace $i && hyprctl dispatch exec \"killall -q kitty brave discord code-cursor nemo mission-center\" 2>/dev/null; done && hyprctl dispatch workspace 1'",
+                                "command": "bash -c 'for i in {1..10}; do hyprctl dispatch workspace $i && hyprctl clients -j | jq -r \".[] | select(.workspace.id == $i) | .address\" | xargs -I {} hyprctl dispatch closewindow address:{}; done && hyprctl dispatch workspace 1'",
                                 "brightness_change": 0,
                                 "switch_page": 0,
                                 "switch_state": 0,
                                 "text_vertical_align": "middle",
                                 "text_horizontal_align": "center",
-                                "font": "Arial",
+                                "font": "JetBrains Mono",
                                 "font_color": "#ffffff",
-                                "font_size": 12,
+                                "font_size": 11,
                                 "background_color": "#e74c3c"
                             }
                         }
@@ -574,19 +574,19 @@
                         "state": 0,
                         "states": {
                             "0": {
-                                "text": "MEDIA\nLAYOUT",
+                                "text": "🎵 MEDIA\nLAYOUT",
                                 "icon": "",
                                 "keys": "",
                                 "write": "",
-                                "command": "bash -c 'hyprctl dispatch workspace 3 && sleep 0.5 && hyprctl dispatch exec \"[workspace 3] brave\" && sleep 0.5 && hyprctl dispatch exec \"[workspace 3] discord\" && sleep 0.5 && hyprctl dispatch exec \"[workspace 3] pavucontrol\"'",
+                                "command": "bash -c 'hyprctl dispatch workspace 3 && sleep 0.5 && hyprctl dispatch exec \"[workspace 3] brave --new-window https://music.youtube.com\" && sleep 0.5 && hyprctl dispatch exec \"[workspace 3] discord\" && sleep 0.5 && hyprctl dispatch exec \"[workspace 3] pavucontrol\"'",
                                 "brightness_change": 0,
                                 "switch_page": 0,
                                 "switch_state": 0,
                                 "text_vertical_align": "middle",
                                 "text_horizontal_align": "center",
-                                "font": "Arial",
+                                "font": "JetBrains Mono",
                                 "font_color": "#ffffff",
-                                "font_size": 12,
+                                "font_size": 11,
                                 "background_color": "#9b59b6"
                             }
                         }
@@ -595,19 +595,19 @@
                         "state": 0,
                         "states": {
                             "0": {
-                                "text": "VOL\nUP",
+                                "text": "🔊 VOL\nUP",
                                 "icon": "",
                                 "keys": "",
                                 "write": "",
-                                "command": "pamixer -i 5",
+                                "command": "pamixer -i 5 && notify-send \"Volume: $(pamixer --get-volume)%\"",
                                 "brightness_change": 0,
                                 "switch_page": 0,
                                 "switch_state": 0,
                                 "text_vertical_align": "middle",
                                 "text_horizontal_align": "center",
-                                "font": "Arial",
+                                "font": "JetBrains Mono",
                                 "font_color": "#ffffff",
-                                "font_size": 14,
+                                "font_size": 12,
                                 "background_color": "#2ecc71"
                             }
                         }
@@ -616,19 +616,19 @@
                         "state": 0,
                         "states": {
                             "0": {
-                                "text": "VOL\nDOWN",
+                                "text": "🔉 VOL\nDOWN",
                                 "icon": "",
                                 "keys": "",
                                 "write": "",
-                                "command": "pamixer -d 5",
+                                "command": "pamixer -d 5 && notify-send \"Volume: $(pamixer --get-volume)%\"",
                                 "brightness_change": 0,
                                 "switch_page": 0,
                                 "switch_state": 0,
                                 "text_vertical_align": "middle",
                                 "text_horizontal_align": "center",
-                                "font": "Arial",
+                                "font": "JetBrains Mono",
                                 "font_color": "#ffffff",
-                                "font_size": 14,
+                                "font_size": 12,
                                 "background_color": "#e67e22"
                             }
                         }
@@ -637,19 +637,19 @@
                         "state": 0,
                         "states": {
                             "0": {
-                                "text": "MUTE",
+                                "text": "🔇 MUTE",
                                 "icon": "",
                                 "keys": "",
                                 "write": "",
-                                "command": "pamixer -t",
+                                "command": "pamixer -t && notify-send \"Volume: $(pamixer --get-volume-human)\"",
                                 "brightness_change": 0,
                                 "switch_page": 0,
                                 "switch_state": 0,
                                 "text_vertical_align": "middle",
                                 "text_horizontal_align": "center",
-                                "font": "Arial",
+                                "font": "JetBrains Mono",
                                 "font_color": "#ffffff",
-                                "font_size": 14,
+                                "font_size": 13,
                                 "background_color": "#e74c3c"
                             }
                         }
@@ -658,7 +658,7 @@
                         "state": 0,
                         "states": {
                             "0": {
-                                "text": "POWER\nMENU",
+                                "text": "⚡ POWER\nMENU",
                                 "icon": "",
                                 "keys": "",
                                 "write": "",
@@ -668,10 +668,10 @@
                                 "switch_state": 0,
                                 "text_vertical_align": "middle",
                                 "text_horizontal_align": "center",
-                                "font": "Arial",
+                                "font": "JetBrains Mono",
                                 "font_color": "#ffffff",
-                                "font_size": 12,
-                                "background_color": "#34495e"
+                                "font_size": 11,
+                                "background_color": "#2c3e50"
                             }
                         }
                     }

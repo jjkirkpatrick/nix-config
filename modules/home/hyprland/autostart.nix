@@ -11,9 +11,6 @@
       
       # "hyprlock"
 
-      "eww open bar &"
-      "eww open bottom-bar &"
-      "eww open top-bar &"
 
 
       # Example application launches (commented out)

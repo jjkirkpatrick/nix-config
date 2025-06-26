@@ -30,6 +30,8 @@
     pamixer                  # audio control CLI
     blueman                  # bluetooth manager
     jq                       # JSON processor for scripts
+    jaq                      # rust JSON processor (faster jq alternative)
+    socat                    # socket cat utility
     networkmanager           # network management
     
     # Archive managers
@@ -58,13 +60,19 @@
     mission-center           # system monitor GUI
     
     # Widget system
-    eww                      # elkowar's wacky widgets
+    waybar                   # wayland status bar
     streamdeck-ui            # streamdeck
     
     # Terminal emulators (alternatives)
     # alacritty              # alternative terminal
     # wezterm                # alternative terminal
-    
+     
+    # music 
+    termusic
+    spotify
+    spotifyd
+
+
     # Misc utilities
     zenity                   # dialog boxes
     
