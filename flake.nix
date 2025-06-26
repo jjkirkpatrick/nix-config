@@ -51,11 +51,11 @@
     in
     {
       nixosConfigurations = {
-        desktop = nixpkgs.lib.nixosSystem {
+        blue-pc = nixpkgs.lib.nixosSystem {
           inherit system;
-          modules = [ ./hosts/desktop ];
+          modules = [ ./hosts/blue-pc ];
           specialArgs = {
-            host = "desktop";
+            host = "blue-pc";
             inherit self inputs username;
           };
         };

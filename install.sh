@@ -3,6 +3,8 @@
 init() {
     # Vars
     CURRENT_USERNAME='frostphoenix'
+    HOSTNAME=blue-pc
+
 
     # Colors
     NORMAL=$(tput sgr0)
@@ -43,40 +45,11 @@ get_username() {
 }
 
 
-get_hostname(){
-   echo -en "Enter your$GREEN hostname$NORMAL : $YELLOW"
-   read hostname
-   echo -en "$NORMAL"
-   echo -en "Use$YELLOW  "$hostnaem"$NORMAL as ${GREEN}Hostname${NORMAL} ?"
-   confirm
-}
-
-
 set_username() {
     sed -i -e "s/${CURRENT_USERNAME}/${username}/g" ./flake.nix
     sed -i -e "s/${CURRENT_USERNAME}/${username}/g" ./modules/home/audacious.nix
 }
 
-get_host() {
-    echo -en "Choose a ${GREEN}host${NORMAL} - [${YELLOW}D${NORMAL}]esktop, [${YELLOW}L${NORMAL}]aptop or [${YELLOW}V${NORMAL}]irtual machine: "
-    read -n 1 -r
-    echo
-
-    if [[ $REPLY =~ ^[Dd]$ ]]; then
-        HOST='desktop'
-    elif [[ $REPLY =~ ^[Ll]$ ]]; then
-        HOST='laptop'
-    elif [[ $REPLY =~ ^[Vv]$ ]]; then
-        HOST='vm'
-    else
-        echo "Invalid choice. Please select 'D' for desktop, 'L' for laptop or 'V' for virtual machine."
-        exit 1
-    fi
-
-    echo -en "$NORMAL"
-    echo -en "Use the$YELLOW "$HOST"$NORMAL ${GREEN}host${NORMAL} ? "
-    confirm
-}
 
 install() {
     echo -e "\n${RED}START INSTALL PHASE${NORMAL}\n"
@@ -90,7 +63,7 @@ install() {
 
     # Get the hardware configuration
     echo -e "Copying ${MAGENTA}/etc/nixos/hardware-configuration.nix${NORMAL} to ${MAGENTA}./hosts/${HOST}/${NORMAL}\n"
-    cp /etc/nixos/hardware-configuration.nix hosts/${HOST}/hardware-configuration.nix
+    cp /etc/nixos/hardware-configuration.nix hosts/${HOSTNAME}/hardware-configuration.nix
 
     # Last Confirmation
     echo -en "You are about to start the system build, do you want to process ? "
@@ -98,7 +71,7 @@ install() {
 
     # Build the system (flakes + home manager)
     echo -e "\nBuilding the system...\n"
-    sudo nixos-rebuild switch --flake .#${HOST}
+    sudo nixos-rebuild switch --flake .#${HOSTNAME}
 }
 
 main() {
@@ -108,7 +81,6 @@ main() {
 
     get_username
     set_username
-    get_host
 
     install
 }
