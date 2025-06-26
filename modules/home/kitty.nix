@@ -10,48 +10,48 @@
     };
     
     settings = {
-      # Theme - Catppuccin Mocha
-      foreground = "#CDD6F4";
-      background = "#1E1E2E";
-      selection_foreground = "#1E1E2E";
-      selection_background = "#F5E0DC";
+      # Theme - Dark Space
+      foreground = "#F8FAFC";           # Star white
+      background = "#0B0D17";           # Deep space
+      selection_foreground = "#0B0D17"; # Deep space
+      selection_background = "#E2E8F0"; # Slate blue
       
       # Cursor
-      cursor = "#F5E0DC";
-      cursor_text_color = "#1E1E2E";
+      cursor = "#E2E8F0";               # Slate blue
+      cursor_text_color = "#0B0D17";    # Deep space
       
       # URL underline color when hovering
-      url_color = "#F5E0DC";
+      url_color = "#06B6D4";            # Cyan accent
       
       # Kitty window border colors
-      active_border_color = "#B4BEFE";
-      inactive_border_color = "#6C7086";
-      bell_border_color = "#F9E2AF";
+      active_border_color = "#8B5CF6";  # Purple accent
+      inactive_border_color = "#252A38"; # Cosmic gray
+      bell_border_color = "#F97316";    # Orange accent
       
       # Tab bar colors
-      active_tab_foreground = "#11111B";
-      active_tab_background = "#CBA6F7";
-      inactive_tab_foreground = "#CDD6F4";
-      inactive_tab_background = "#181825";
-      tab_bar_background = "#11111B";
+      active_tab_foreground = "#F8FAFC"; # Star white
+      active_tab_background = "#252A38"; # Cosmic gray
+      inactive_tab_foreground = "#A0A8B8"; # Muted gray
+      inactive_tab_background = "#0F141E"; # Void black
+      tab_bar_background = "#0B0D17";   # Deep space
       
-      # The 16 terminal colors - Catppuccin Mocha
-      color0 = "#45475A";   # black
-      color8 = "#585B70";
-      color1 = "#F38BA8";   # red
-      color9 = "#F38BA8";
-      color2 = "#A6E3A1";   # green
-      color10 = "#A6E3A1";
-      color3 = "#F9E2AF";   # yellow
-      color11 = "#F9E2AF";
-      color4 = "#89B4FA";   # blue
-      color12 = "#89B4FA";
-      color5 = "#F5C2E7";   # magenta
-      color13 = "#F5C2E7";
-      color6 = "#94E2D5";   # cyan
-      color14 = "#94E2D5";
-      color7 = "#BAC2DE";   # white
-      color15 = "#A6ADC8";
+      # The 16 terminal colors - Dark Space Theme
+      color0 = "#1A1F2E";   # black (dark slate)
+      color8 = "#64748B";   # bright black (disabled gray)
+      color1 = "#EF4444";   # red
+      color9 = "#EF4444";   # bright red
+      color2 = "#10B981";   # green
+      color10 = "#10B981";  # bright green
+      color3 = "#F59E0B";   # yellow
+      color11 = "#F59E0B";  # bright yellow
+      color4 = "#06B6D4";   # blue (cyan)
+      color12 = "#06B6D4";  # bright blue (cyan)
+      color5 = "#8B5CF6";   # magenta (purple)
+      color13 = "#8B5CF6";  # bright magenta (purple)
+      color6 = "#06B6D4";   # cyan
+      color14 = "#06B6D4";  # bright cyan
+      color7 = "#E2E8F0";   # white (slate blue)
+      color15 = "#F8FAFC";  # bright white (star white)
       
       # Window settings
       window_padding_width = 12;

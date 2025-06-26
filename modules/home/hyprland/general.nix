@@ -6,9 +6,9 @@
       gaps_in = 6;
       gaps_out = 12;
       border_size = 2;
-      # Catppuccin will override these colors, but keeping as fallback
-      "col.active_border" = "rgb(cba6f7) rgb(89b4fa) 45deg"; # Catppuccin Mocha mauve/blue gradient
-      "col.inactive_border" = "rgba(313244aa)"; # Catppuccin Mocha surface0
+      # Dark Space theme colors
+      "col.active_border" = "rgb(8B5CF6) rgb(06B6D4) 45deg"; # Purple to cyan gradient
+      "col.inactive_border" = "rgba(252a38b3)"; # Cosmic gray
       # border_part_of_window = false;
       no_border_on_floating = false;
     };

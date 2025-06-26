@@ -2,7 +2,7 @@
 {
   wayland.windowManager.hyprland.settings = {
     decoration = {
-      rounding = 8; # Enable rounding for Catppuccin aesthetic
+      rounding = 12; # Enable rounding for Dark Space aesthetic
       active_opacity = 0.95;    # Active windows slightly transparent
       inactive_opacity = 0.85;  # Inactive windows more transparent
       fullscreen_opacity = 1.0; # Fullscreen windows opaque
@@ -25,7 +25,7 @@
         offset = "0 2";
         range = 20;
         render_power = 3;
-        color = "rgba(11111baa)"; # Catppuccin Mocha base shadow
+        color = "rgba(11, 13, 23, 0.6)"; # Dark Space deep space shadow
       };
     };
 

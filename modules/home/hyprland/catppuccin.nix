@@ -1,15 +1,13 @@
 { ... }:
 {
-  # Enable Catppuccin theme for Hyprland, Hyprlock, Rofi, and Waybar
+  # Catppuccin theme disabled - using custom Dark Space theme instead
   catppuccin = {
-    enable = true;
-    flavor = "mocha"; # Options: latte, frappe, macchiato, mocha
-    accent = "mauve"; # Options: rosewater, flamingo, pink, mauve, red, maroon, peach, yellow, green, teal, sky, sapphire, blue, lavender
+    enable = false;
     
-    # Enable Catppuccin for specific applications
-    hyprland.enable = true;
-    hyprlock.enable = true;
-    rofi.enable = true;
-    waybar.enable = true;
+    # All individual applications disabled
+    hyprland.enable = false;
+    hyprlock.enable = false;
+    rofi.enable = false;
+    waybar.enable = false;
   };
 }

@@ -19,5 +19,6 @@
     ./virtualization.nix
     ./nvidia.nix
     ./auto-upgrade.nix
+    ./bluetooth.nix
   ];
 }

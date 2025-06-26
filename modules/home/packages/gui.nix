@@ -29,6 +29,8 @@
     pavucontrol              # audio control
     pamixer                  # audio control CLI
     blueman                  # bluetooth manager
+    playerctl                # media player control
+    gammastep                # blue light filter
     jq                       # JSON processor for scripts
     jaq                      # rust JSON processor (faster jq alternative)
     socat                    # socket cat utility
@@ -61,6 +63,7 @@
     
     # Widget system
     waybar                   # wayland status bar
+    wlogout                  # wayland logout menu
     streamdeck-ui            # streamdeck
     
     # Terminal emulators (alternatives)

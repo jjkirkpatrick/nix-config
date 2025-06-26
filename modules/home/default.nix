@@ -9,6 +9,7 @@
     ./hyprpaper.nix                   # wallpaper manager
     ./waybar.nix                      # status bar
     ./rofi.nix                        # launcher
+    ./wlogout.nix                     # logout menu
     ./brave.nix
     ./p10k/p10k.nix
     ./zsh                            # shell configuration

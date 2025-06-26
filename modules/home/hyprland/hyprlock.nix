@@ -22,7 +22,7 @@
       background = [
         {
           monitor = "";
-          path = "${../../../wallpapers/astronaut.jpg}";
+          path = "${../../../wallpapers/space.png}";
           blur_passes = 2;
           contrast = 0.8916;
           brightness = 0.8172;
@@ -36,9 +36,9 @@
         {
           monitor = "";
           size = "300, 50";
-          color = "rgba(102, 92, 84, 0.33)";
+          color = "rgba(26, 31, 46, 0.8)";  # Dark slate with higher opacity
           rounding = 10;
-          border_color = "rgba(255, 255, 255, 0)";
+          border_color = "rgba(37, 42, 56, 0.4)";  # Cosmic gray border
           position = "0, ${if host == "laptop" then "120" else "270"}";
           halign = "center";
           valign = "bottom";
@@ -50,7 +50,7 @@
         {
           monitor = "";
           text = ''cmd[update:1000] echo "$(date +'%k:%M')"'';
-          color = "rgba(235, 219, 178, 0.9)";
+          color = "rgba(248, 250, 252, 0.9)";  # Star white
           font_size = 115;
           font_family = "JetBrains Mono";
           shadow_passes = 3;
@@ -62,7 +62,7 @@
         {
           monitor = "";
           text = ''cmd[update:1000] echo "- $(date +'%A, %B %d') -" '';
-          color = "rgba(235, 219, 178, 0.9)";
+          color = "rgba(248, 250, 252, 0.9)";  # Star white
           font_size = 18;
           font_family = "JetBrains Mono";
           shadow_passes = 3;
@@ -74,7 +74,7 @@
         {
           monitor = "";
           text = "  $USER";
-          color = "rgba(235, 219, 178, 1)";
+          color = "rgba(248, 250, 252, 1)";  # Star white
           font_size = 15;
           font_family = "JetBrains Mono";
           position = "0, ${if host == "laptop" then "131" else "281"}";
@@ -92,14 +92,14 @@
           dots_size = 0.25;
           dots_spacing = 0.4;
           dots_center = true;
-          outer_color = "rgba(102, 92, 84, 0.33)";
-          inner_color = "rgba(102, 92, 84, 0.33)";
-          color = "rgba(235, 219, 178, 0.9)";
-          font_color = "rgba(235, 219, 178, 0.9)";
+          outer_color = "rgba(26, 31, 46, 0.8)";  # Dark slate
+          inner_color = "rgba(15, 20, 30, 0.9)";  # Void black
+          color = "rgba(248, 250, 252, 0.9)";  # Star white
+          font_color = "rgba(248, 250, 252, 0.9)";  # Star white
           font_size = 14;
           font_family = "JetBrains Mono";
           fade_on_empty = false;
-          placeholder_text = ''<i><span foreground="##fbf1c7">Enter Password</span></i>'';
+          placeholder_text = ''<i><span foreground="#A0A8B8">Enter Password</span></i>'';  # Muted gray
           hide_input = false;
           position = "0, ${if host == "laptop" then "50" else "200"}";
           halign = "center";
