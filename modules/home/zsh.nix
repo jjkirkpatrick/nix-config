@@ -257,7 +257,7 @@
       typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIVIS_CONTENT_EXPANSION='V'
       typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIOWR_CONTENT_EXPANSION='▶'
       typeset -g POWERLEVEL9K_PROMPT_CHAR_OVERWRITE_STATE=true
-      typeset -g POWERLEVEL9K_PROMPT_CHAR_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=''
+      typeset -g POWERLEVEL9K_PROMPT_CHAR_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=""
 
       # Command execution time
       typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD=3
@@ -285,19 +285,19 @@
 
       # Multiline prompt
       typeset -g POWERLEVEL9K_PROMPT_ON_NEWLINE=false
-      typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=''
-      typeset -g POWERLEVEL9K_MULTILINE_NEWLINE_PROMPT_PREFIX=''
-      typeset -g POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX=''
-      typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_SUFFIX=''
-      typeset -g POWERLEVEL9K_MULTILINE_NEWLINE_PROMPT_SUFFIX=''
-      typeset -g POWERLEVEL9K_MULTILINE_LAST_PROMPT_SUFFIX=''
+      typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=""
+      typeset -g POWERLEVEL9K_MULTILINE_NEWLINE_PROMPT_PREFIX=""
+      typeset -g POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX=""
+      typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_SUFFIX=""
+      typeset -g POWERLEVEL9K_MULTILINE_NEWLINE_PROMPT_SUFFIX=""
+      typeset -g POWERLEVEL9K_MULTILINE_LAST_PROMPT_SUFFIX=""
 
       # Instant prompt mode
       typeset -g POWERLEVEL9K_INSTANT_PROMPT=verbose
       typeset -g POWERLEVEL9K_DISABLE_HOT_RELOAD=true
     }
 
-    (( \${#p10k_config_opts} )) && setopt \${p10k_config_opts[@]}
-    'builtin' 'unset' 'p10k_config_opts'
+    (( $${#p10k_config_opts} )) && setopt $${p10k_config_opts[@]}
+    builtin unset p10k_config_opts
   '';
 }
