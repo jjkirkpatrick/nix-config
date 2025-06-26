@@ -26,39 +26,6 @@
       TERMINAL = "kitty";
     };
 
-    # Shell aliases
-    shellAliases = {
-      # Better defaults
-      ls = "eza --color=auto --group-directories-first";
-      ll = "eza -la --color=auto --group-directories-first";
-      tree = "eza --tree";
-      cat = "bat";
-      grep = "rg";
-      find = "fd";
-      
-      # Git shortcuts
-      g = "git";
-      ga = "git add";
-      gc = "git commit";
-      gp = "git push";
-      gl = "git pull";
-      gs = "git status";
-      gd = "git diff";
-      
-      # System shortcuts
-      rebuild = "sudo nixos-rebuild switch --flake ~/repos/nix-config#blue-pc";
-      home-rebuild = "home-manager switch --flake ~/repos/nix-config#josh";
-      
-      # Directory navigation
-      ".." = "cd ..";
-      "..." = "cd ../..";
-      "...." = "cd ../../..";
-      
-      # Misc
-      h = "history";
-      c = "clear";
-      q = "exit";
-    };
 
     # ZSH plugins
     plugins = [
@@ -85,7 +52,7 @@
     ];
 
     # Additional ZSH configuration
-    initExtra = ''
+    initContent = ''
       # Powerlevel10k instant prompt
       if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
         source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
@@ -162,7 +129,9 @@
       emulate -L zsh -o extended_glob
 
       # Unset all configuration options.
-      unset POWERLEVEL9K_*
+      unsetopt nomatch
+      unset POWERLEVEL9K_* 2>/dev/null || true
+      setopt nomatch
 
       # Zsh >= 5.1 is required.
       autoload -Uz is-at-least && is-at-least 5.1 || return
