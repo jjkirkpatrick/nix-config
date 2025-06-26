@@ -51,9 +51,6 @@
     # Font tools
     font-manager             # font management
     
-    # Color picker
-    hyprpicker               # color picker for hyprland
-    
     # System monitoring
     mission-center           # system monitor GUI
     

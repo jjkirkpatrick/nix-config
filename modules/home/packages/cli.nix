@@ -43,7 +43,9 @@
     lsof                     # list open files
     pstree                   # process tree
     killall                  # process killer
-    
+    btop    
+
+
     # Terminal utilities
     tmux                     # terminal multiplexer
     direnv                   # environment management
