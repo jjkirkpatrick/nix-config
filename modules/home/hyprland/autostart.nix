@@ -3,7 +3,7 @@
   wayland.windowManager.hyprland.settings = {
     # autostart applications
     exec-once = [
-      #"waybar &"
+      "waybar &"
       #"swaync &"
       "hyprctl setcursor Bibata-Modern-Ice 24 &"
       #"swww-daemon &"

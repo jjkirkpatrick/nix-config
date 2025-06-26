@@ -1,6 +1,6 @@
 { ... }:
 {
-  # Enable Catppuccin theme for Hyprland, Hyprlock, and Rofi
+  # Enable Catppuccin theme for Hyprland, Hyprlock, Rofi, and Waybar
   catppuccin = {
     enable = true;
     flavor = "mocha"; # Options: latte, frappe, macchiato, mocha
@@ -10,5 +10,6 @@
     hyprland.enable = true;
     hyprlock.enable = true;
     rofi.enable = true;
+    waybar.enable = true;
   };
 }
