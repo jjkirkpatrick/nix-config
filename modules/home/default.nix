@@ -31,6 +31,7 @@
     ./rofi.nix                        # launcher
     ./waybar.nix                      # status bar
     ./hyprpaper.nix                   # wallpaper manager
+    ./zsh.nix                         # shell configuration
     #./scripts/scripts.nix             # personal scripts
     #./ssh.nix                         # ssh config
     #./superfile/superfile.nix         # terminal file manager
