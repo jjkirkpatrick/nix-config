@@ -1,4 +1,4 @@
-{ ... }:
+{username,  ... }:
 {
   imports = [
     #./audacious.nix                   # music player
@@ -41,4 +41,15 @@
     #./xdg-mimes.nix                   # xdg config
     #./zsh                             # shell
   ];
+
+  # Required home-manager options
+  home = {
+    username = username;
+    homeDirectory = "/home/${username}";
+    stateVersion = "25.05";
+  };
+
+  # Let home-manager manage itself
+  programs.home-manager.enable = true;
 }
+
