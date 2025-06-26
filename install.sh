@@ -42,6 +42,16 @@ get_username() {
     confirm
 }
 
+
+get_hostname(){
+   echo -en "Enter your$GREEN hostname$NORMAL : $YELLOW"
+   read hostname
+   echo -en "$NORMAL"
+   echo -en "Use$YELLOW  "$hostnaem"$NORMAL as ${GREEN}Hostname${NORMAL} ?"
+   confirm
+}
+
+
 set_username() {
     sed -i -e "s/${CURRENT_USERNAME}/${username}/g" ./flake.nix
     sed -i -e "s/${CURRENT_USERNAME}/${username}/g" ./modules/home/audacious.nix
@@ -94,13 +104,12 @@ install() {
 main() {
     init
 
-	    print_header
+    print_header
 
     get_username
     set_username
     get_host
 
-    aseprite
     install
 }
 
