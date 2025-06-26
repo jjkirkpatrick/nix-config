@@ -104,12 +104,7 @@
       setopt NUMERIC_GLOB_SORT
       setopt RC_EXPAND_PARAM
 
-      # Key bindings
-      bindkey '^[[1;5C' forward-word                    # Ctrl+Right
-      bindkey '^[[1;5D' backward-word                   # Ctrl+Left
-      bindkey '^[[3~' delete-char                       # Delete
-      bindkey '^[[H' beginning-of-line                  # Home
-      bindkey '^[[F' end-of-line                        # End
+      # Key bindings are handled in zsh_keybinds.nix to avoid duplicates
 
       # Load Powerlevel10k config
       [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

@@ -19,8 +19,8 @@
     gd = "git diff";
     
     # System shortcuts
-    rebuild = "sudo nixos-rebuild switch --flake ~/repos/nix-config#blue-pc";
-    home-rebuild = "home-manager switch --flake ~/repos/nix-config#josh";
+    rebuild = "sudo nixos-rebuild switch --flake ~/nixos-config#blue-pc";
+    home-rebuild = "home-manager switch --flake ~/nixos-config#josh";
     
     #Nix Development
 

@@ -16,14 +16,14 @@
     
     # Office/productivity
     libreoffice              # office suite
-    obsidian                 # note-taking
+    #obsidian                 # note-taking
     
     # Communication
     discord                  # chat platform
     
     # Development
     vscodium                 # code editor
-    neovim 
+    code-cursor 
 
     # System utilities
     pavucontrol              # audio control
