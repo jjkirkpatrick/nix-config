@@ -17,8 +17,8 @@
     QT_QPA_PLATFORMTHEME = "qt5ct";
     QT_STYLE_OVERRIDE = "kvantum";
     MOZ_ENABLE_WAYLAND = 1;
-    WLR_BACKEND = "vulkan";
-    WLR_RENDERER = "vulkan";
+    WLR_BACKEND = "drm";
+    WLR_RENDERER = "gles2";
     WLR_NO_HARDWARE_CURSORS = 1;
     XDG_CURRENT_DESKTOP = "Hyprland";
     XDG_SESSION_TYPE = "wayland";
@@ -27,5 +27,10 @@
     CLUTTER_BACKEND = "wayland";
     GTK_THEME = "Colloid-Green-Dark-Gruvbox";
     GRIMBLAST_HIDE_CURSOR = 0;
+    
+    # NVIDIA-specific environment variables
+    LIBVA_DRIVER_NAME = "nvidia";
+    GBM_BACKEND = "nvidia-drm";
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
   };
 }

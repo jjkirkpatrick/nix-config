@@ -6,10 +6,6 @@
       xkb.layout = "gb";
     };
 
-    displayManager.autoLogin = {
-      enable = true;
-      user = "${username}";
-    };
     libinput = {
       enable = true;
     };
