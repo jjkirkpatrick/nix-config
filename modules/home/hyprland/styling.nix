@@ -3,9 +3,9 @@
   wayland.windowManager.hyprland.settings = {
     decoration = {
       rounding = 8; # Enable rounding for Catppuccin aesthetic
-      # active_opacity = 0.90;
-      # inactive_opacity = 0.90;
-      # fullscreen_opacity = 1.0;
+      active_opacity = 0.95;    # Active windows slightly transparent
+      inactive_opacity = 0.85;  # Inactive windows more transparent
+      fullscreen_opacity = 1.0; # Fullscreen windows opaque
 
       blur = {
         enabled = true;

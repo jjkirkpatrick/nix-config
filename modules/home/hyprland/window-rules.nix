@@ -50,7 +50,16 @@ in
       "size 850 500,class:^(zenity)$"
       "size 725 330,class:^(SoundWireServer)$"
 
-      # opacity overrides
+      # opacity overrides for terminals and specific apps
+      "opacity 0.85 override 0.75 override, class:^(kitty)$"              # Terminal transparency
+      "opacity 0.85 override 0.75 override, class:^(Alacritty)$"          # Alternative terminal
+      "opacity 0.85 override 0.75 override, class:^(wezterm)$"            # Alternative terminal
+      "opacity 0.90 override 0.80 override, class:^(vscodium)$"           # Code editor transparency
+      "opacity 0.90 override 0.80 override, class:^(Code)$"               # VS Code transparency
+      "opacity 0.95 override 0.85 override, class:^(brave-browser)$"      # Browser slight transparency
+      "opacity 0.95 override 0.85 override, class:^(firefox)$"            # Firefox slight transparency
+      
+      # Keep these apps fully opaque
       "opacity 1.0 override 1.0 override, title:^(Picture-in-Picture)$"
       "opacity 1.0 override 1.0 override, title:^(.*imv.*)$"
       "opacity 1.0 override 1.0 override, title:^(.*mpv.*)$"
@@ -58,6 +67,9 @@ in
       "opacity 1.0 override 1.0 override, class:(Unity)"
       "opacity 1.0 override 1.0 override, class:(zen)"
       "opacity 1.0 override 1.0 override, class:(evince)"
+      "opacity 1.0 override 1.0 override, class:(Gimp-2.10)"              # Keep GIMP opaque
+      "opacity 1.0 override 1.0 override, class:(discord)"                # Keep Discord opaque
+      "opacity 1.0 override 1.0 override, class:(WebCord)"                # Keep WebCord opaque
 
       # workspace assignments
       "workspace 1, class:^(${browser})$"

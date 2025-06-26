@@ -1,0 +1,87 @@
+{ pkgs, ... }:
+{
+  home.packages = with pkgs; [
+    # Web browsers
+    brave                    # privacy-focused browser
+    firefox                  # open-source browser
+    
+    # Media players
+    vlc                      # versatile media player
+    mpv                      # minimal media player
+    
+    # File managers
+    nemo                     # file manager
+    
+    # Image viewers/editors
+    gimp                     # image editor
+    viewnior                 # image viewer
+    
+    # Office/productivity
+    libreoffice              # office suite
+    obsidian                 # note-taking
+    
+    # Communication
+    discord                  # chat platform
+    element-desktop          # Matrix client
+    
+    # Development
+    vscodium                 # code editor
+    
+    # System utilities
+    pavucontrol              # audio control
+    blueman                  # bluetooth manager
+    network-manager-applet   # network management
+    
+    # Archive managers
+    file-roller              # archive manager
+    
+    # PDF viewers
+    evince                   # document viewer
+    
+    # Gaming (commented out as steam is handled separately)
+    # steam
+    # lutris
+    
+    # Graphics/Design
+    inkscape                 # vector graphics
+    krita                    # digital painting
+    
+    # Screenshots
+    grim                     # screenshot tool
+    slurp                    # screen area selection
+    swappy                   # screenshot annotation
+    
+    # Clipboard
+    wl-clipboard             # wayland clipboard utilities
+    cliphist                 # clipboard manager
+    
+    # Font tools
+    font-manager             # font management
+    
+    # Color picker
+    hyprpicker               # color picker for hyprland
+    
+    # System monitoring
+    mission-center           # system monitor GUI
+    
+    # Terminal emulators (alternatives)
+    # alacritty              # alternative terminal
+    # wezterm                # alternative terminal
+    
+    # Misc utilities
+    zenity                   # dialog boxes
+    
+    # Audio/Video editing
+    audacity                 # audio editor
+    # kdenlive               # video editor
+    
+    # Gaming utilities
+    gamemode                 # gaming optimizations
+    
+    # Virtualization GUIs
+    virt-manager             # VM management
+    
+    # Torrent client
+    transmission-gtk         # bittorrent client
+  ];
+}

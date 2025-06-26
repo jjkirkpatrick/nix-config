@@ -26,10 +26,11 @@
     #./nvim.nix                        # neovim editor
     #./obsidian.nix
     #./p10k/p10k.nix
-    #./packages                        # other packages
+    ./packages                        # CLI and GUI packages
     #./retroarch.nix  
     ./rofi.nix                        # launcher
     ./waybar.nix                      # status bar
+    ./hyprpaper.nix                   # wallpaper manager
     #./scripts/scripts.nix             # personal scripts
     #./ssh.nix                         # ssh config
     #./superfile/superfile.nix         # terminal file manager

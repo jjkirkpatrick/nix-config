@@ -1,0 +1,69 @@
+{ pkgs, ... }:
+{
+  home.packages = with pkgs; [
+    # System tools
+    ripgrep                  # better grep
+    fd                       # better find
+    eza                      # better ls
+    bat                      # better cat
+    fzf                      # fuzzy finder
+    zoxide                   # better cd
+    btop                     # better top
+    htop                     # system monitor
+    tree                     # directory tree
+    du-dust                  # better du
+    duf                      # better df
+    
+    # File management
+    file                     # file type detection
+    unzip                    # archive extraction
+    zip                      # archive creation
+    p7zip                    # 7-zip support
+    rsync                    # file synchronization
+    
+    # Network tools
+    wget                     # download tool
+    curl                     # HTTP client
+    nmap                     # network scanner
+    bandwhich                # network utilization
+    
+    # Development tools
+    git                      # version control
+    gh                       # GitHub CLI
+    jq                       # JSON processor
+    yq                       # YAML processor
+    delta                    # better git diff
+    lazygit                  # git TUI
+    
+    # Text processing
+    gnused                   # stream editor
+    gawk                     # text processing
+    grep                     # pattern matching
+    
+    # System monitoring
+    lsof                     # list open files
+    pstree                   # process tree
+    killall                  # process killer
+    
+    # Terminal utilities
+    tmux                     # terminal multiplexer
+    direnv                   # environment management
+    starship                 # shell prompt
+    
+    # Archive tools
+    gnutar                   # tar archiver
+    gzip                     # compression
+    
+    # Password management
+    pass                     # password store
+    
+    # Media tools
+    ffmpeg                   # video/audio processing
+    imagemagick              # image processing
+    
+    # Misc utilities
+    neofetch                 # system info
+    fastfetch                # faster system info
+    hyperfine                # command benchmarking
+  ];
+}
