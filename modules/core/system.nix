@@ -28,6 +28,7 @@
   environment.systemPackages = with pkgs; [
     wget
     git
+    home-manager
   ];
 
   time.timeZone = "Europe/London";

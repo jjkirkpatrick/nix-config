@@ -39,7 +39,7 @@
   };
 
   outputs =
-    { nixpkgs, self, ... }@inputs:
+    { nixpkgs, self, home-manager, ... }@inputs:
     let
       username = "josh";
       system = "x86_64-linux";
@@ -50,15 +50,25 @@
       lib = nixpkgs.lib;
     in
     {
-      nixosConfigurations = {
-        blue-pc = nixpkgs.lib.nixosSystem {
-          inherit system;
-          modules = [ ./hosts/blue-pc ];
-          specialArgs = {
-            host = "blue-pc";
-            inherit self inputs username;
-          };
+    nixosConfigurations = {
+      blue-pc = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [ ./hosts/blue-pc ];
+        specialArgs = {
+          host = "blue-pc";
+          inherit self inputs username;
         };
       };
     };
+    
+    homeConfigurations = {
+      josh = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.${system};
+        modules = [ ./modules/home ];
+        extraSpecialArgs = {
+          inherit inputs username;
+        };
+      };
+    };
+  };
 }

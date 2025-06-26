@@ -26,7 +26,7 @@ in
         kb_options = "grp:alt_caps_toggle";
         numlock_by_default = true;
         repeat_delay = 300;
-        follow_mouse = 0;
+        follow_mouse = 1;
         float_switch_override_focus = 0;
         mouse_refocus = 0;
         sensitivity = 0;
