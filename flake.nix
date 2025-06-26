@@ -64,7 +64,7 @@
     
     homeConfigurations = {
       josh = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.${system};
+        pkgs = pkgs;
         modules = [ ./modules/home ];
         extraSpecialArgs = {
           inherit inputs username;
