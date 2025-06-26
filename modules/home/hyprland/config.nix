@@ -14,7 +14,7 @@ in
         "hyprctl setcursor Bibata-Modern-Ice 24 &"
         #"swww-daemon &"
 
-        #"hyprlock"
+        "hyprlock"
 
        # "${terminal} --gtk-single-instance=true --quit-after-last-window-closed=false --initial-window=false"
        # "[workspace 1 silent] ${browser}"
@@ -149,7 +149,7 @@ in
         "$mainMod, F, fullscreen, 0"
         "$mainMod SHIFT, F, fullscreen, 1"
         "$mainMod, Space, exec, toggle-float"
-        "$mainMod, D, exec, rofi -show drun || pkill rofi"
+        "$mainMod, R, exec, rofi -show drun || pkill rofi"
         "$mainMod SHIFT, D, exec, webcord --enable-features=UseOzonePlatform --ozone-platform=wayland"
         "$mainMod SHIFT, S, exec, hyprctl dispatch exec '[workspace 5 silent] SoundWireServer'"
         "$mainMod, Escape, exec, swaylock"
