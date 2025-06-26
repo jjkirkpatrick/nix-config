@@ -9,6 +9,7 @@
     ./waybar.nix                      # status bar
     ./rofi.nix                        # launcher
     ./brave.nix
+    ./eww.nix                         # eww widgets
     ./p10k/p10k.nix
     ./zsh
                                  # shell configuration

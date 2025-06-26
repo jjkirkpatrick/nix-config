@@ -27,7 +27,10 @@
 
     # System utilities
     pavucontrol              # audio control
+    pamixer                  # audio control CLI
     blueman                  # bluetooth manager
+    jq                       # JSON processor for scripts
+    networkmanager           # network management
     
     # Archive managers
     file-roller              # archive manager
@@ -53,6 +56,10 @@
     
     # System monitoring
     mission-center           # system monitor GUI
+    
+    # Widget system
+    eww                      # elkowar's wacky widgets
+    streamdeck-ui            # streamdeck
     
     # Terminal emulators (alternatives)
     # alacritty              # alternative terminal

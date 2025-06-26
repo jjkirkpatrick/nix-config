@@ -1,0 +1,230 @@
+// Catppuccin Mocha color scheme
+$base: #1e1e2e;
+$mantle: #181825;
+$crust: #11111b;
+$text: #cdd6f4;
+$subtext1: #bac2de;
+$subtext0: #a6adc8;
+$overlay2: #9399b2;
+$overlay1: #7f849c;
+$overlay0: #6c7086;
+$surface2: #585b70;
+$surface1: #45475a;
+$surface0: #313244;
+$blue: #89b4fa;
+$lavender: #b4befe;
+$sapphire: #74c7ec;
+$sky: #89dceb;
+$teal: #94e2d5;
+$green: #a6e3a1;
+$yellow: #f9e2af;
+$peach: #fab387;
+$maroon: #eba0ac;
+$red: #f38ba8;
+$mauve: #cba6f7;
+$pink: #f5c2e7;
+$flamingo: #f2cdcd;
+$rosewater: #f5e0dc;
+
+// Main window
+* {
+  all: unset;
+  font-family: "JetBrainsMono Nerd Font", monospace;
+  font-size: 12px;
+}
+
+// Sidebar container
+.sidebar {
+  background-color: $base;
+  border-right: 2px solid $surface0;
+  padding: 8px;
+}
+
+// Workspaces
+.workspaces {
+  background-color: $surface0;
+  border-radius: 8px;
+  padding: 8px;
+  margin-bottom: 8px;
+  
+  .workspace {
+    padding: 8px;
+    margin: 2px 0;
+    border-radius: 6px;
+    color: $subtext1;
+    font-size: 14px;
+    background: transparent;
+    
+    &:hover {
+      background-color: $surface1;
+      color: $text;
+    }
+    
+    &.active {
+      background-color: $blue;
+      color: $base;
+      font-weight: bold;
+    }
+    
+    &.urgent {
+      background-color: $red;
+      color: $base;
+    }
+  }
+}
+
+// Window title
+.window-title {
+  background-color: $surface0;
+  border-radius: 8px;
+  padding: 8px;
+  margin-bottom: 8px;
+  
+  .window-title-text {
+    color: $text;
+    font-size: 10px;
+  }
+}
+
+// Network widget
+.network {
+  background-color: $surface0;
+  border-radius: 8px;
+  padding: 8px;
+  margin-bottom: 8px;
+  
+  button {
+    background: transparent;
+    color: $blue;
+    font-size: 16px;
+    padding: 4px;
+    border-radius: 4px;
+    
+    &:hover {
+      background-color: $surface1;
+    }
+  }
+}
+
+// Time widget
+.time-widget {
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: $surface0;
+  border-radius: 8px;
+  
+  .time {
+    color: $text;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .date {
+    color: $subtext1;
+    font-size: 10px;
+    margin-top: 2px;
+  }
+}
+
+// System info
+.system-info {
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: $surface0;
+  border-radius: 8px;
+  
+  .cpu-progress, .ram-progress {
+    margin: 5px 0;
+    
+    trough {
+      background-color: $surface1;
+      border-radius: 50px;
+    }
+    
+    progress {
+      background-color: $blue;
+      border-radius: 50px;
+    }
+  }
+  
+  .cpu-icon, .ram-icon {
+    color: $text;
+    font-size: 14px;
+  }
+  
+  .volume-control {
+    margin-top: 10px;
+    
+    .volume-button {
+      background-color: $surface1;
+      border-radius: 6px;
+      padding: 8px;
+      color: $text;
+      font-size: 14px;
+      
+      &:hover {
+        background-color: $surface2;
+      }
+    }
+  }
+}
+
+// Power menu
+.power-menu {
+  padding: 10px;
+  background-color: $surface0;
+  border-radius: 8px;
+  
+  .power-toggle {
+    padding: 8px;
+    margin: 2px 0;
+    border-radius: 6px;
+    color: $text;
+    font-size: 16px;
+    
+    &:hover {
+      background-color: $surface1;
+    }
+  }
+  
+  .power-options {
+    margin-top: 5px;
+  }
+  
+  .power-button {
+    padding: 8px;
+    margin: 2px 0;
+    border-radius: 6px;
+    color: $text;
+    font-size: 16px;
+    
+    &:hover {
+      background-color: $surface1;
+    }
+    
+    &.shutdown {
+      &:hover {
+        background-color: $red;
+        color: $base;
+      }
+    }
+    
+    &.restart {
+      &:hover {
+        background-color: $yellow;
+        color: $base;
+      }
+    }
+    
+    &.logout {
+      &:hover {
+        background-color: $blue;
+        color: $base;
+      }
+    }
+  }
+}
+
+// Center section (spacer)
+.center-section {
+}

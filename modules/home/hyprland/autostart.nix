@@ -11,6 +11,9 @@
       
       # "hyprlock"
 
+      "eww open bar &"
+
+
       # Example application launches (commented out)
       # "${terminal} --gtk-single-instance=true --quit-after-last-window-closed=false --initial-window=false"
       # "[workspace 1 silent] ${browser}"

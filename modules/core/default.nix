@@ -6,6 +6,7 @@
     ./xserver.nix
     ./network.nix
     ./nh.nix
+    ./audio.nix
     ./pipewire.nix
     ./program.nix
     ./security.nix
