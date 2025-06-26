@@ -67,7 +67,8 @@
         modules = [ ./modules/home ];
         extraSpecialArgs = {
           inherit inputs username;
-        };
+          host = "blue-pc";
+	};
       };
     };
   };
