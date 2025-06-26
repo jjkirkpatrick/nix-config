@@ -2,266 +2,168 @@
 {
   programs.zsh = {
     enable = true;
-    enableCompletion = true;
+    # enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
-    
-    # ZSH options
-    history = {
-      size = 10000;
-      save = 10000;
-      path = "$HOME/.zsh_history";
-      ignoreDups = true;
-      ignoreSpace = true;
-      extended = true;
-    };
 
-    # Shell options
-    defaultKeymap = "emacs";
-    
-    # Environment variables
-    sessionVariables = {
-      EDITOR = "nvim";
-      BROWSER = "brave";
-      TERMINAL = "kitty";
-    };
-
-
-    # ZSH plugins
     plugins = [
+      {
+        # Must be before plugins that wrap widgets, such as zsh-autosuggestions or fast-syntax-highlighting
+        name = "fzf-tab";
+        src = "${pkgs.zsh-fzf-tab}/share/fzf-tab";
+      }
       {
         name = "powerlevel10k";
         src = pkgs.zsh-powerlevel10k;
         file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
       }
-      {
-        name = "zsh-autosuggestions";
-        src = pkgs.zsh-autosuggestions;
-        file = "share/zsh-autosuggestions/zsh-autosuggestions.zsh";
-      }
-      {
-        name = "zsh-syntax-highlighting";
-        src = pkgs.zsh-syntax-highlighting;
-        file = "share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh";
-      }
-      {
-        name = "zsh-completions";
-        src = pkgs.zsh-completions;
-        file = "share/zsh-completions/zsh-completions.plugin.zsh";
-      }
     ];
 
-    # Additional ZSH configuration
+    completionInit = ''
+      # Load Zsh modules
+      # zmodload zsh/zle
+      # zmodload zsh/zpty
+      # zmodload zsh/complist
+
+      # Initialize colors
+      autoload -Uz colors
+      colors
+
+      # Initialize completion system
+      # autoload -U compinit
+      # compinit
+      _comp_options+=(globdots)
+
+      # Load edit-command-line for ZLE
+      autoload -Uz edit-command-line
+      zle -N edit-command-line
+      bindkey "^e" edit-command-line
+
+      # General completion behavior
+      zstyle ':completion:*' completer _extensions _complete _approximate
+
+      # Use cache
+      zstyle ':completion:*' use-cache on
+      zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"
+
+      # Complete the alias
+      zstyle ':completion:*' complete true
+
+      # Autocomplete options
+      zstyle ':completion:*' complete-options true
+
+      # Completion matching control
+      zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+      zstyle ':completion:*' keep-prefix true
+
+      # Group matches and describe
+      zstyle ':completion:*' menu select
+      zstyle ':completion:*' list-grouped false
+      zstyle ':completion:*' list-separator '''
+      zstyle ':completion:*' group-name '''
+      zstyle ':completion:*' verbose yes
+      zstyle ':completion:*:matches' group 'yes'
+      zstyle ':completion:*:warnings' format '%F{red}%B-- No match for: %d --%b%f'
+      zstyle ':completion:*:messages' format '%d'
+      zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
+      zstyle ':completion:*:descriptions' format '[%d]'
+
+      # Colors
+      zstyle ':completion:*' list-colors ''${(s.:.)LS_COLORS}
+
+      # Directories
+      zstyle ':completion:*:*:cd:*' tag-order local-directories directory-stack path-directories
+      zstyle ':completion:*:*:cd:*:directory-stack' menu yes select
+      zstyle ':completion:*:-tilde-:*' group-order 'named-directories' 'path-directories' 'users' 'expand'
+      zstyle ':completion:*:*:-command-:*:*' group-order aliases builtins functions commands
+      zstyle ':completion:*' special-dirs true
+      zstyle ':completion:*' squeeze-slashes true
+
+      # Sort
+      zstyle ':completion:*' sort false
+      zstyle ":completion:*:git-checkout:*" sort false
+      zstyle ':completion:*' file-sort modification
+      zstyle ':completion:*:eza' sort false
+      zstyle ':completion:complete:*:options' sort false
+      zstyle ':completion:files' sort false
+
+      # fzf-tab
+      zstyle ':fzf-tab:*' use-fzf-default-opts yes
+      zstyle ':fzf-tab:complete:*:*' fzf-preview 'eza --icons  -a --group-directories-first -1 --color=always $realpath'
+      zstyle ':fzf-tab:complete:kill:argument-rest' fzf-preview 'ps --pid=$word -o cmd --no-headers -w -w'
+      zstyle ':fzf-tab:complete:kill:argument-rest' fzf-flags '--preview-window=down:3:wrap'
+      zstyle ':fzf-tab:*' fzf-command fzf
+      zstyle ':fzf-tab:*' fzf-pad 4
+      zstyle ':fzf-tab:*' fzf-min-height 100
+      zstyle ':fzf-tab:*' switch-group ',' '.'
+    '';
+
     initContent = ''
-      # Powerlevel10k instant prompt
+      # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+      # Initialization code that may require console input (password prompts, [y/n]
+      # confirmations, etc.) must go above this block; everything else may go below.
       if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
         source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
       fi
 
-      # Custom functions
-      function mkcd() {
-        mkdir -p "$1" && cd "$1"
+      DISABLE_AUTO_UPDATE=true
+      DISABLE_MAGIC_FUNCTIONS=true
+      export "MICRO_TRUECOLOR=1"
+
+      setopt sharehistory
+      setopt hist_ignore_space
+      setopt hist_ignore_all_dups
+      setopt hist_save_no_dups
+      setopt hist_ignore_dups
+      setopt hist_find_no_dups
+      setopt hist_expire_dups_first
+      setopt hist_verify
+
+      source ~/.p10k.zsh
+
+      # Use fd (https://github.com/sharkdp/fd) for listing path candidates.
+      # - The first argument to the function ($1) is the base path to start traversal
+      # - See the source code (completion.{bash,zsh}) for the details.
+      _fzf_compgen_path() {
+        fd --hidden --exclude .git . "$1"
       }
 
-      function extract() {
-        if [ -f $1 ] ; then
-          case $1 in
-            *.tar.bz2)   tar xjf $1     ;;
-            *.tar.gz)    tar xzf $1     ;;
-            *.bz2)       bunzip2 $1     ;;
-            *.rar)       unrar e $1     ;;
-            *.gz)        gunzip $1      ;;
-            *.tar)       tar xf $1      ;;
-            *.tbz2)      tar xjf $1     ;;
-            *.tgz)       tar xzf $1     ;;
-            *.zip)       unzip $1       ;;
-            *.Z)         uncompress $1  ;;
-            *.7z)        7z x $1        ;;
-            *)     echo "'$1' cannot be extracted via extract()" ;;
-          esac
-        else
-          echo "'$1' is not a valid file"
-        fi
+      # Use fd to generate the list for directory completion
+      _fzf_compgen_dir() {
+        fd --type=d --hidden --exclude .git . "$1"
       }
 
-      # Better cd with zoxide
-      eval "$(zoxide init zsh)"
+      # Advanced customization of fzf options via _fzf_comprun function
+      # - The first argument to the function is the name of the command.
+      # - You should make sure to pass the rest of the arguments to fzf.
+      _fzf_comprun() {
+        local command=$1
+        shift
 
-      # FZF integration
-      eval "$(fzf --zsh)"
+        case "$command" in
+          cd)           fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
+          ssh)          fzf --preview 'dig {}'                   "$@" ;;
+          *)            fzf --preview "$show_file_or_dir_preview" "$@" ;;
+        esac
+      }
 
-      # Direnv integration
-      eval "$(direnv hook zsh)"
-
-      # ZSH options
-      setopt AUTO_PUSHD
-      setopt PUSHD_IGNORE_DUPS
-      setopt PUSHD_SILENT
-      setopt CORRECT
-      setopt CDABLE_VARS
-      setopt EXTENDED_GLOB
-      setopt NO_CASE_GLOB
-      setopt NUMERIC_GLOB_SORT
-      setopt RC_EXPAND_PARAM
-
-      # Key bindings are handled in zsh_keybinds.nix to avoid duplicates
-
-      # Load Powerlevel10k config
-      [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+      # Make sure that the terminal is in application mode when zle is active, since
+      # only then values from $terminfo are valid
+      if (( ''${+terminfo[smkx]} )) && (( ''${+terminfo[rmkx]} )); then
+        function zle-line-init() {
+          echoti smkx
+        }
+        function zle-line-finish() {
+          echoti rmkx
+        }
+        zle -N zle-line-init
+        zle -N zle-line-finish
+      fi
     '';
   };
 
-  # Powerlevel10k configuration
-  home.file.".p10k.zsh".text = ''
-    # Powerlevel10k configuration file
-    'builtin' 'local' '-a' 'p10k_config_opts'
-    [[ -o 'aliases'         ]] && p10k_config_opts+=('aliases')
-    [[ -o 'sh_glob'         ]] && p10k_config_opts+=('sh_glob')
-    [[ -o 'no_brace_expand' ]] && p10k_config_opts+=('no_brace_expand')
-    'builtin' 'setopt' 'no_aliases' 'no_sh_glob' 'brace_expand'
-
-    () {
-      emulate -L zsh -o extended_glob
-
-      # Unset all configuration options.
-      unsetopt nomatch
-      unset POWERLEVEL9K_* 2>/dev/null || true
-      setopt nomatch
-
-      # Zsh >= 5.1 is required.
-      autoload -Uz is-at-least && is-at-least 5.1 || return
-
-      # Prompt style: lean, classic, rainbow, pure
-      typeset -g POWERLEVEL9K_MODE=nerdfont-complete
-      typeset -g POWERLEVEL9K_ICON_PADDING=none
-
-      # Basic prompt elements
-      typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
-        os_icon
-        dir
-        vcs
-        prompt_char
-      )
-
-      typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
-        status
-        command_execution_time
-        background_jobs
-        direnv
-        asdf
-        virtualenv
-        anaconda
-        pyenv
-        goenv
-        nodenv
-        nvm
-        nodeenv
-        node_version
-        go_version
-        rust_version
-        dotnet_version
-        php_version
-        laravel_version
-        java_version
-        package
-        rbenv
-        rvm
-        fvm
-        luaenv
-        jenv
-        plenv
-        phpenv
-        scalaenv
-        haskell_stack
-        kubecontext
-        terraform
-        aws
-        aws_eb_env
-        azure
-        gcloud
-        google_app_cred
-        context
-        nordvpn
-        ranger
-        nnn
-        vim_shell
-        midnight_commander
-        nix_shell
-        todo
-        timewarrior
-        taskwarrior
-        time
-      )
-
-      # OS icon
-      typeset -g POWERLEVEL9K_OS_ICON_FOREGROUND=232
-      typeset -g POWERLEVEL9K_OS_ICON_BACKGROUND=7
-
-      # Directory
-      typeset -g POWERLEVEL9K_DIR_FOREGROUND=31
-      typeset -g POWERLEVEL9K_DIR_SHORTENED_FOREGROUND=103
-      typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=39
-      typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=true
-      typeset -g POWERLEVEL9K_SHORTEN_STRATEGY=truncate_to_unique
-      typeset -g POWERLEVEL9K_SHORTEN_DELIMITER=
-      typeset -g POWERLEVEL9K_DIR_MAX_LENGTH=80
-      typeset -g POWERLEVEL9K_DIR_MIN_COMMAND_COLUMNS=40
-      typeset -g POWERLEVEL9K_DIR_MIN_COMMAND_COLUMNS_PCT=50
-      typeset -g POWERLEVEL9K_DIR_HYPERLINK=false
-
-      # VCS (Git)
-      typeset -g POWERLEVEL9K_VCS_BRANCH_ICON=
-      typeset -g POWERLEVEL9K_VCS_UNTRACKED_ICON='?'
-
-      # Prompt character
-      typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=76
-      typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=196
-      typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIINS_CONTENT_EXPANSION='❯'
-      typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VICMD_CONTENT_EXPANSION='❮'
-      typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIVIS_CONTENT_EXPANSION='V'
-      typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIOWR_CONTENT_EXPANSION='▶'
-      typeset -g POWERLEVEL9K_PROMPT_CHAR_OVERWRITE_STATE=true
-      typeset -g POWERLEVEL9K_PROMPT_CHAR_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=""
-
-      # Command execution time
-      typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD=3
-      typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_PRECISION=0
-      typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_FORMAT='d h m s'
-
-      # Status
-      typeset -g POWERLEVEL9K_STATUS_EXTENDED_STATES=true
-      typeset -g POWERLEVEL9K_STATUS_OK=false
-      typeset -g POWERLEVEL9K_STATUS_OK_FOREGROUND=70
-      typeset -g POWERLEVEL9K_STATUS_OK_VISUAL_IDENTIFIER_EXPANSION='✓'
-      typeset -g POWERLEVEL9K_STATUS_ERROR_FOREGROUND=160
-      typeset -g POWERLEVEL9K_STATUS_ERROR_VISUAL_IDENTIFIER_EXPANSION='✗'
-
-      # Time
-      typeset -g POWERLEVEL9K_TIME_FOREGROUND=66
-      typeset -g POWERLEVEL9K_TIME_FORMAT='%D{%H:%M:%S}'
-
-      # Nix shell
-      typeset -g POWERLEVEL9K_NIX_SHELL_FOREGROUND=74
-
-      # Transient prompt
-      typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=always
-      typeset -g POWERLEVEL9K_INSTANT_PROMPT=verbose
-
-      # Multiline prompt
-      typeset -g POWERLEVEL9K_PROMPT_ON_NEWLINE=false
-      typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=""
-      typeset -g POWERLEVEL9K_MULTILINE_NEWLINE_PROMPT_PREFIX=""
-      typeset -g POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX=""
-      typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_SUFFIX=""
-      typeset -g POWERLEVEL9K_MULTILINE_NEWLINE_PROMPT_SUFFIX=""
-      typeset -g POWERLEVEL9K_MULTILINE_LAST_PROMPT_SUFFIX=""
-
-      # Instant prompt mode
-      typeset -g POWERLEVEL9K_INSTANT_PROMPT=verbose
-      typeset -g POWERLEVEL9K_DISABLE_HOT_RELOAD=true
-    }
-
-    (( $${#p10k_config_opts} )) && setopt $${p10k_config_opts[@]}
-    builtin unset p10k_config_opts
-  '';
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+  };
 }
