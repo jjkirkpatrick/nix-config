@@ -36,7 +36,23 @@ $rosewater: #f5e0dc;
 // Sidebar container
 .sidebar {
   background-color: $base;
-  border-right: 2px solid $surface0;
+  border: 2px solid $surface0;
+  border-radius: 12px;
+  padding: 8px;
+  margin: 0;
+}
+
+// Top bar container
+.top-bar {
+  background-color: $base;
+  border-bottom: 2px solid $surface0;
+  padding: 8px;
+}
+
+// Bottom bar container
+.bottom-bar {
+  background-color: $base;
+  border-top: 2px solid $surface0;
   padding: 8px;
 }
 
