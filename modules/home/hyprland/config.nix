@@ -376,7 +376,8 @@ in
     };
 
     extraConfig = "
-      monitor=DP-3,prefered,0x1080,1
+
+      monitor=DP-3,5120x1440@120.00,0x1080,1
       monitor=HDMI-A-1,prefered,760x0,1
 
       xwayland {

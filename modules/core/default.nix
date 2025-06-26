@@ -17,6 +17,6 @@
     ./wayland.nix
     ./virtualization.nix
     ./nvidia.nix
-    .auto-upgrade.nix
+    ./auto-upgrade.nix
   ];
 }
