@@ -2,7 +2,7 @@
 {
   wayland.windowManager.hyprland.settings = {
     decoration = {
-      rounding = 0;
+      rounding = 8; # Enable rounding for Catppuccin aesthetic
       # active_opacity = 0.90;
       # inactive_opacity = 0.90;
       # fullscreen_opacity = 1.0;
@@ -25,7 +25,7 @@
         offset = "0 2";
         range = 20;
         render_power = 3;
-        color = "rgba(00000055)";
+        color = "rgba(11111baa)"; # Catppuccin Mocha base shadow
       };
     };
 

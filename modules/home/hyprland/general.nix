@@ -6,8 +6,9 @@
       gaps_in = 6;
       gaps_out = 12;
       border_size = 2;
-      "col.active_border" = "rgb(98971A) rgb(CC241D) 45deg";
-      "col.inactive_border" = "0x00000000";
+      # Catppuccin will override these colors, but keeping as fallback
+      "col.active_border" = "rgb(cba6f7) rgb(89b4fa) 45deg"; # Catppuccin Mocha mauve/blue gradient
+      "col.inactive_border" = "rgba(313244aa)"; # Catppuccin Mocha surface0
       # border_part_of_window = false;
       no_border_on_floating = false;
     };
