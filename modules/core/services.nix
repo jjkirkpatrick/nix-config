@@ -7,7 +7,7 @@
       flavor = "mocha";
       font  = "Noto Sans";
       fontSize = "9";
-      background = "${./wallpaper.png}";
+      background = "${../../wallpapers/astronaut.jpg}";
       loginBackground = true;
     }
   )];
