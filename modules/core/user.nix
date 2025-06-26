@@ -11,6 +11,7 @@
     useUserPackages = true;
     useGlobalPkgs = true;
     extraSpecialArgs = { inherit inputs username host; };
+    backupFileExtension = "backup";
     users.${username} = {
       imports =
         if (host == "desktop") then
@@ -21,6 +22,7 @@
       home.homeDirectory = "/home/${username}";
       home.stateVersion = "24.05";
       programs.home-manager.enable = true;
+      
     };
   };
 

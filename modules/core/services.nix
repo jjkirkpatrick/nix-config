@@ -1,5 +1,12 @@
 { pkgs, ... }:
 {
+  services.xserver = {
+   enable = true;
+   displayManager.sddm.enable = true;
+  };
+
+
+
   programs = {
     steam = {
       enable = false;
