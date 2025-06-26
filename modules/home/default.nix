@@ -1,7 +1,7 @@
 {username, inputs, ... }:
 {
   imports = [
-    inputs.catppuccin.homeManagerModules.catppuccin
+    inputs.catppuccin.homeModules.catppuccin
     #./audacious.nix                   # music player
     #./bat.nix                         # better cat command
     #./browser.nix                     # firefox based browser
