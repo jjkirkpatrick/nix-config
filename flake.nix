@@ -31,7 +31,9 @@
         systems.follows = "hyprland/systems";
       };
     };
+    
 
+    nur.url = "github:nix-community/NUR";
     nix-flatpak.url = "github:gmodena/nix-flatpak";
     ghostty.url = "github:ghostty-org/ghostty";
   };
