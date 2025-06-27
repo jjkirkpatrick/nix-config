@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Weather icons mapping function
 get_weather_icon() {

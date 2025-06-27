@@ -46,7 +46,7 @@ This repository houses a comprehensive NixOS configuration designed for develope
 - 45+ documented .nix configuration files
 - 400+ packages with detailed explanations
 - Advanced ZSH configuration with modern plugins
-- Comprehensive audio setup (PipeWire + ALSA + USB interfaces)
+- Comprehensive audio setup (PipeWire replacing PulseAudio + ALSA + USB interfaces)
 - Extensive Wayland integration
 - Theme system supporting easy customization
 
@@ -94,7 +94,7 @@ The configuration features a centralized **Dark Space** theme system inspired by
 | Image Viewer     | Viewnior                              | Lightweight image viewer         |
 | Web Browser      | Brave                                 | Privacy-focused browser           |
 | **Media**        |                                       |                                   |
-| Audio System     | PipeWire + ALSA                       | Modern audio server              |
+| Audio System     | PipeWire (replaces PulseAudio)        | Modern low-latency audio server  |
 | Media Player     | VLC + MPV                             | Versatile media players          |
 | Music Player     | Spotify + Termusic                    | Streaming and local music        |
 | **Gaming**       |                                       |                                   |
@@ -130,7 +130,7 @@ The configuration features a centralized **Dark Space** theme system inspired by
 ### Multimedia & Creativity
 - **Video**: VLC, MPV, FFmpeg
 - **Images**: Viewnior, ImageMagick
-- **Audio**: PipeWire, PulseAudio tools, pavucontrol
+- **Audio**: PipeWire (replaces PulseAudio), pavucontrol, audio routing
 - **Screenshots**: Grim, Slurp, Swappy
 
 ## ⌨ Keybindings
@@ -322,7 +322,7 @@ The configuration includes automated backup recommendations for:
 - **Boot issues**: Use GRUB menu to select previous generation
 - **Package conflicts**: Run `nix flake check` to validate configuration
 - **Performance issues**: Check `btop` or `htop` for resource usage
-- **Audio problems**: Restart PipeWire with `systemctl --user restart pipewire`
+- **Audio problems**: Restart PipeWire with `systemctl --user restart pipewire pipewire-pulse`
 
 ## 📖 License
 

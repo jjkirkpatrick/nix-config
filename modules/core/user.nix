@@ -68,6 +68,8 @@
       "networkmanager"
       # Administrative privileges (sudo access)
       "wheel"
+      # Audio device access for PipeWire
+      "audio"
     ];
     
     # Set default shell to Zsh
