@@ -139,8 +139,8 @@
       # Menu selection for interactive completion browsing
       zstyle ':completion:*' menu select          # Use interactive menu for selection
       zstyle ':completion:*' list-grouped false   # Don't group completion lists
-      zstyle ':completion:*' list-separator ''    # No separator between groups
-      zstyle ':completion:*' group-name ''        # No group names displayed
+      zstyle ':completion:*' list-separator ""    # No separator between groups
+      zstyle ':completion:*' group-name ""        # No group names displayed
       zstyle ':completion:*' verbose yes          # Show verbose descriptions
       
       # Group completion matches for better organization
