@@ -29,12 +29,6 @@
     ./fonts.nix                       # Font installation and configuration
     ./development.nix                 # Programming languages, development tools, and environments
 
-    # Desktop Environment Applications (currently disabled for headless/server setup)
-    # ./kitty.nix                       # Terminal emulator configuration
-    # ./hyprpaper.nix                   # Wallpaper manager for Hyprland
-    # ./waybar.nix                      # Status bar configuration
-    # ./rofi.nix                        # Application launcher configuration
-
     # Web Browsers and Applications
     ./brave.nix                       # Brave browser installation
 
