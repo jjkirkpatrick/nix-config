@@ -2,7 +2,7 @@
 {
   imports = [
     inputs.catppuccin.homeModules.catppuccin
-    ./hyprland                        # window manager
+    ./config.nix                      # configuration files
     ./packages                        # CLI and GUI packages
     ./fonts.nix                       # font configuration
     # ./kitty.nix                       # terminal
