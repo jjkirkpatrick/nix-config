@@ -41,7 +41,7 @@
         "tooltip" : true,
         "format" : "{}",
         "interval" : 30,
-        "exec" : "~/.config/waybar/scripts/waybar-wttr.py",
+        "exec" : "~/.config/waybar/scripts/waybar-wttr.sh",
         "return-type" : "json"
     },
     "tray": {

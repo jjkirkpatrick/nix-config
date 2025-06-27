@@ -2,8 +2,14 @@
 
 import json
 from datetime import datetime
+import subprocess
+import sys
 
-import requests
+try:
+    import requests
+except ImportError:
+    print('{"text": "🌡️ N/A", "tooltip": "Python requests module not available"}')
+    sys.exit(0)
 
 WEATHER_CODES = {
     "113": "☀️ ",

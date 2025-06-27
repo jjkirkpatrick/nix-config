@@ -11,7 +11,6 @@
     # Node.js and JavaScript
     nodejs
     yarn
-    npm
 
     # Rust
     rustc
@@ -27,7 +26,6 @@
     gdb
     valgrind
     cmake
-    make
 
     # General development tools
     git
@@ -62,8 +60,4 @@
     userEmail = "joshkirkpatrick12@gmail.com"; # Update with actual email
   };
 
-  # Configure Python development environment
-  programs.python = {
-    enable = true;
-  };
 }
