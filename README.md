@@ -86,11 +86,9 @@ The configuration features a centralized **Dark Space** theme system inspired by
 | **Terminal**     |                                       |                                   |
 | Shell            | Zsh + Powerlevel10k                   | Feature-rich shell with theming  |
 | Terminal         | Kitty                                 | GPU-accelerated terminal emulator |
-| Multiplexer      | Tmux                                  | Terminal session management       |
 | **Development**  |                                       |                                   |
-| Editor           | Neovim (comprehensive config)         | Modern Vim with IDE features      |
-| Code Editor      | VSCodium                              | Privacy-focused VS Code           |
-| Version Control  | Git + Lazygit                        | Version control with TUI         |
+| Code Editor      | Cursor                                | AI VS Code                         |
+| Version Control  | Git + Lazygit                         | Version control with TUI         |
 | **Utilities**    |                                       |                                   |
 | File Manager     | Nemo                                  | Feature-rich file manager        |
 | Image Viewer     | Viewnior                              | Lightweight image viewer         |
@@ -125,7 +123,7 @@ The configuration features a centralized **Dark Space** theme system inspired by
 ### Development Environment
 - **Languages**: Python, Node.js, Rust, Go, C/C++
 - **Tools**: Docker, Git, GitHub CLI, jq, yq
-- **Editors**: Neovim (full IDE setup), VSCodium
+- **Editors**: (full IDE setup), Cursor   
 - **Debugging**: GDB, Valgrind for C/C++
 - **Databases**: SQLite for development
 
@@ -157,7 +155,6 @@ The configuration features a centralized **Dark Space** theme system inspired by
 | `SUPER + E`               | Launch Nemo file manager                 |
 | `SUPER + B`               | Launch Brave browser                     |
 | `SUPER + C`               | Launch Discord                           |
-| `SUPER + V`               | Launch VSCodium                          |
 
 ### System Controls
 | Key Combination           | Action                                    |

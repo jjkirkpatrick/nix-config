@@ -108,12 +108,7 @@
     # ========================================
     # Code editors and integrated development environments
     
-    vscodium                 # Open-source Visual Studio Code without telemetry
-                            # - Full VS Code functionality without Microsoft tracking
-                            # - Extensive extension marketplace
-                            # - Git integration and debugging support
-                            # - Multi-language support with IntelliSense
-                            # - Preferred for privacy-conscious development
+    
     
     code-cursor              # AI-powered code editor
                             # - Cursor-based AI assistance for coding
@@ -306,35 +301,13 @@
                             # - Integration with system functions
                             # - Productivity enhancement for content creators
     
-    # ========================================
-    # ALTERNATIVE TERMINAL EMULATORS
-    # ========================================
-    # Additional terminal options (currently commented out)
-    
-    # alacritty              # GPU-accelerated terminal emulator
-                            # - High performance with GPU rendering
-                            # - Minimal configuration in YAML
-                            # - Cross-platform consistency
-                            # - Excellent for performance-critical work
-    
-    # wezterm                # Feature-rich terminal with advanced capabilities
-                            # - Multiplexing built-in (like tmux)
-                            # - Image display and rich text support
-                            # - Extensive Lua configuration
-                            # - Advanced terminal features
      
     # ========================================
     # MUSIC AND AUDIO APPLICATIONS
     # ========================================
     # Applications for music streaming and audio management
-    
-    termusic                 # Terminal-based music player
-                            # - Keyboard-driven music library management
-                            # - Multiple audio format support
-                            # - Playlist management and organization
-                            # - Minimal resource usage
-                            # - Integration with terminal workflows
-    
+
+
     spotify                  # Popular music streaming service
                             # - Access to millions of songs and podcasts
                             # - Playlist creation and sharing

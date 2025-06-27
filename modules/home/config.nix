@@ -25,15 +25,6 @@ in
   
   home.file = {
     # ========================================
-    # Development and Text Editor Configurations
-    # ========================================
-    
-    ".config/nvim".source = "${configDir}/nvim";
-    # Neovim configuration - Complete IDE setup with plugins, keybindings,
-    # and language server configurations. Includes custom Lua configuration
-    # for enhanced development experience.
-
-    # ========================================
     # System Utilities and Monitoring
     # ========================================
     

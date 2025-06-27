@@ -55,7 +55,7 @@
   # ============================================================
   # JetBrains Mono Nerd Font is used as the primary font across:
   # - Terminal emulator (Kitty)
-  # - Text editors (Neovim, VS Code)
+  # - Text editors (Cursor)
   # - Status bar (Waybar)
   # - Application launcher (Rofi)
   #

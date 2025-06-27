@@ -233,12 +233,6 @@
     # ========================================
     # Tools that enhance terminal functionality and session management
     
-    tmux                     # Terminal multiplexer for session management
-                            # - Multiple terminal sessions in one window
-                            # - Session persistence across disconnections
-                            # - Split panes and window management
-                            # - Essential for remote work and development
-    
     direnv                   # Automatic environment variable management
                             # - Load environment variables per directory
                             # - Project-specific PATH and configuration
