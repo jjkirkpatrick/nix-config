@@ -1,27 +1,141 @@
+# ======================================================================
+# MAKO NOTIFICATION DAEMON CONFIGURATION - DARK SPACE THEME
+# ======================================================================
+# Notification styling that integrates with the Dark Space theme system.
+# Provides consistent visual appearance with the rest of the desktop
+# environment while maintaining excellent readability and accessibility.
+# ======================================================================
+
+# ========================================
+# NOTIFICATION BEHAVIOR
+# ========================================
+# Sort notifications by timestamp (newest first)
 sort=-time
+# Display on overlay layer (above other windows)
 layer=overlay
-width=300
-height=110
-border-size=2
-border-radius=15
-icons=0
-max-icon-size=64
+# Auto-dismiss after 5 seconds
 default-timeout=5000
+# Allow manual dismissal even with timeout
 ignore-timeout=1
-font=monospace 14
+# Maximum notifications shown simultaneously
+max-visible=5
+# Position notifications in top-right corner
+anchor=top-right
 
+# ========================================
+# NOTIFICATION APPEARANCE
+# ========================================
+# Wider notifications for better content display
+width=450
+# Minimum height for content
+height=130
+# Margin from screen edge
+margin=15
+# Internal padding for text
+padding=20
+# Thinner border for modern glass effect
+border-size=1
+# More rounded corners for modern appearance
+border-radius=16
+
+# ========================================
+# TYPOGRAPHY AND ICONS
+# ========================================
+# Consistent with terminal font
+font=JetBrains Mono Nerd Font 11
+# Enable markup for rich text formatting
+markup=1
+# Enable notification actions/buttons
+actions=1
+# Enable notification history
+history=1
+# Icon size for good visibility
+max-icon-size=48
+# Position icons on the left side
+icon-location=left
+
+# ========================================
+# DARK SPACE THEME COLORS WITH TRANSPARENCY
+# ========================================
+# Transparent surface background with glass effect
+background-color=#1A1F2E88
+# Bright white text for contrast against transparency
+text-color=#FFFFFF
+# Subtle transparent border
+border-color=#33415555
+# Cyan accent with transparency for progress
+progress-color=over #06B6D4BB
+
+# ========================================
+# URGENCY-BASED STYLING
+# ========================================
+
+# Low priority notifications - subtle transparent appearance
+[urgency=low]
+background-color=#13182066
+text-color=#E2E8F0
+border-color=#1E293B44
+default-timeout=3000
+
+# Normal notifications - standard transparent Dark Space theme
+[urgency=normal]
+background-color=#1A1F2E88
+text-color=#FFFFFF
+border-color=#33415555
+default-timeout=5000
+
+# Critical notifications - attention-grabbing with transparency
 [urgency=high]
-border-color=#f5a97f
+background-color=#252A38AA
+text-color=#FFFFFF
+border-color=#EF4444BB
+border-size=2
+default-timeout=10000
 
+# ========================================
+# APPLICATION-SPECIFIC STYLING
+# ========================================
+
+# Music player notifications with purple accent
 [category=mpd]
+background-color=#252A3888
+border-color=#8B5CF6AA
 default-timeout=2000
 group-by=category
 
-# Colors
+# Volume change notifications with purple accent
+[app-name="Volume"]
+background-color=#1A1F2E88
+border-color=#8B5CF6AA
+default-timeout=1500
 
-background-color=#24273a
-text-color=#cad3f5
-border-color=#8aadf4
-progress-color=over #363a4f
+# Display brightness notifications with yellow accent
+[app-name="Brightness"]
+background-color=#1A1F2E88
+border-color=#F59E0BAA
+default-timeout=1500
+
+# Network status notifications with cyan accent
+[app-name="Network"]
+background-color=#1A1F2E88
+border-color=#06B6D4AA
+default-timeout=3000
+
+# Battery status notifications with green accent
+[app-name="Battery"]
+background-color=#252A3888
+border-color=#10B981AA
+default-timeout=8000
+
+# ========================================
+# NOTIFICATION BEHAVIOR NOTES
+# ========================================
+# Configuration provides:
+# - Consistent Dark Space theme integration
+# - Clear visual hierarchy based on urgency
+# - Application-specific customization
+# - Accessibility through high contrast
+# - Modern appearance with rounded corners
+# - Appropriate timeouts for different content types
 
 
