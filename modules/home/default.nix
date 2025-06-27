@@ -5,10 +5,10 @@
     ./hyprland                        # window manager
     ./packages                        # CLI and GUI packages
     ./fonts.nix                       # font configuration
-    ./kitty.nix                       # terminal
-    ./hyprpaper.nix                   # wallpaper manager
-    ./waybar.nix                      # status bar
-    ./rofi.nix                        # launcher
+    # ./kitty.nix                       # terminal
+    # ./hyprpaper.nix                   # wallpaper manager
+    # ./waybar.nix                      # status bar
+    # ./rofi.nix                        # launcher
     ./brave.nix
     ./p10k/p10k.nix
     ./zsh                            # shell configuration

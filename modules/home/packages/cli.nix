@@ -67,5 +67,22 @@
     neofetch                 # system info
     fastfetch                # faster system info
     hyperfine                # command benchmarking
+    
+    # GUI/Wayland packages
+    hyprpaper                # wallpaper utility
+    kitty                    # terminal emulator
+    libnotify                # notification library
+    mako                     # notification daemon
+    qt5.qtwayland            # Qt5 Wayland support
+    qt6.qtwayland            # Qt6 Wayland support
+    swayidle                 # idle management
+    swaylock-effects         # screen locker
+    wlogout                  # logout menu
+    wl-clipboard             # clipboard utilities
+    wofi                     # application launcher
+    waybar                   # status bar
   ];
 }
+
+
+
