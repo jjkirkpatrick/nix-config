@@ -69,7 +69,6 @@
     # Text Editors and Development Environments
     # ========================================
     vim                              # Classic text editor - always available
-    neovim                           # Modern Vim implementation with better defaults
 
     # ========================================
     # Container and Deployment Tools
