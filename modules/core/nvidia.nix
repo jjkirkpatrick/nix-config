@@ -1,43 +1,54 @@
+# NVIDIA graphics driver configuration
 { config, lib, ... }:
 
 {
-
-  # Enable OpenGL
+  # Graphics hardware acceleration
   hardware.graphics = {
+    # Enable OpenGL/Vulkan graphics acceleration
+    # Required for GPU-accelerated applications and games
     enable = true;
   };
 
-  # Load nvidia driver for Xorg and Wayland
+  # X11 video driver configuration
+  # Load NVIDIA proprietary driver for both X11 and Wayland
+  # This enables hardware acceleration in graphical applications
   services.xserver.videoDrivers = ["nvidia"];
 
-  # Enable access to nvidia from containers (Docker, Podman)
+  # Container GPU access configuration
+  # Enable NVIDIA Container Toolkit for GPU access in containers
+  # Allows Docker/Podman containers to use GPU acceleration
   hardware.nvidia-container-toolkit.enable = true;
 
+  # NVIDIA driver configuration options
   hardware.nvidia = {
-
-    # Modesetting is required.
+    # Kernel modesetting configuration
+    # Modesetting is required for Wayland support and modern display management
+    # Enables the kernel to directly control display modes
     modesetting.enable = true;
-    # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
-    # Enable this if you have graphical corruption issues or application crashes after waking
-    # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead
-    # of just the bare essentials.
+    
+    # Power management configuration
+    # NVIDIA power management is experimental and may cause issues
+    # Enable this if you experience graphical corruption after suspend/resume
+    # When enabled, saves entire VRAM to /tmp/ instead of just essentials
+    # Currently disabled to avoid potential sleep/suspend failures
     powerManagement.enable = false;
 
-    # Use the NVidia open source kernel module (not to be confused with the
-    # independent third-party "nouveau" open source driver).
-    # Support is limited to the Turing and later architectures. Full list of
-    # supported GPUs is at:
-    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
-    # Only available from driver 515.43.04+
+    # Kernel module selection
+    # Choose between open-source and proprietary NVIDIA kernel modules
+    # Open-source module supports Turing+ architectures (GTX 16xx, RTX 20xx+)
+    # See: https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
+    # Set to false to use proprietary module for better compatibility
     open = false;
 
-    # Enable the Nvidia settings menu,
-  	# accessible via `nvidia-settings`.
+    # NVIDIA Settings application
+    # Enable the NVIDIA control panel GUI application
+    # Accessible via 'nvidia-settings' command
+    # Provides GPU monitoring, overclocking, and display configuration
     nvidiaSettings = true;
 
-    # Optionally, you may need to select the appropriate driver version for your specific GPU.
+    # Driver version selection
+    # Use production/stable driver branch for maximum stability
+    # Alternative options: beta, vulkan_beta, legacy_470, legacy_390
     package = config.boot.kernelPackages.nvidiaPackages.production;
-
   };
-
 }

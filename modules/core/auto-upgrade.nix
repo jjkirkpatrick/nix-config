@@ -1,16 +1,41 @@
+# Automatic system upgrade configuration
 { ... }:
 
 {
-  # Scheduled auto upgrade system (this is only for system upgrades, 
-  # if you want to upgrade cargo\npm\pip global packages, docker containers or different part of the system 
-  # or get really full system upgrade, use `topgrade` CLI utility manually instead.
-  # I recommend running `topgrade` once a week or at least once a month)
+  # Automated NixOS system upgrades
+  # NOTE: This only handles NixOS system packages and configuration
+  # For comprehensive upgrades including cargo/npm/pip packages, Docker containers,
+  # and other system components, use the `topgrade` CLI utility manually
+  # Recommended: Run `topgrade` weekly or monthly for complete system maintenance
   system.autoUpgrade = {
+    # Enable automatic system upgrades
     enable = true;
-    operation = "switch"; # If you don't want to apply updates immediately, only after rebooting, use `boot` option in this case
+    
+    # Upgrade operation type
+    # "switch": Apply updates immediately after download
+    # "boot": Only apply updates after next reboot (safer for servers)
+    operation = "switch";
+    
+    # Path to the NixOS flake configuration
+    # Points to system flake for upgrade source
     flake = "/etc/nixos";
-    flags = [ "--update-input" "nixpkgs" "--update-input" "rust-overlay" "--commit-lock-file" ];
+    
+    # Additional flags for the upgrade process
+    flags = [
+      # Update nixpkgs input to latest version
+      "--update-input" "nixpkgs"
+      # Update rust-overlay input for latest Rust toolchain
+      "--update-input" "rust-overlay"
+      # Commit the updated lock file to version control
+      "--commit-lock-file"
+    ];
+    
+    # Upgrade schedule
+    # Options: "daily", "weekly", "monthly", or systemd timer format
     dates = "weekly";
+    
+    # Legacy channel-based updates (commented out)
+    # Modern flake-based systems use the flake input instead
     # channel = "https://nixos.org/channels/nixos-unstable";
   };
 }

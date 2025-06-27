@@ -1,0 +1,22 @@
+# Environment files containing secrets
+wireless-networks.env
+wireless-secrets
+*.env
+.claude
+
+
+# Temporary files
+*.tmp
+*.bak
+*.backup
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
