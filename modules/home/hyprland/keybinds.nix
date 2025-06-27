@@ -33,7 +33,7 @@ in
       "$mainMod, X, togglesplit,"
 
       # system controls
-      "$mainMod, Escape, exec, swaylock"
+      "$mainMod, Escape, exec, hyprlock"
       "ALT, Escape, exec, hyprlock"
       "$mainMod SHIFT, Escape, exec, power-menu"
       "CTRL SHIFT, Escape, exec, hyprctl dispatch exec '[workspace 9] missioncenter'"

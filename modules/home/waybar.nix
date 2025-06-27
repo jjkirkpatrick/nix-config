@@ -201,7 +201,7 @@ GW: {gwaddr}
           return-type = "json";
           exec = "echo '{\"text\":\"󰐥\", \"tooltip\": \"logout menu\"}'";
           interval = "once";
-          on-click = "wlogout";
+          on-click = "hyprlock";
         };
       }
 

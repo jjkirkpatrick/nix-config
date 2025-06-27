@@ -63,7 +63,6 @@
     
     # Widget system
     waybar                   # wayland status bar
-    wlogout                  # wayland logout menu
     streamdeck-ui            # streamdeck
     
     # Terminal emulators (alternatives)
