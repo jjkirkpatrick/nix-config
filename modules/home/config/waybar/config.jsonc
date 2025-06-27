@@ -18,7 +18,8 @@
         "pulseaudio",
         "pulseaudio#microphone",
         "clock",
-        "custom/weather"
+        "custom/weather",
+        "custom/logout"
     ],
 
     "hyprland/window": {
@@ -89,5 +90,11 @@
         "on-scroll-up": "pamixer --default-source -i 5",
         "on-scroll-down": "pamixer --default-source -d 5",
         "scroll-step": 5
+    },
+    "custom/logout": {
+        "format": "⏻",
+        "tooltip": false,
+        "on-click": "wlogout",
+        "class": "logout-button"
     }
 }

@@ -55,6 +55,7 @@
   #custom-caffeine,
   #custom-weather,
   #custom-spotify,
+  #custom-logout,
   #window,
   #clock,
   #battery,
@@ -166,5 +167,17 @@
 
   #custom-spotify.disconnected {
     color: #585b70;
+  }
+
+  #custom-logout {
+    color: #f38ba8;
+    border-radius: 0px 10px 10px 0px;
+    border-left: 0px;
+    margin-right: 10px;
+  }
+
+  #custom-logout:hover {
+    background: #f38ba8;
+    color: #1e1e2e;
   }
   
