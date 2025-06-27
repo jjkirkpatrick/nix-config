@@ -44,4 +44,14 @@
     # System-wide theming configuration
     ./theme.nix
   ];
+
+  # Nixpkgs configuration - allow insecure packages when necessary
+  nixpkgs.config = {
+    # Allow specific insecure packages that are still needed
+    # OpenSSL 1.1.1w is required by some packages (e.g., Steam games)
+    # even though it has reached end-of-life
+    permittedInsecurePackages = [
+      "openssl-1.1.1w"
+    ];
+  };
 }

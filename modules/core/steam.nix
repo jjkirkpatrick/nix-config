@@ -38,4 +38,9 @@
       ];
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    runescape
+    runelite
+  ];
 }

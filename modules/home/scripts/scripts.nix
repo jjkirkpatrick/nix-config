@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  scriptDir = ./scripts;
+  scriptDir = ./.;
   scriptEntries = builtins.readDir scriptDir;
 
   regularFiles = builtins.filter (name: scriptEntries.${name} == "regular") (

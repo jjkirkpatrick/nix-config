@@ -9,18 +9,11 @@
   services.flatpak = {
     # Flatpak is currently disabled
     # Enable this to use sandboxed applications from Flathub
-    enable = false;
+    enable = true;
     
     # Declaratively managed Flatpak applications
     # These will be automatically installed when Flatpak is enabled
     packages = [
-      # Flatseal - Flatpak permission manager
-      # GUI tool for managing Flatpak application permissions and overrides
-      "com.github.tchx84.Flatseal"
-      
-      # Olympus - Celeste mod installer and manager
-      # Tool for managing mods for the Celeste game
-      "io.github.everestapi.Olympus"
     ];
     
     # Global application overrides and permissions

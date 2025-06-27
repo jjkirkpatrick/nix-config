@@ -36,6 +36,7 @@
     ./p10k/p10k.nix                  # Powerlevel10k shell prompt theme
     ./zsh                            # Zsh shell configuration (aliases, keybinds, plugins)
     ./scripts/scripts.nix             # Shell scripts for system management and development
+    ./gtk.nix                         # GTK theme and configuration
     # Hardware and Peripheral Configuration
   ];
 

@@ -45,6 +45,22 @@
     home-manager  # User environment manager
   ];
 
+  # Create /bin/sh symlink for compatibility with non-NixOS applications
+  # Many applications (including Flatpaks) expect /bin/sh to exist
+  environment.binsh = "${pkgs.dash}/bin/dash";
+  
+  # System-wide environment variables
+  environment.sessionVariables = {
+    # Add Flatpak application directories to XDG_DATA_DIRS
+    # This ensures Flatpak applications appear in application menus
+    XDG_DATA_DIRS = [
+      "/var/lib/flatpak/exports/share"
+      "$HOME/.local/share/flatpak/exports/share"
+      "/usr/share"
+      "/run/current-system/sw/share"
+    ];
+  };
+
   # System timezone configuration
   time.timeZone = "Europe/London";
   

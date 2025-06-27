@@ -58,6 +58,8 @@
     # Virtual machine emulation
     # QEMU system emulator and virtualizer
     qemu
+    swtpm
+    OVMFFull
     
     # SPICE protocol components
     # Remote display system for virtual machines
