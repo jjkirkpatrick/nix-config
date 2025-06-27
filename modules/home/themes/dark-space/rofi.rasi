@@ -1,0 +1,208 @@
+/* Dark Space Theme for Rofi
+ * Deep Space: #0B0D17 (primary background)
+ * Void Black: #0F141E (secondary background)
+ * Shadow Gray: #131820 (tertiary background)
+ * Dark Slate: #1A1F2E (elements background)
+ * Cosmic Gray: #252A38 (hover states)
+ * Star White: #F8FAFC (primary text)
+ * Slate Blue: #E2E8F0 (secondary text)
+ * Accent colors: #10B981 (green), #F97316 (orange), #06B6D4 (cyan), #8B5CF6 (purple)
+ */
+
+* {
+  bg-col: #0B0D17;
+  bg-col-light: #1A1F2E;
+  border-col: #252A38;
+  selected-col: #252A38;
+  blue: #8B5CF6;
+  fg-col: #F8FAFC;
+  fg-col2: #E2E8F0;
+  grey: #64748B;
+  
+  width: 600;
+  font: "JetBrains Mono Nerd Font 14";
+  
+  background-color: transparent;
+  text-color: @fg-col;
+  margin: 0;
+  padding: 0;
+  spacing: 0;
+}
+
+element-text, element-icon, mode-switcher {
+  background-color: inherit;
+  text-color: inherit;
+  cursor: pointer;
+}
+
+window {
+  height: 520px;
+  border: 2px;
+  border-color: @border-col;
+  border-radius: 16px;
+  background-color: @bg-col;
+}
+
+mainbox {
+  background-color: @bg-col;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+inputbar {
+  children: [prompt, entry];
+  background-color: @bg-col-light;
+  border-radius: 12px;
+  padding: 2px;
+  border: 1px;
+  border-color: @border-col;
+  margin: 0px 0px 20px 0px;
+}
+
+prompt {
+  background-color: @blue;
+  padding: 8px 12px;
+  text-color: @bg-col;
+  border-radius: 10px;
+  margin: 0px;
+  font-weight: bold;
+}
+
+textbox-prompt-colon {
+  expand: false;
+  str: ":";
+}
+
+entry {
+  padding: 8px 12px;
+  margin: 0px;
+  text-color: @fg-col;
+  background-color: transparent;
+  border-radius: 10px;
+  placeholder: "Search...";
+  placeholder-color: @grey;
+  vertical-align: 0.5;
+}
+
+listview {
+  border: 0px;
+  padding: 6px 0px 0px;
+  margin: 10px 0px 0px 0px;
+  columns: 1;
+  lines: 8;
+  background-color: @bg-col;
+  cycle: true;
+  dynamic: true;
+  layout: vertical;
+  scrollbar: true;
+  fixed-height: false;
+}
+
+element {
+  padding: 8px 12px;
+  margin: 0px 0px 4px 0px;
+  border-radius: 10px;
+  background-color: transparent;
+  text-color: @fg-col2;
+  spacing: 8px;
+}
+
+element-icon {
+  size: 24px;
+  margin: 0px 8px 0px 0px;
+  vertical-align: 0.5;
+}
+
+element-text {
+  text-color: inherit;
+  vertical-align: 0.5;
+}
+
+element.selected {
+  background-color: @selected-col;
+  text-color: @fg-col;
+  border: 1px;
+  border-color: @blue;
+}
+
+element.selected.active {
+  background-color: @blue;
+  text-color: @bg-col;
+}
+
+element normal active {
+  text-color: @blue;
+}
+
+element alternate active {
+  text-color: @blue;
+}
+
+element normal urgent {
+  text-color: #F97316;
+}
+
+element selected urgent {
+  background-color: #F97316;
+  text-color: @bg-col;
+}
+
+mode-switcher {
+  spacing: 0;
+  background-color: @bg-col-light;
+  border-radius: 12px;
+  border: 1px;
+  border-color: @border-col;
+  margin: 20px 0px 0px 0px;
+}
+
+button {
+  padding: 10px 16px;
+  border-radius: 10px;
+  background-color: transparent;
+  text-color: @grey;
+  vertical-align: 0.5;
+  horizontal-align: 0.5;
+  cursor: pointer;
+}
+
+button.selected {
+  background-color: @blue;
+  text-color: @bg-col;
+  font-weight: bold;
+}
+
+
+scrollbar {
+  width: 4px;
+  border: 0;
+  handle-color: @blue;
+  handle-width: 8px;
+  padding: 0 4px;
+}
+
+message {
+  background-color: @bg-col-light;
+  border: 1px;
+  border-color: @border-col;
+  border-radius: 12px;
+  padding: 12px;
+  margin: 20px 0px 0px 0px;
+}
+
+textbox {
+  text-color: @fg-col;
+  background-color: transparent;
+  vertical-align: 0.5;
+  horizontal-align: 0.0;
+  padding: 4px 8px;
+}
+
+error-message {
+  background-color: #F97316;
+  border: 2px;
+  border-color: #F97316;
+  border-radius: 12px;
+  padding: 12px;
+  color: @bg-col;
+}

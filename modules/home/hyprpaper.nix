@@ -10,20 +10,20 @@
       
       # Preload wallpapers
       preload = [
-        "~/Pictures/wallpapers/astronaut.jpg"
+        "~/Pictures/wallpapers/space.png"
       ];
       
       # Set wallpapers for monitors
       wallpaper = [
-        "DP-3,~/Pictures/wallpapers/astronaut.jpg"
-        "HDMI-A-1,~/Pictures/wallpapers/astronaut.jpg"
-        ",~/Pictures/wallpapers/astronaut.jpg" # fallback for any monitor
+        "DP-3,~/Pictures/wallpapers/space.png"
+        "HDMI-A-1,~/Pictures/wallpapers/space.png"
+        ",~/Pictures/wallpapers/space.png" # fallback for any monitor
       ];
     };
   };
 
   # Ensure wallpapers directory exists and copy wallpapers
-  home.file."Pictures/wallpapers/astronaut.jpg" = {
-    source = ../../wallpapers/astronaut.jpg;
+  home.file."Pictures/wallpapers/space.png" = {
+    source = ../../wallpapers/space.png;
   };
 }
