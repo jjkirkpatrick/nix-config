@@ -2,6 +2,8 @@
 wireless-networks.env
 wireless-secrets
 *.env
+.claude
+
 
 # Temporary files
 *.tmp
