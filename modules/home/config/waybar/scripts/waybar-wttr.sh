@@ -54,7 +54,7 @@ tooltip="${tooltip}Wind: ${wind_speed}Km/h\n"
 tooltip="${tooltip}Humidity: ${humidity}%\n"
 
 # Add forecast data (simplified - just today and tomorrow)
-forecast_data=$(echo "$weather_data" | jq -r '.weather[0,1] | "\(.date)|\(.maxtempF)|\(.mintempF)|\(.astronomy[0].sunrise)|\(.astronomy[0].sunset)"')
+forecast_data=$(echo "$weather_data" | jq -r '.weather[0,1] | "\(.date)|\(.maxtempC)|\(.mintempC)|\(.astronomy[0].sunrise)|\(.astronomy[0].sunset)"')
 day_count=0
 while IFS='|' read -r date max_temp min_temp sunrise sunset; do
     if [ $day_count -eq 0 ]; then

@@ -4,8 +4,8 @@
 # Shows current playing song with artist and title
 
 # Check if Spotify is running
-if ! pgrep -x "spotify" > /dev/null; then
-    echo '{"text": "", "tooltip": "Spotify not running", "class": "disconnected"}'
+if ! pgrep -f ".spotify-wrapped" > /dev/null; then
+    echo '{"text": " Offline", "tooltip": "Spotify not running", "class": "disconnected"}'
     exit 0
 fi
 
