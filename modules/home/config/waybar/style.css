@@ -54,6 +54,7 @@
   #custom-updates,
   #custom-caffeine,
   #custom-weather,
+  #custom-spotify,
   #window,
   #clock,
   #battery,
@@ -146,5 +147,24 @@
     border-radius: 0px 10px 10px 0px;
     border-right: 0px;
     margin-left: 0px;
+  }
+
+  #custom-spotify {
+    color: #1db954;
+    border-radius: 10px 0px 0px 10px;
+    border-left: 0px;
+    border-right: 0px;
+  }
+
+  #custom-spotify.playing {
+    color: #1db954;
+  }
+
+  #custom-spotify.paused {
+    color: #fab387;
+  }
+
+  #custom-spotify.disconnected {
+    color: #585b70;
   }
   

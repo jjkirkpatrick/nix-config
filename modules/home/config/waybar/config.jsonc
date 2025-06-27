@@ -12,6 +12,7 @@
     "modules-center": ["hyprland/window"],
     "modules-right": [
         "tray",
+        "custom/spotify",
         "custom/updates",
         "hyprland/language",
         "pulseaudio",
@@ -43,6 +44,16 @@
         "interval" : 30,
         "exec" : "~/.config/waybar/scripts/waybar-wttr.sh",
         "return-type" : "json"
+    },
+    "custom/spotify": {
+        "format": "{}",
+        "tooltip": true,
+        "interval": 5,
+        "exec": "~/.config/waybar/scripts/spotify.sh",
+        "return-type": "json",
+        "on-click": "playerctl --player=spotify play-pause",
+        "on-click-right": "playerctl --player=spotify next",
+        "on-click-middle": "playerctl --player=spotify previous"
     },
     "tray": {
         "icon-size": 16,
