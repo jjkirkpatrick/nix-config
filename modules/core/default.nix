@@ -20,5 +20,6 @@
     ./nvidia.nix
     ./auto-upgrade.nix
     ./bluetooth.nix
+    ./theme.nix
   ];
 }

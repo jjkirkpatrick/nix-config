@@ -1,31 +1,36 @@
-{ pkgs, username, ... }:
+{ pkgs, ... }: 
+
 {
-  # Add user to libvirtd group
-  users.users.${username}.extraGroups = [ "libvirtd" ];
-
-  # Install necessary packages
-  environment.systemPackages = with pkgs; [
-    virt-manager
-    virt-viewer
-    spice
-    spice-gtk
-    spice-protocol
-    win-virtio
-    win-spice
-    adwaita-icon-theme
-  ];
-
-  # Manage the virtualisation services
   virtualisation = {
+    spiceUSBRedirection.enable = true;
+
     libvirtd = {
       enable = true;
+
       qemu = {
         swtpm.enable = true;
         ovmf.enable = true;
         ovmf.packages = [ pkgs.OVMFFull.fd ];
       };
     };
-    spiceUSBRedirection.enable = true;
+
+    podman = {
+      enable = true;
+
+      dockerCompat = true;
+      defaultNetwork.settings.dns_enabled = true;
+    };
   };
-  services.spice-vdagentd.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    podman-compose
+    qemu
+    spice
+    spice-gtk
+    spice-protocol
+    virt-manager
+    virt-viewer
+    win-spice
+    win-virtio  
+  ];
 }

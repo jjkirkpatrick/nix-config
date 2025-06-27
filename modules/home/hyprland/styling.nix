@@ -1,6 +1,17 @@
-{ ... }:
+{ pkgs, ... }:
 {
   wayland.windowManager.hyprland.settings = {
+    # Cursor configuration
+    cursor = {
+      no_hardware_cursors = true;
+      enable_hyprcursor = true;
+    };
+
+    # Environment variables for cursor
+    env = [
+      "HYPRCURSOR_THEME,rose-pine-hyprcursor"
+      "HYPRCURSOR_SIZE,24"
+    ];
     decoration = {
       rounding = 12; # Enable rounding for Dark Space aesthetic
       active_opacity = 0.95;    # Active windows slightly transparent

@@ -86,6 +86,9 @@
     
     # Password client
     bitwarden-desktop         # bitwarden client
+    
+    # Cursor themes
+    rose-pine-hyprcursor      # rose pine cursor theme
  
  ];
 }
