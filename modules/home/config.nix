@@ -91,5 +91,13 @@ in
     ".config/mako".source = "${configDir}/mako";
     # Mako notification daemon configuration - Handles desktop notifications
     # with custom styling, positioning, and behavior settings
+
+    # ========================================
+    # Hardware and Peripheral Control
+    # ========================================
+    
+    ".config/streamdeck".source = "${configDir}/streamdeck";
+    # StreamDeck configuration - Custom button layouts and macros
+    # for system management, development workflows, and application control
   };
 }

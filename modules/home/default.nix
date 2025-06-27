@@ -35,6 +35,9 @@
     # Shell and Terminal Environment
     ./p10k/p10k.nix                  # Powerlevel10k shell prompt theme
     ./zsh                            # Zsh shell configuration (aliases, keybinds, plugins)
+    
+    # Hardware and Peripheral Configuration
+    ./config/streamdeck              # StreamDeck configuration and service management
   ];
 
   # ============================================================
