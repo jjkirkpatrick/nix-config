@@ -5,6 +5,7 @@
     ./config.nix                      # configuration files
     ./packages                        # CLI and GUI packages
     ./fonts.nix                       # font configuration
+    ./development.nix                 # programming languages and dev tools
     # ./kitty.nix                       # terminal
     # ./hyprpaper.nix                   # wallpaper manager
     # ./waybar.nix                      # status bar
