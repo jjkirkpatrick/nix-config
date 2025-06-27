@@ -141,29 +141,42 @@ The configuration features a centralized **Dark Space** theme system inspired by
 | `SUPER + H,J,K,L`         | Move focus between windows               |
 | `SUPER + SHIFT + H,J,K,L` | Move windows in workspace                |
 | `SUPER + CTRL + H,J,K,L`  | Resize active window                     |
+| `SUPER + ALT + H,J,K,L`   | Move active window position              |
 | `SUPER + 1-9,0`           | Switch to workspace 1-10                |
-| `SUPER + SHIFT + 1-9,0`   | Move window to workspace 1-10            |
-| `SUPER + S`               | Toggle window split orientation          |
+| `SUPER + SHIFT + 1-9,0`   | Move window to workspace 1-10 (silent)  |
+| `SUPER + CTRL + C`        | Move window to empty workspace           |
+| `SUPER + X`               | Toggle window split orientation          |
 | `SUPER + F`               | Toggle fullscreen                        |
+| `SUPER + SHIFT + F`       | Toggle maximize                          |
+| `SUPER + Space`           | Toggle floating mode                     |
+| `SUPER + P`               | Toggle pseudo-tiling                     |
 | `SUPER + Q`               | Close active window                      |
 
 ### Application Shortcuts
 | Key Combination           | Action                                    |
 | ------------------------- | ----------------------------------------- |
 | `SUPER + Return`          | Launch Kitty terminal                    |
-| `SUPER + D`               | Launch Wofi application launcher         |
+| `ALT + Return`            | Launch floating Kitty terminal           |
+| `SUPER + SHIFT + Return`  | Launch fullscreen Kitty terminal         |
+| `SUPER + R`               | Launch Wofi application launcher         |
 | `SUPER + E`               | Launch Nemo file manager                 |
-| `SUPER + B`               | Launch Brave browser                     |
-| `SUPER + C`               | Launch Discord                           |
+| `ALT + E`                 | Launch floating Nemo file manager        |
+| `SUPER + B`               | Launch Brave browser (workspace 1)       |
+| `SUPER + SHIFT + D`       | Launch Discord                           |
+| `SUPER + V`               | Open clipboard history with Wofi         |
 
 ### System Controls
 | Key Combination           | Action                                    |
 | ------------------------- | ----------------------------------------- |
-| `SUPER + M`               | Launch Wlogout menu                      |
-| `SUPER + SHIFT + Q`       | Lock screen with Swaylock               |
-| `SUPER + SHIFT + M`       | Exit Hyprland                            |
-| `Print`                   | Screenshot area to clipboard             |
-| `SHIFT + Print`           | Screenshot full screen                   |
+| `SUPER + Escape`          | Lock screen with Swaylock               |
+| `ALT + Escape`            | Lock screen with Swaylock               |
+| `SUPER + SHIFT + Escape`  | Launch Wlogout menu                      |
+| `CTRL + SHIFT + Escape`   | Launch Mission Center (workspace 9)      |
+| `SUPER + SHIFT + B`       | Toggle Waybar                            |
+| `SUPER + N`               | Dismiss notifications                    |
+| `Print`                   | Screenshot to clipboard                  |
+| `SUPER + Print`           | Screenshot to file                       |
+| `SUPER + SHIFT + Print`   | Screenshot area with Swappy              |
 
 ### Audio & Media
 | Key Combination           | Action                                    |
@@ -188,8 +201,8 @@ The configuration features a centralized **Dark Space** theme system inspired by
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/nixos-config.git /etc/nixos
-   cd /etc/nixos
+   git clone https://github.com/jjkirkpatrick/nix-config.git
+   cd nix-config
    ```
 
 2. **Configure WiFi secrets:**
