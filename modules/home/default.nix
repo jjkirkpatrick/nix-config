@@ -37,7 +37,6 @@
     ./zsh                            # Zsh shell configuration (aliases, keybinds, plugins)
     
     # Hardware and Peripheral Configuration
-    ./config/streamdeck              # StreamDeck configuration and service management
   ];
 
   # ============================================================
