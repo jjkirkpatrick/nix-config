@@ -35,7 +35,7 @@
     # Shell and Terminal Environment
     ./p10k/p10k.nix                  # Powerlevel10k shell prompt theme
     ./zsh                            # Zsh shell configuration (aliases, keybinds, plugins)
-    
+    ./scripts                        # Shell scripts for system management and development
     # Hardware and Peripheral Configuration
   ];
 
