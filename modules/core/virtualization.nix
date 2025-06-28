@@ -1,54 +1,38 @@
 # Virtualization and containerization configuration
 { pkgs, ... }: 
 
+# Remove this line:
+# kvmgt.enable = true;
 {
   virtualisation = {
-    # SPICE protocol configuration
-    # Enable USB device redirection for virtual machines
-    # Allows passing USB devices from host to guest VMs
     spiceUSBRedirection.enable = true;
-
-    # libvirtd virtualization daemon
+    
     libvirtd = {
-      # Enable libvirtd for managing virtual machines
-      # Provides the backend for virt-manager and virsh
       enable = true;
-
-      # QEMU/KVM configuration
       qemu = {
-        # Software TPM (Trusted Platform Module) support
-        # Required for Windows 11 and other modern OS security features
+        package = pkgs.qemu_kvm;  # Add this line
+        runAsRoot = false;        # Add this line
         swtpm.enable = true;
-        
-        # OVMF UEFI firmware support
-        # Enables UEFI boot for virtual machines instead of legacy BIOS
         ovmf.enable = true;
-        
-        # Full OVMF package with secure boot support
-        # Includes additional UEFI features and security capabilities
         ovmf.packages = [ pkgs.OVMFFull.fd ];
       };
     };
-
-    # Podman container runtime configuration
+    
     podman = {
-      # Enable Podman as container runtime
-      # Rootless container alternative to Docker
       enable = true;
-
-      # Docker compatibility layer
-      # Allows using 'docker' command that maps to podman
       dockerCompat = true;
-      
-      # Network configuration
       defaultNetwork.settings = {
-        # Enable DNS resolution for containers
-        # Allows containers to resolve domain names
         dns_enabled = true;
       };
     };
   };
 
+  # Keep only kvm-amd
+  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelParams = [ "amd_iommu=on" "iommu=pt" ];
+
+# Add user to groups
+users.users.josh.extraGroups = [ "libvirtd" "kvm" ];
   # Virtualization and container management tools
   environment.systemPackages = with pkgs; [
     # Container orchestration
@@ -59,7 +43,7 @@
     # QEMU system emulator and virtualizer
     qemu
     swtpm
-    OVMFFull
+    OVMF
     
     # SPICE protocol components
     # Remote display system for virtual machines
@@ -80,3 +64,4 @@
     win-virtio     # VirtIO drivers for Windows guests
   ];
 }
+

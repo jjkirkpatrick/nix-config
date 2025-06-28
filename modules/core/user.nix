@@ -70,6 +70,12 @@
       "wheel"
       # Audio device access for PipeWire
       "audio"
+      # GPU passthrough for virtual machines
+      "kvm"
+      # VFIO group for GPU passthrough
+      "vfio"
+      # IOMMU group for GPU passthrough
+      "libvirtd"
     ];
     
     # Set default shell to Zsh
