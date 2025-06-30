@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Weather icons mapping function
 get_weather_icon() {
@@ -57,7 +57,7 @@ tooltip="${tooltip}Humidity: ${humidity}%\n"
 forecast_data=$(echo "$weather_data" | jq -r '.weather[0,1] | "\(.date)|\(.maxtempC)|\(.mintempC)|\(.astronomy[0].sunrise)|\(.astronomy[0].sunset)"')
 day_count=0
 while IFS='|' read -r date max_temp min_temp sunrise sunset; do
-    if [ $day_count -eq 0 ]; thens
+    if [ $day_count -eq 0 ]; then
         tooltip="${tooltip}\n<b>Today, ${date}</b>\n"
     elif [ $day_count -eq 1 ]; then
         tooltip="${tooltip}\n<b>Tomorrow, ${date}</b>\n"

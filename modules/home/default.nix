@@ -37,6 +37,10 @@
     ./zsh                            # Zsh shell configuration (aliases, keybinds, plugins)
     ./scripts/scripts.nix             # Shell scripts for system management and development
     ./gtk.nix                         # GTK theme and configuration
+
+    # Reading and Audiobooks
+    ./reading.nix                     # Audible CLI installation and configuration
+
     # Hardware and Peripheral Configuration
   ];
 

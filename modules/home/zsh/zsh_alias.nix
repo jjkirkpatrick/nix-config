@@ -76,7 +76,7 @@
     # ========================================
     # Quick access to development tools and common workflows
     
-    cdnix = "cd ~/nixos-config && cursor ~/nixos-config";
+    cdnix = "cd ~/nixos-config && cursor ~/nixos-config &";
     # Navigate to NixOS configuration directory and open in Cursor
     # Combines directory change with editor launch for quick config editing
 

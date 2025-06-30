@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Spotify waybar module
 # Shows current playing song with artist and title

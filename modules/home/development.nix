@@ -80,7 +80,11 @@
     # Database Development Tools
     # ========================================
     sqlite                           # Lightweight embedded database - development and testing
-    
+    dbeaver-bin                          # Universal database management tool - supports multiple databases
+    pgadmin                          # PostgreSQL management tool - GUI for PostgreSQL
+
+
+
     # ========================================
     # Version Control and Collaboration
     # ========================================
