@@ -40,7 +40,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    runescape
+    bolt-launcher
     runelite
   ];
 }

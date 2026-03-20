@@ -361,12 +361,8 @@
     # ========================================
     # GUI applications for secure password storage
     
-    bitwarden-desktop        # Cross-platform password manager
-                            # - Encrypted password vault with cloud sync
-                            # - Secure password generation
-                            # - Multi-factor authentication support
-                            # - Browser integration for auto-fill
-                            # - Secure note and document storage
+    # bitwarden-desktop is installed via Flatpak (see flatpak.nix)
+    # The nixpkgs build is currently broken due to an electron patch failure
     
     # ========================================
     # THEME AND CUSTOMIZATION
@@ -423,11 +419,10 @@
                             # - Battery life optimization
                             # - Security through automatic locking
     
-    swaylock-effects         # Enhanced screen locker with visual effects
-                            # - Secure screen locking with customization
-                            # - Blur effects and custom backgrounds
-                            # - Integration with idle management
-                            # - Security with visual appeal
+    hyprlock                 # Screen locker for Hyprland (replaces swaylock-effects)
+                            # - Native Hyprland screen locker with blur and effects
+                            # - PAM authentication configured in security.nix
+                            # - Hardware-accelerated rendering
     
     wlogout                  # Logout menu for Wayland
                             # - Graphical logout/shutdown interface
@@ -440,6 +435,20 @@
                             # - Customizable appearance and behavior
                             # - Fast application searching and launching
                             # - Integration with Wayland compositors
+
+    # ========================================
+    # PRODUCTIVITY AND NOTES
+    # ========================================
+
+    obsidian                 # Knowledge base and note-taking app
+                            # - Markdown-based personal knowledge management
+                            # - Bidirectional linking and graph view
+                            # - Extensible via community plugins
+
+    vscode                   # Visual Studio Code editor
+                            # - Full-featured code editor by Microsoft
+                            # - Large extension ecosystem
+                            # - Integrated debugging, git, and terminal
  ];
 
   # ============================================================

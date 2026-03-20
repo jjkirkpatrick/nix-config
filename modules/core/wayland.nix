@@ -8,10 +8,10 @@
     # Enable XWayland for X11 application compatibility
     xwayland.enable = true; 
     # Use Hyprland package from flake input for latest features
-    package = inputs.hyprland.packages.${pkgs.system}.default;
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
     # Use Hyprland's XDG desktop portal for better integration
     portalPackage =
-      inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
+      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
   };
 
   # Configure XDG desktop portals for application integration

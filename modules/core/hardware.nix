@@ -24,11 +24,11 @@ in
         
         # Intel VAAPI driver with hybrid codec support
         # Enables hardware-accelerated video decode/encode for Intel graphics
-        (vaapiIntel.override { enableHybridCodec = true; })
+        (intel-vaapi-driver.override { enableHybridCodec = true; })
         
         # VAAPI driver for VDPAU backend
         # Provides video acceleration compatibility layer
-        vaapiVdpau
+        libva-vdpau-driver
         
         # VDPAU driver for VA-GL backend
         # Another compatibility layer for video acceleration

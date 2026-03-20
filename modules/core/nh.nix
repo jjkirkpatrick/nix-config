@@ -20,7 +20,7 @@
     
     # Path to the NixOS flake configuration
     # Points to the user's nixos-config directory
-    flake = "/home/${username}/nixos-config";
+    flake = "/home/${username}/nix-config";
   };
 
   # Additional system packages for Nix management

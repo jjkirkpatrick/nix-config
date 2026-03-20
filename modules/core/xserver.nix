@@ -28,5 +28,5 @@
   # System service timeout configuration
   # Reduce the default shutdown timeout to prevent hanging on shutdown
   # Default is 90 seconds, this reduces it to 10 seconds for faster shutdowns
-  systemd.extraConfig = "DefaultTimeoutStopSec=10s";
+  #systemd.settings.Manager = "DefaultTimeoutStopSec=10s";
 }

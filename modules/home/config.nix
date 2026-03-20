@@ -60,11 +60,7 @@ in
     # Swayidle configuration - Manages idle states, screen timeout,
     # and automatic locking for security and power management
 
-    ".config/swaylock".source = "${configDir}/swaylock";
-    # Swaylock screen locker configuration - Secure screen locking
-    # with custom styling and authentication options
-
-    ".config/wlogout".source = "${configDir}/wlogout";
+".config/wlogout".source = "${configDir}/wlogout";
     # Wlogout session menu configuration - Provides logout, shutdown,
     # reboot, and lock options with custom styling
 

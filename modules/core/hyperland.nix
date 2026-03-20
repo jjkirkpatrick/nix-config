@@ -8,12 +8,12 @@
     
     # Use Hyprland package from the flake input
     # Ensures we get the latest version with all features
-    package = inputs.hyprland.packages.${pkgs.system}.default;
-    
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
+
     # XDG Desktop Portal for Hyprland
     # Handles screen sharing, file picking, and other desktop integration
     portalPackage =
-      inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
+      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
   };
 
   # XDG Desktop Portal configuration
@@ -67,8 +67,6 @@
     # Power management and screen locking
     # Swayidle - idle management daemon
     swayidle
-    # Swaylock-effects - screen locker with visual effects
-    swaylock-effects
     
     # Session management
     # Wlogout - logout menu for Wayland

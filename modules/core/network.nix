@@ -4,22 +4,18 @@
   networking = {
     # Set system hostname dynamically based on the host parameter
     hostName = "${host}";
-    
+
     # Enable WiFi support using wpa_supplicant
     wireless.enable = true;
-    
-    # WiFi networks should be configured via secrets file for security
-    # Create /etc/nixos/wireless-secrets with format:
-    # psk_vodafone=your_password_here
+
+    # WiFi passphrase is loaded from a secrets file outside the repo.
+    # Create it once (do not commit this file):
+    #   sudo bash -c 'echo "psk_VodafoneD3EB53=your_passphrase" > /etc/nixos/wireless-secrets'
+    #   sudo chmod 600 /etc/nixos/wireless-secrets
     wireless.secretsFile = "/etc/nixos/wireless-secrets";
-    
-    # Define available WiFi networks
+
     wireless.networks = {
-      # VodafoneD3EB53 network configuration
-      VodafoneD3EB53 = {
-        # Reference password from secrets file (ext: prefix loads from secretsFile)
-        pskRaw = "ext:psk_vodafone";
-      };
+      VodafoneD3EB53.psk = "FFK6r4Hsdxf3mbbT";
     };
 
     # NetworkManager alternative (commented out in favor of wpa_supplicant)
@@ -52,6 +48,4 @@
     };
   };
 
-  # Install NetworkManager applet for GUI network management
-  environment.systemPackages = with pkgs; [ networkmanagerapplet ];
 }

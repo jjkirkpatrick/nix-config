@@ -13,10 +13,8 @@
     ./network.nix
     # NixOS Helper (nh) tool configuration
     ./nh.nix
-    # Audio hardware configuration (ALSA, USB audio interfaces)
+    # Audio hardware configuration (ALSA, USB audio interfaces, PipeWire)
     ./audio.nix
-    # PipeWire audio server configuration
-    ./pipewire.nix
     # System programs and command-line tools
     ./program.nix
     # Security settings and permissions
@@ -39,6 +37,8 @@
     ./nvidia.nix
     # Automatic system updates configuration
     ./auto-upgrade.nix
+    # Nix store optimisation and garbage collection
+    ./gc.nix
     # Bluetooth hardware and service support
     ./bluetooth.nix
     # System-wide theming configuration

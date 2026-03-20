@@ -426,6 +426,26 @@ install_wallpapers() {
     log "SUCCESS" "Wallpapers installed to $wallpaper_dest"
 }
 
+generate_hardware_config() {
+    local host_dir="$CONFIG_DIR/hosts/$HOSTNAME"
+
+    log "INFO" "Generating hardware configuration for this machine..."
+
+    if [[ "$DRY_RUN" == true ]]; then
+        log "INFO" "[DRY RUN] Would run: sudo nixos-generate-config --show-hardware-config"
+        log "INFO" "[DRY RUN] Would write to: $host_dir/hardware-configuration.nix"
+        return 0
+    fi
+
+    if ! sudo nixos-generate-config --show-hardware-config > "$host_dir/hardware-configuration.nix" 2>/dev/null; then
+        log "ERROR" "Failed to generate hardware configuration!"
+        log "INFO" "Ensure you are running on the target machine inside a NixOS live environment."
+        exit 1
+    fi
+
+    log "SUCCESS" "Hardware configuration written to $host_dir/hardware-configuration.nix"
+}
+
 backup_existing_config() {
     local backup_dir="$HOME/.config/nixos-backup-$(date +%Y%m%d_%H%M%S)"
     
@@ -513,7 +533,7 @@ setup_wifi_secrets() {
 # This file contains sensitive WiFi passwords
 
 # VodafoneD3EB53 network password
-psk_vodafone=$WIFI_PASSWORD
+psk_VodafoneD3EB53=$WIFI_PASSWORD
 
 # Add additional networks as needed:
 # psk_networkname=password_here
@@ -572,6 +592,7 @@ run_full_installation() {
     setup_wifi_secrets
     update_username_in_config
     validate_configuration
+    generate_hardware_config
     
     if confirm "Ready to build the system. This may take a while. Continue?"; then
         build_system

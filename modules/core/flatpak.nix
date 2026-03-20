@@ -14,6 +14,8 @@
     # Declaratively managed Flatpak applications
     # These will be automatically installed when Flatpak is enabled
     packages = [
+      # Bitwarden password manager - installed via Flatpak while nixpkgs electron build is broken
+      "com.bitwarden.desktop"
     ];
     
     # Global application overrides and permissions

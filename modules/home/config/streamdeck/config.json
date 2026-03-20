@@ -494,7 +494,7 @@
                                 "icon": "",
                                 "keys": "",
                                 "write": "",
-                                "command": "swaylock-effects",
+                                "command": "hyprlock",
                                 "brightness_change": 0,
                                 "switch_page": 0,
                                 "switch_state": 0,

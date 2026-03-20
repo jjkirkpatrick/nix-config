@@ -10,33 +10,12 @@
   # `nix-store --gc` - Remove unreferenced and obsolete store paths
   # `nix-collect-garbage -d` - Delete old generations of user profiles
   
-  # Nix store settings
-  nix.settings = {
-    # Automatically optimize store during builds
-    # Deduplicates identical files by creating hard links
-    # Saves significant disk space over time
-    auto-optimise-store = true;
-  };
-  
-  # Automatic store optimization
-  nix.optimise = {
-    # Enable automatic store optimization
-    # Runs periodically to deduplicate store paths
-    automatic = true;
-  };
-  
-  # Garbage collection configuration
-  nix.gc = {
-    # Enable automatic garbage collection
-    automatic = true;
-    
-    # Schedule for garbage collection
-    # Runs weekly to clean up unused packages
-    dates = "weekly";
-    
-    # Garbage collection options
-    # Delete generations older than 14 days
-    # Keeps recent generations for rollback capability
-    options = "--delete-older-than 14d";
-  };
+  # Periodic store deduplication (hard-links identical store paths)
+  # auto-optimise-store in system.nix covers per-build optimisation;
+  # this scheduled job catches anything that slipped through.
+  nix.optimise.automatic = true;
+
+  # Garbage collection is handled by programs.nh.clean in nh.nix
+  # (keeps last 7 days and 5 generations). Do not set nix.gc.automatic
+  # here as the two conflict.
 }

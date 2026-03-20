@@ -72,7 +72,7 @@
                             # - Useful for documentation and understanding structure
                             # - Complemented by eza's --tree option
     
-    du-dust                  # Modern disk usage analyzer
+    dust                  # Modern disk usage analyzer
                             # - Visual representation of disk usage
                             # - Faster than traditional 'du' command
                             # - Better output formatting with colors
@@ -295,12 +295,6 @@
     # ========================================
     # Tools for system information display and performance testing
     
-    neofetch                 # System information display with ASCII art
-                            # - Beautiful system info with distro logo
-                            # - Hardware, software, and theme information
-                            # - Customizable output and colors
-                            # - Great for screenshots and system showcasing
-    
     fastfetch                # Faster alternative to neofetch
                             # - Similar functionality with better performance
                             # - Reduced startup time and resource usage
@@ -358,11 +352,7 @@
                             # - Integration with screen lockers
                             # - Battery life optimization
     
-    swaylock-effects         # Screen locker with visual effects
-                            # - Secure screen locking with customization
-                            # - Blur effects and custom backgrounds
-                            # - Integration with idle management
-                            # - Enhanced security and visual appeal
+    hyprlock                 # Screen locker for Hyprland (replaces swaylock-effects)
     
     wlogout                  # Logout menu for Wayland
                             # - Graphical logout/shutdown interface
@@ -382,6 +372,10 @@
                             # - Fast application searching and launching
                             # - Integration with Wayland compositors
     
+    hyprkeys                 # Keybind retrieval utility for Hyprland
+                            # - Lists all registered keybinds
+                            # - Scriptable output for cheatsheets
+
     waybar                   # Customizable status bar for Wayland
                             # - Display system information and status
                             # - Modular design with custom widgets

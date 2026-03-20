@@ -24,8 +24,6 @@
     flags = [
       # Update nixpkgs input to latest version
       "--update-input" "nixpkgs"
-      # Update rust-overlay input for latest Rust toolchain
-      "--update-input" "rust-overlay"
       # Commit the updated lock file to version control
       "--commit-lock-file"
     ];

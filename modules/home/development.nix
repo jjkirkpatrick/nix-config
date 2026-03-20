@@ -61,7 +61,6 @@
     jq                               # JSON processor - parsing and manipulating JSON data
     tree                             # Directory structure visualization
     htop                             # Interactive process viewer - system monitoring
-    neofetch                         # System information display tool
     unzip                            # Archive extraction utility
     zip                              # Archive creation utility
 
@@ -81,7 +80,7 @@
     # ========================================
     sqlite                           # Lightweight embedded database - development and testing
     dbeaver-bin                          # Universal database management tool - supports multiple databases
-    pgadmin                          # PostgreSQL management tool - GUI for PostgreSQL
+    pgadmin4                          # PostgreSQL management tool - GUI for PostgreSQL
 
 
 
@@ -89,6 +88,11 @@
     # Version Control and Collaboration
     # ========================================
     gh                               # GitHub CLI - repository management and workflow automation
+    # ========================================
+    # Containers
+    # ========================================
+    lazydocker                        # Terminal UI for managing Docker containers
+
   ];
 
   # ============================================================
@@ -99,8 +103,8 @@
   
   programs.git = {
     enable = true;                              # Enable Git through home-manager
-    userName = "jjkirkpatrick";                 # Git commit author name
-    userEmail = "joshkirkpatrick12@gmail.com";  # Git commit author email
+    settings.user.name = "jjkirkpatrick";                 # Git commit author name
+    settings.user.email = "joshkirkpatrick12@gmail.com";  # Git commit author email
     
     # Additional Git configuration can be added here:
     # - Aliases for common commands
