@@ -102,14 +102,12 @@
   # This ensures consistent commits across all repositories
   
   programs.git = {
-    enable = true;                              # Enable Git through home-manager
-    settings.user.name = "jjkirkpatrick";                 # Git commit author name
-    settings.user.email = "joshkirkpatrick12@gmail.com";  # Git commit author email
-    
-    # Additional Git configuration can be added here:
-    # - Aliases for common commands
-    # - Default branch settings
-    # - Merge/diff tool preferences
-    # - Signing key configuration
+    enable = true;
+    settings = {
+      user.name = "jjkirkpatrick";
+      user.email = "joshkirkpatrick12@gmail.com";
+      credential."https://github.com".helper = "!gh auth git-credential";
+      credential."https://gist.github.com".helper = "!gh auth git-credential";
+    };
   };
 }
