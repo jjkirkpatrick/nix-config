@@ -52,6 +52,9 @@
     ghostty.url = "github:ghostty-org/ghostty";
     # Catppuccin theme collection for consistent theming
     catppuccin.url = "github:catppuccin/nix";
+
+    # Hyprswitch - visual window switcher with live thumbnails
+    hyprswitch.url = "github:H3rmt/hyprswitch";
   };
 
   # Flake outputs - the actual configurations produced by this flake
@@ -67,6 +70,11 @@
         inherit system;
         # Allow proprietary/unfree packages (needed for some drivers, etc.)
         config.allowUnfree = true;
+        overlays = [
+          (final: prev: {
+            hyprswitch = inputs.hyprswitch.packages.${system}.default;
+          })
+        ];
       };
       # Import nixpkgs library functions for building configurations
       lib = nixpkgs.lib;
@@ -79,7 +87,10 @@
         # Use the defined system architecture
         inherit system;
         # Import host-specific configuration modules
-        modules = [ ./hosts/blue-pc ];
+        modules = [
+          ./hosts/blue-pc
+          { nixpkgs.overlays = [(final: prev: { hyprswitch = inputs.hyprswitch.packages.${system}.default; })]; }
+        ];
         # Special arguments passed to all modules
         specialArgs = {
           # Hostname identifier for conditional configuration

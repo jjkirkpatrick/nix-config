@@ -330,11 +330,7 @@
                             # - Essential for script notifications
                             # - Used by notify-send command
     
-    mako                     # Lightweight notification daemon for Wayland
-                            # - Display desktop notifications
-                            # - Customizable appearance and behavior
-                            # - Low resource usage
-                            # - Essential for Wayland desktop environment
+    swaynotificationcenter   # Notification daemon with control panel (replaces mako)
     
     qt5.qtwayland            # Qt5 Wayland platform plugin
                             # - Enable Qt5 applications on Wayland
@@ -366,11 +362,7 @@
                             # - Essential for clipboard automation
                             # - Replaces xclip/xsel for Wayland
     
-    wofi                     # Application launcher for Wayland
-                            # - Dmenu-like application launcher
-                            # - Customizable appearance and behavior
-                            # - Fast application searching and launching
-                            # - Integration with Wayland compositors
+    fuzzel                   # Fast Wayland-native application launcher (replaces wofi)
     
     hyprkeys                 # Keybind retrieval utility for Hyprland
                             # - Lists all registered keybinds

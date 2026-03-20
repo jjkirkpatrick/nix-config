@@ -1,0 +1,10 @@
+(
+    version: 3,
+    windows: (
+        switch: (
+            modifier: "super",
+            filter_by: [],
+            switch_workspaces: false,
+        ),
+    ),
+)

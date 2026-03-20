@@ -305,7 +305,7 @@
                                 "icon": "",
                                 "keys": "",
                                 "write": "",
-                                "command": "wofi --show drun",
+                                "command": "fuzzel",
                                 "brightness_change": 0,
                                 "switch_page": 0,
                                 "switch_state": 0,

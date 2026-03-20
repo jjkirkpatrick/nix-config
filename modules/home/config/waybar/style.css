@@ -52,18 +52,19 @@
   
   #language,
   #custom-updates,
-  #custom-caffeine,
   #custom-weather,
   #custom-spotify,
   #custom-logout,
   #window,
   #clock,
-  #battery,
-  #pulseaudio,
+  #cpu,
+  #memory,
+  #disk,
+  #custom-gpu,
   #network,
+  #pulseaudio,
   #workspaces,
-  #tray,
-  #backlight {
+  #tray {
     background: #1e1e2e;
     padding: 0px 10px;
     margin: 3px 0px;
@@ -84,14 +85,7 @@
     padding-left: 5px;
   }
   
-  #custom-caffeine {
-    color: #89dceb;
-    border-radius: 10px 0px 0px 10px;
-    border-right: 0px;
-    margin-left: 10px;
-  }
-  
-  #custom-language {
+  #language {
     color: #f38ba8;
     border-left: 0px;
     border-right: 0px;
@@ -117,12 +111,6 @@
     border-right: 0px;
   }
   
-  #network {
-    color: #f9e2af;
-    border-left: 0px;
-    border-right: 0px;
-  }
-  
   #pulseaudio {
     color: #89b4fa;
     border-left: 0px;
@@ -137,13 +125,6 @@
     margin-right: 5px;
   }
   
-  #battery {
-    color: #a6e3a1;
-    border-radius: 0 10px 10px 0;
-    margin-right: 10px;
-    border-left: 0px;
-  }
-  
   #custom-weather {
     border-radius: 0px 10px 10px 0px;
     border-right: 0px;
@@ -153,7 +134,6 @@
   #custom-spotify {
     color: #1db954;
     border-radius: 10px 0px 0px 10px;
-    border-left: 0px;
     border-right: 0px;
   }
 
@@ -180,4 +160,39 @@
     background: #f38ba8;
     color: #1e1e2e;
   }
-  
+
+  #cpu {
+    color: #a6e3a1;
+    border-radius: 10px 0px 0px 10px;
+    border-right: 0px;
+    margin-left: 5px;
+  }
+
+  #memory {
+    color: #89b4fa;
+    border-left: 0px;
+    border-right: 0px;
+  }
+
+  #disk {
+    color: #f9e2af;
+    border-left: 0px;
+    border-right: 0px;
+  }
+
+  #custom-gpu {
+    color: #cba6f7;
+    border-left: 0px;
+    border-right: 0px;
+  }
+
+  #network {
+    color: #94e2d5;
+    border-radius: 0px 10px 10px 0px;
+    border-left: 0px;
+    margin-right: 5px;
+  }
+
+  #custom-updates.stale {
+    color: #f38ba8;
+  }

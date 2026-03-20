@@ -76,17 +76,22 @@ in
     # Application Launchers and Menus
     # ========================================
     
-    ".config/wofi".source = "${configDir}/wofi";
-    # Wofi application launcher configuration - Wayland-native launcher
-    # with custom styling to match the overall theme
+    ".config/fuzzel".source = "${configDir}/fuzzel";
+    # Fuzzel application launcher configuration - fast Wayland-native launcher
 
     # ========================================
     # Notification System
     # ========================================
-    
-    ".config/mako".source = "${configDir}/mako";
-    # Mako notification daemon configuration - Handles desktop notifications
-    # with custom styling, positioning, and behavior settings
+
+    ".config/swaync".source = "${configDir}/swaync";
+    # SwayNC notification center - notification daemon with slide-out control panel
+
+    # ========================================
+    # Window Switcher
+    # ========================================
+
+    ".config/hyprshell".source = "${configDir}/hyprshell";
+    # Hyprshell visual window switcher configuration
 
     # ========================================
     # Hardware and Peripheral Control

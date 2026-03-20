@@ -1,0 +1,160 @@
+* {
+    font-family: "JetBrains Mono Nerd Font", monospace;
+    font-size: 14px;
+    transition: none;
+}
+
+/* Notification rows */
+.notification-row {
+    outline: none;
+}
+
+.notification-row:focus,
+.notification-row:hover {
+    background: transparent;
+}
+
+.notification {
+    border-radius: 12px;
+    margin: 4px 8px;
+    padding: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.notification-content {
+    background: #24273a;
+    border: 1px solid #363a4f;
+    border-radius: 12px;
+    padding: 10px;
+}
+
+.notification-content:hover {
+    background: #2a2d40;
+}
+
+/* Urgency */
+.critical > .notification-content {
+    border-color: #ed8796;
+    border-width: 2px;
+}
+
+.low > .notification-content {
+    background: #1e2030;
+}
+
+/* Text */
+.summary {
+    font-size: 14px;
+    font-weight: bold;
+    color: #cad3f5;
+}
+
+.time {
+    font-size: 11px;
+    color: #8087a2;
+}
+
+.body {
+    font-size: 13px;
+    color: #a5adcb;
+}
+
+/* Close button */
+.close-button {
+    background: #363a4f;
+    color: #cad3f5;
+    border-radius: 6px;
+    margin: 4px;
+    padding: 2px 8px;
+    border: none;
+}
+
+.close-button:hover {
+    background: #ed8796;
+    color: #24273a;
+}
+
+/* Action buttons */
+.notification-action {
+    border-radius: 8px;
+    border: 1px solid #363a4f;
+    background: #363a4f;
+    color: #cad3f5;
+    margin: 4px;
+    padding: 4px 10px;
+}
+
+.notification-action:hover {
+    background: #494d64;
+}
+
+/* Control Center */
+.control-center {
+    background: #1e2030;
+    border: 1px solid #363a4f;
+    border-radius: 16px;
+    padding: 8px;
+}
+
+.control-center-list {
+    background: transparent;
+}
+
+.control-center-list-placeholder {
+    color: #6e738d;
+    font-size: 13px;
+}
+
+/* Widgets */
+.widget-title > label {
+    color: #cad3f5;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 6px 12px;
+}
+
+.widget-title > button {
+    background: #363a4f;
+    color: #cad3f5;
+    border-radius: 8px;
+    border: 1px solid #494d64;
+    padding: 4px 12px;
+}
+
+.widget-title > button:hover {
+    background: #ed8796;
+    color: #24273a;
+}
+
+.widget-dnd > switch {
+    border-radius: 8px;
+    background: #363a4f;
+    border: 1px solid #494d64;
+}
+
+.widget-dnd > switch:checked {
+    background: #8aadf4;
+}
+
+.widget-dnd > switch slider {
+    background: #cad3f5;
+    border-radius: 6px;
+    min-width: 20px;
+    min-height: 20px;
+}
+
+.widget-dnd > label {
+    color: #cad3f5;
+    padding: 6px 12px;
+}
+
+/* Scrollbar */
+scrollbar {
+    background: transparent;
+}
+
+scrollbar slider {
+    background: #494d64;
+    border-radius: 4px;
+    min-width: 4px;
+}

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Spotify waybar module
 # Shows current playing song with artist and title
@@ -47,4 +47,5 @@ case $STATUS in
 esac
 
 # Output JSON for waybar
-echo "{\"text\": \"$ICON $DISPLAY_TEXT\", \"tooltip\": \"$FULL_TEXT\", \"class\": \"$CLASS\"}"
+jq -cn --arg text "$ICON $DISPLAY_TEXT" --arg tooltip "$FULL_TEXT" --arg class "$CLASS" \
+    '{text: $text, tooltip: $tooltip, class: $class}'

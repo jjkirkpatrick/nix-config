@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Weather icons mapping function
 get_weather_icon() {
@@ -67,4 +67,5 @@ while IFS='|' read -r date max_temp min_temp sunrise sunset; do
 done <<< "$forecast_data"
 
 # Output JSON for waybar
-printf '{"text": "%s", "tooltip": "%s"}' "$display_text" "$tooltip"
+jq -cn --arg text "$display_text" --arg tooltip "$(printf '%b' "$tooltip")" \
+    '{text: $text, tooltip: $tooltip}'

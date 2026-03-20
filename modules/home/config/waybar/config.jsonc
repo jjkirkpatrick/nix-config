@@ -1,7 +1,6 @@
 {
     "layer": "top",
     "position": "top",
-    "mod": "dock",
     "exclusive": true,
     "passthrough": false,
     "gtk-layer-shell": true,
@@ -12,6 +11,11 @@
     "modules-center": ["hyprland/window"],
     "modules-right": [
         "tray",
+        "cpu",
+        "memory",
+        "disk",
+        "custom/gpu",
+        "network",
         "custom/spotify",
         "custom/updates",
         "hyprland/language",
@@ -23,14 +27,20 @@
     ],
 
     "hyprland/window": {
-        "format": "{}"
+        "format": "{}",
+        "max-length": 60,
+        "separate-outputs": true
     },
     "hyprland/workspaces": {
         "disable-scroll": true,
         "all-outputs": true,
         "on-click": "activate",
         "persistent_workspaces": {
-            "1": []
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": [],
+            "5": []
         }
     },
     "hyprland/language": {
@@ -39,53 +49,92 @@
         "format-ru": "RU",
         "format-ka": "GE"
     },
-   "custom/weather" : {
-        "tooltip" : true,
-        "format" : "{}",
-        "interval" : 30,
-        "exec" : "~/.config/waybar/scripts/waybar-wttr.sh",
-        "return-type" : "json"
+    "cpu": {
+        "format": " {usage}%",
+        "interval": 5,
+        "tooltip": false
+    },
+    "memory": {
+        "format": " {used:0.1f}G",
+        "interval": 10,
+        "tooltip": false
+    },
+    "disk": {
+        "format": " {percentage_used}%",
+        "path": "/",
+        "interval": 60,
+        "tooltip-format": "{used} used / {total} total"
+    },
+    "custom/gpu": {
+        "format": "󰿵 {}",
+        "interval": 5,
+        "exec": "~/.config/waybar/scripts/gpu.sh",
+        "return-type": "json"
+    },
+    "network": {
+        "format-ethernet": " {bandwidthDownBytes}",
+        "format-wifi": " {bandwidthDownBytes}",
+        "format-disconnected": " Off",
+        "tooltip-format-ethernet": "{ifname} — {ipaddr}\n {bandwidthDownBytes}  {bandwidthUpBytes}",
+        "tooltip-format-wifi": "{essid} ({signalStrength}%)\n{ipaddr}\n {bandwidthDownBytes}  {bandwidthUpBytes}",
+        "interval": 2
+    },
+    "custom/weather": {
+        "tooltip": true,
+        "format": "{}",
+        "interval": 600,
+        "exec": "~/.config/waybar/scripts/waybar-wttr.sh",
+        "return-type": "json"
     },
     "custom/spotify": {
         "format": "{}",
         "tooltip": true,
         "interval": 5,
         "exec": "~/.config/waybar/scripts/spotify.sh",
+        "exec-if": "pgrep -f .spotify-wrapped",
         "return-type": "json",
         "on-click": "playerctl --player=spotify play-pause",
         "on-click-right": "playerctl --player=spotify next",
         "on-click-middle": "playerctl --player=spotify previous"
+    },
+    "custom/updates": {
+        "format": " {}",
+        "interval": 3600,
+        "exec": "~/.config/waybar/scripts/updates.sh",
+        "return-type": "json"
     },
     "tray": {
         "icon-size": 16,
         "spacing": 10
     },
     "clock": {
-        "format": " {:%I:%M %p  %d/%m}",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+        "format": " {:%I:%M %p  %d/%m}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "on-click": "~/.config/waybar/scripts/calendar-popup.sh"
     },
     "pulseaudio": {
         "format": "{icon} {volume}%",
         "tooltip": false,
-        "format-muted": " Muted",
+        "format-muted": " Muted",
         "on-click": "pamixer -t",
+        "on-click-right": "pavucontrol",
         "on-scroll-up": "pamixer -i 5",
         "on-scroll-down": "pamixer -d 5",
         "scroll-step": 5,
         "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", "", ""]
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
         }
     },
     "pulseaudio#microphone": {
         "format": "{format_source}",
-        "format-source": "🎙{volume}%",
-        "format-source-muted": "🎙Muted",
+        "format-source": " {volume}%",
+        "format-source-muted": " Muted",
         "on-click": "pamixer --default-source -t",
         "on-scroll-up": "pamixer --default-source -i 5",
         "on-scroll-down": "pamixer --default-source -d 5",

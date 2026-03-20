@@ -288,6 +288,8 @@
     # ========================================
     # Tools for desktop appearance and functionality
     
+    gsimplecal               # Lightweight calendar popup for status bars
+
     waybar                   # Highly customizable Wayland status bar
                             # - System information display (CPU, memory, time)
                             # - Workspace indicators and window titles
@@ -397,11 +399,10 @@
                             # - Integration with desktop notification systems
                             # - Essential for system and application alerts
     
-    mako                     # Lightweight notification daemon for Wayland
-                            # - Display desktop notifications
-                            # - Customizable appearance and behavior
-                            # - Low resource usage
-                            # - Essential for desktop environment feedback
+    swaynotificationcenter   # Notification daemon with slide-out control panel
+                            # - GTK4 notification center for Wayland
+                            # - Do Not Disturb toggle, action buttons
+                            # - Replaces mako with a full notification center
     
     qt5.qtwayland            # Qt5 Wayland platform plugin
                             # - Enable Qt5 applications on Wayland
@@ -430,11 +431,14 @@
                             # - Integration with Wayland session management
                             # - User-friendly power management
     
-    wofi                     # Application launcher for Wayland
-                            # - Dmenu-like application launcher
-                            # - Customizable appearance and behavior
-                            # - Fast application searching and launching
-                            # - Integration with Wayland compositors
+    fuzzel                   # Fast Wayland-native application launcher
+                            # - Lightweight with excellent fuzzy matching
+                            # - Dmenu mode for scripted menus
+                            # - Minimal dependencies, faster than wofi
+
+    hyprswitch               # Visual window switcher with live thumbnails
+                            # - GTK4-based Alt+Tab replacement
+                            # - Shows window previews across workspaces
 
     # ========================================
     # PRODUCTIVITY AND NOTES
