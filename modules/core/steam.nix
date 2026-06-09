@@ -57,14 +57,5 @@ in
   environment.systemPackages = with pkgs; [
     bolt-launcher-nosandbox  # bolt-launcher wrapped to pass --no-sandbox (CEF fix)
     runelite
-
-    # Official Jagex Launcher (OSRS) via Lutris + Wine.
-    # Lutris installs/runs the Windows launcher in a managed Wine prefix; the
-    # launcher does the Jagex-account OAuth and then hands off to RuneLite.
-    # Install step (one-time, GUI): Lutris -> + -> Install from lutris.net
-    #   ("Jagex Launcher") or from the jagexlauncher.yml script.
-    lutris
-    wineWowPackages.stable   # 64- + 32-bit Wine for the launcher
-    winetricks               # dependency installer Lutris drives during setup
   ];
 }
