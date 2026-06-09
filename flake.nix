@@ -53,6 +53,13 @@
     # Catppuccin theme collection for consistent theming
     catppuccin.url = "github:catppuccin/nix";
 
+    # osrs-login - minimal Jagex-account launcher for Old School RuneScape
+    osrs-login = {
+      url = "github:jjkirkpatrick/osrs-login";
+      # Build against our nixpkgs to avoid a second copy
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   # Flake outputs - the actual configurations produced by this flake

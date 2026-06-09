@@ -775,6 +775,26 @@
         "type": "github"
       }
     },
+    "osrs-login": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1781010946,
+        "narHash": "sha256-OeYCs+NTU74suOODx4US8TINkF8inbWdlzwbQw/1aq8=",
+        "owner": "jjkirkpatrick",
+        "repo": "osrs-login",
+        "rev": "28ffb1524d0e44a6d68ac5999300dfbb3c98a839",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jjkirkpatrick",
+        "repo": "osrs-login",
+        "type": "github"
+      }
+    },
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": "flake-compat_2",
@@ -809,7 +829,8 @@
         "hyprpicker": "hyprpicker",
         "nix-flatpak": "nix-flatpak",
         "nixpkgs": "nixpkgs_4",
-        "nur": "nur"
+        "nur": "nur",
+        "osrs-login": "osrs-login"
       }
     },
     "systems": {

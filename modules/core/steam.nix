@@ -1,5 +1,5 @@
 # Steam gaming platform configuration
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 let
   # Bolt (the Linux launcher for OSRS Jagex-account login) embeds a CEF
   # browser for the login flow. On NixOS its bundled chrome-sandbox can't be
@@ -57,5 +57,9 @@ in
   environment.systemPackages = with pkgs; [
     bolt-launcher-nosandbox  # bolt-launcher wrapped to pass --no-sandbox (CEF fix)
     runelite
+
+    # osrs-login — minimal browser-login launcher that execs runelite with the
+    # Jagex JX_* session vars (https://github.com/jjkirkpatrick/osrs-login)
+    inputs.osrs-login.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 }
