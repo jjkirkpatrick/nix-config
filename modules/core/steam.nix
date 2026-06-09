@@ -1,5 +1,20 @@
 # Steam gaming platform configuration
 { pkgs, ... }:
+let
+  # Bolt (the Linux launcher for OSRS Jagex-account login) embeds a CEF
+  # browser for the login flow. On NixOS its bundled chrome-sandbox can't be
+  # SUID, and CEF's nested sandbox fails inside bolt's bwrap FHS env, so CEF
+  # aborts on startup (SIGABRT, "ContentMainInitialize failed") and login
+  # never opens. Launching with --no-sandbox makes CEF init cleanly.
+  bolt-launcher-nosandbox = pkgs.symlinkJoin {
+    name = "bolt-launcher-nosandbox";
+    paths = [ pkgs.bolt-launcher ];
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      wrapProgram $out/bin/bolt-launcher --add-flags "--no-sandbox"
+    '';
+  };
+in
 {
   programs = {
     # Steam gaming client configuration
@@ -40,7 +55,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    bolt-launcher
+    bolt-launcher-nosandbox  # bolt-launcher wrapped to pass --no-sandbox (CEF fix)
     runelite
 
     # Official Jagex Launcher (OSRS) via Lutris + Wine.
