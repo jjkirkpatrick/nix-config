@@ -21,6 +21,11 @@
   # Zen kernel provides better desktop performance and responsiveness
   #boot.kernelPackages = pkgs.linuxPackages_zen;
   
+  # Disable USB autosuspend to prevent KVM switches from leaving ports in a
+  # suspended state — without this, switching the KVM away causes Linux to
+  # suspend the USB ports, and they fail to re-enumerate when switching back.
+  boot.kernelParams = [ "usbcore.autosuspend=-1" ];
+
   # Filesystem support
   # Enable NTFS support for reading Windows partitions
   # Useful for dual-boot systems or external drives

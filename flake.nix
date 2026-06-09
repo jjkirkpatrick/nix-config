@@ -53,8 +53,6 @@
     # Catppuccin theme collection for consistent theming
     catppuccin.url = "github:catppuccin/nix";
 
-    # Hyprswitch - visual window switcher with live thumbnails
-    hyprswitch.url = "github:H3rmt/hyprswitch";
   };
 
   # Flake outputs - the actual configurations produced by this flake
@@ -70,11 +68,10 @@
         inherit system;
         # Allow proprietary/unfree packages (needed for some drivers, etc.)
         config.allowUnfree = true;
-        overlays = [
-          (final: prev: {
-            hyprswitch = inputs.hyprswitch.packages.${system}.default;
-          })
+        config.permittedInsecurePackages = [
+          "qtwebengine-5.15.19"
         ];
+        overlays = [];
       };
       # Import nixpkgs library functions for building configurations
       lib = nixpkgs.lib;
@@ -89,7 +86,6 @@
         # Import host-specific configuration modules
         modules = [
           ./hosts/blue-pc
-          { nixpkgs.overlays = [(final: prev: { hyprswitch = inputs.hyprswitch.packages.${system}.default; })]; }
         ];
         # Special arguments passed to all modules
         specialArgs = {

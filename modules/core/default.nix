@@ -52,6 +52,9 @@
     # even though it has reached end-of-life
     permittedInsecurePackages = [
       "openssl-1.1.1w"
+      # Pulled in transitively by android-studio; upstream qt5 qtwebengine
+      # is unmaintained since April 2025 but still required by the IDE.
+      "qtwebengine-5.15.19"
     ];
   };
 }

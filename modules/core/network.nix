@@ -15,7 +15,11 @@
     wireless.secretsFile = "/etc/nixos/wireless-secrets";
 
     wireless.networks = {
-      VodafoneD3EB53.psk = "FFK6r4Hsdxf3mbbT";
+      "Josh's S23 Ultra" = {
+        auth = ''
+          key_mgmt=NONE
+        '';
+      };
     };
 
     # NetworkManager alternative (commented out in favor of wpa_supplicant)

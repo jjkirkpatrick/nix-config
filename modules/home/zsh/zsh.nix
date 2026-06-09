@@ -27,6 +27,12 @@
     # enableCompletion = true;          # Disabled: handled manually for custom config
     autosuggestion.enable = true;       # Enable command auto-suggestions based on history
     syntaxHighlighting.enable = true;   # Enable syntax highlighting for commands
+
+    envExtra = ''
+      export ANDROID_HOME="$HOME/Android/Sdk"
+      export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$HOME/.local/bin:$HOME/go/bin:$PATH"
+      export DOCKER_HOST="unix:///run/user/$UID/docker.sock"
+    '';
     
     # Auto-suggestions provide inline suggestions based on command history,
     # improving productivity by reducing typing and helping discover commands.

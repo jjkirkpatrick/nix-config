@@ -18,5 +18,7 @@
     ./cli.nix                        # Terminal applications, system utilities, development tools
     # Graphical user interface applications
     ./gui.nix                        # Desktop applications, GUI utilities, media software
+    # Third-party AppImage packages
+    ./exiled-exchange-2.nix          # Path of Exile 2 trade tool
   ];
 }

@@ -40,25 +40,25 @@ in
     # Window Manager and Desktop Environment
     # ========================================
     
-    ".config/hypr".source = "${configDir}/hypr";
-    # Hyprland window manager configuration - Wayland compositor
-    # Includes keybindings, window rules, monitor setup, and animations
+    # Hyprland window manager configuration - individual files
+    # (hyprpaper.conf is managed by services.hyprpaper)
+    ".config/hypr/bind.conf".source = "${configDir}/hypr/bind.conf";
+    ".config/hypr/exec.conf".source = "${configDir}/hypr/exec.conf";
+    ".config/hypr/hypridle.conf".source = "${configDir}/hypr/hypridle.conf";
+    ".config/hypr/hyprland.conf".source = "${configDir}/hypr/hyprland.conf";
+    ".config/hypr/input.conf".source = "${configDir}/hypr/input.conf";
+    ".config/hypr/monitor.conf".source = "${configDir}/hypr/monitor.conf";
+    ".config/hypr/window.conf".source = "${configDir}/hypr/window.conf";
+    ".config/hypr/windowrule.conf".source = "${configDir}/hypr/windowrule.conf";
 
     ".config/waybar".source = "${configDir}/waybar";
     # Waybar status bar configuration - Displays system information,
     # workspaces, and provides quick access to system controls
 
-    ".config/wallpapers".source = "${configDir}/wallpapers";
-    # Wallpaper collection - Contains background images used by
-    # the wallpaper manager (hyprpaper)
-
     # ========================================
     # Session Management and Security
     # ========================================
     
-    ".config/swayidle".source = "${configDir}/swayidle";
-    # Swayidle configuration - Manages idle states, screen timeout,
-    # and automatic locking for security and power management
 
 ".config/wlogout".source = "${configDir}/wlogout";
     # Wlogout session menu configuration - Provides logout, shutdown,
@@ -85,13 +85,6 @@ in
 
     ".config/swaync".source = "${configDir}/swaync";
     # SwayNC notification center - notification daemon with slide-out control panel
-
-    # ========================================
-    # Window Switcher
-    # ========================================
-
-    ".config/hyprshell".source = "${configDir}/hyprshell";
-    # Hyprshell visual window switcher configuration
 
     # ========================================
     # Hardware and Peripheral Control

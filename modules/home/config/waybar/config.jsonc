@@ -18,7 +18,7 @@
         "network",
         "custom/spotify",
         "custom/updates",
-        "hyprland/language",
+        "custom/bluetooth",
         "pulseaudio",
         "pulseaudio#microphone",
         "clock",
@@ -43,11 +43,13 @@
             "5": []
         }
     },
-    "hyprland/language": {
+    "custom/bluetooth": {
         "format": "{}",
-        "format-en": "US",
-        "format-ru": "RU",
-        "format-ka": "GE"
+        "return-type": "json",
+        "exec": "~/.config/waybar/scripts/bluetooth.sh",
+        "interval": 3,
+        "on-click": "~/.config/waybar/scripts/bluetooth-menu.sh",
+        "on-click-right": "bash -c 'bluetoothctl show | grep -q \"Powered: yes\" && bluetoothctl power off || bluetoothctl power on'"
     },
     "cpu": {
         "format": " {usage}%",

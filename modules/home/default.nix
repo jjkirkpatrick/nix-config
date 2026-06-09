@@ -10,6 +10,9 @@
 # ======================================================================
 
 {username, inputs, ... }:
+let
+  wallpaper = "${./config/wallpapers/wall.jpg}";
+in
 {
   # ============================================================
   # MODULE IMPORTS - Core Configuration Components
@@ -55,6 +58,21 @@
     username = username;                    # Username from flake parameter
     homeDirectory = "/home/${username}";    # Home directory path
     stateVersion = "25.05";                # Home Manager version for compatibility
+    sessionPath = [ "$HOME/.local/bin" ];  # User-local binaries (e.g. nemoclaw)
+  };
+
+  # ============================================================
+  # WALLPAPER MANAGEMENT
+  # ============================================================
+  services.hyprpaper = {
+    enable = true;
+    settings = {
+      splash = false;
+      wallpaper = [
+        { monitor = "HDMI-A-1";                                       path = wallpaper; }
+        { monitor = "desc:Samsung Electric Company LC49G95T"; path = wallpaper; }
+      ];
+    };
   };
 
   # ============================================================

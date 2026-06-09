@@ -25,14 +25,44 @@
     # pinentryFlavor = "";
   };
   
+  # Enable binfmt so AppImages execute directly without appimage-run prefix
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
+
   # Dynamic linker for running unpatched binaries
   # nix-ld allows running non-NixOS binaries by providing a standard FHS environment
   programs.nix-ld = {
     # Enable nix-ld for compatibility with non-Nix binaries
     enable = true;
     
-    # Additional libraries to make available to non-Nix binaries
-    # Currently empty - add libraries as needed for specific software
-    libraries = with pkgs; [ ];
+    # Libraries required for pre-compiled binaries (Electron, Chromium-based devtools, etc.)
+    libraries = with pkgs; [
+      glib
+      nss
+      nspr
+      dbus
+      atk
+      at-spi2-atk
+      at-spi2-core
+      cups
+      libdrm
+      gtk3
+      mesa
+      alsa-lib
+      expat
+      libxkbcommon
+      pango
+      cairo
+      xorg.libX11
+      xorg.libXext
+      xorg.libXfixes
+      xorg.libXi
+      xorg.libXrandr
+      xorg.libXrender
+      xorg.libXtst
+      xorg.libxcb
+    ];
   };
 }

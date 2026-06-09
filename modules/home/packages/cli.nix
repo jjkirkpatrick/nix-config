@@ -184,10 +184,15 @@
                             # - Faster than command-line git for complex operations
                             # - Great for visual learners and git beginners
     
-    claude-code              # Claude AI coding assistant CLI
-                            # - AI-powered code assistance and generation
-                            # - Integration with development workflows
-                            # - Code explanation and optimization suggestions
+    azure-cli                # Microsoft Azure command-line interface
+                            # - Manage Azure resources and services
+                            # - Deploy and monitor cloud infrastructure
+                            # - Authentication and subscription management
+
+    awscli2                  # Amazon Web Services command-line interface
+                            # - Manage AWS resources and services
+                            # - Deploy and monitor cloud infrastructure
+                            # - Authentication and profile management
     
     # ========================================
     # TEXT PROCESSING TOOLS
@@ -373,6 +378,10 @@
                             # - Modular design with custom widgets
                             # - Integration with Wayland compositors
                             # - Highly configurable appearance and functionality
+  
+    llama-cpp-vulkan        # llama.cpp with Vulkan GPU acceleration (works with NVIDIA on Wayland)
+
+    opencode
   ];
 
   # ============================================================

@@ -65,8 +65,8 @@
     qt6.qtwayland
     
     # Power management and screen locking
-    # Swayidle - idle management daemon
-    swayidle
+    # Hypridle - Hyprland-native idle management daemon
+    hypridle
     
     # Session management
     # Wlogout - logout menu for Wayland

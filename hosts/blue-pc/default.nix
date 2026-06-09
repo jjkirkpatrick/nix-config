@@ -12,4 +12,19 @@
   # Set CPU frequency governor to performance mode for better responsiveness
   # Options: "ondemand", "powersave", "performance", "conservative"
   powerManagement.cpuFreqGovernor = "performance";
+
+  # Windows partition — read-only to avoid corruption (Fast Startup writes a hibernation state)
+  # To enable read-write: disable Fast Startup in Windows and change "ro" to "rw"
+  fileSystems."/mnt/windows" = {
+    device = "/dev/disk/by-uuid/147AE0837AE062CA";
+    fsType = "ntfs3";
+    options = [ "ro" "uid=1000" "gid=100" "nofail" "x-systemd.automount" ];
+  };
+
+  # Storage drive — read-write NTFS
+  fileSystems."/mnt/storage" = {
+    device = "/dev/disk/by-uuid/063439BD3439B113";
+    fsType = "ntfs3";
+    options = [ "uid=1000" "gid=100" "nofail" "x-systemd.automount" ];
+  };
 }

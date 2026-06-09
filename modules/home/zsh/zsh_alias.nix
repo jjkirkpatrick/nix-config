@@ -63,20 +63,21 @@
     # Quick commands for rebuilding and updating the NixOS system
     # These automate common system administration tasks
     
-    rebuild = "sudo nixos-rebuild switch --flake ~/nixos-config#blue-pc";
-    # Rebuild and switch to new NixOS system configuration
-    # Uses the local flake configuration for the 'blue-pc' system
-    
-    home-rebuild = "home-manager switch --flake ~/nixos-config#josh";
-    # Rebuild home-manager configuration for user environment
-    # Updates user-space configuration without affecting system-wide settings
-    
+    rebuild = "nh os switch ~/nix-config";
+    # Rebuild and switch to new NixOS system configuration using nh
+
+    home-rebuild = "nh home switch ~/nix-config";
+    # Rebuild home-manager configuration for user environment using nh
+
+    update-rebuild = "cd ~/nix-config && nix flake update && nh os switch .";
+    # Update all flake inputs then rebuild and switch the system
+
     # ========================================
     # DEVELOPMENT ENVIRONMENT SHORTCUTS
     # ========================================
     # Quick access to development tools and common workflows
-    
-    cdnix = "cd ~/nixos-config && cursor ~/nixos-config &";
+
+    cdnix = "cd ~/nix-config && cursor ~/nix-config &";
     # Navigate to NixOS configuration directory and open in Cursor
     # Combines directory change with editor launch for quick config editing
 

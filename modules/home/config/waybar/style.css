@@ -50,7 +50,7 @@
     border-radius: 10px;
   }
   
-  #language,
+  #custom-bluetooth,
   #custom-updates,
   #custom-weather,
   #custom-spotify,
@@ -85,10 +85,18 @@
     padding-left: 5px;
   }
   
-  #language {
-    color: #f38ba8;
+  #custom-bluetooth {
+    color: #89dceb;
     border-left: 0px;
     border-right: 0px;
+  }
+
+  #custom-bluetooth.off {
+    color: #585b70;
+  }
+
+  #custom-bluetooth.connected {
+    color: #89dceb;
   }
   
   #custom-updates {

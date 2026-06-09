@@ -21,6 +21,8 @@
     # ========================================
     # Privacy-focused browsers with enhanced security features
     
+    google-chrome            # Google Chrome browser
+
     brave                    # Privacy-focused Chromium-based browser
                             # - Built-in ad blocking and tracker protection
                             # - Tor integration for private browsing
@@ -96,6 +98,8 @@
     # ========================================
     # Applications for chat, voice, and video communication
     
+    altus                    # WhatsApp desktop client with multiple account support
+
     discord                  # Popular gaming and community chat platform
                             # - Text, voice, and video chat
                             # - Screen sharing and streaming
@@ -213,6 +217,7 @@
                             # - Proton for Windows game compatibility
                             # - Handled separately in gaming configuration
     
+    path-of-building         # Path of Building 2 — offline build planner for Path of Exile
     runelite                 # Enhanced Old School RuneScape client
                             # - Third-party client with quality-of-life improvements
                             # - Plugin system for additional features
@@ -241,6 +246,9 @@
                             # - Blur sensitive information
                             # - Quick editing before sharing
                             # - Integration with screenshot tools
+
+    wf-recorder              # Wayland screen recorder (region/window/output)
+    gifski                   # High-quality GIF encoder (per-frame palettes)
     
     # ========================================
     # CLIPBOARD MANAGEMENT
@@ -414,11 +422,10 @@
                             # - Future-proof support for newer Qt applications
                             # - Improved Wayland integration over Qt5
     
-    swayidle                 # Idle management daemon for Wayland
-                            # - Automatic screen locking and power management
-                            # - Customizable idle actions
-                            # - Battery life optimization
-                            # - Security through automatic locking
+    hypridle                 # Hyprland-native idle management daemon
+                            # - Proper integration with hyprlock's session lock protocol
+                            # - Correctly resets idle timer when hyprlock is dismissed
+                            # - Replaces swayidle which had an incompatibility with hyprlock
     
     hyprlock                 # Screen locker for Hyprland (replaces swaylock-effects)
                             # - Native Hyprland screen locker with blur and effects
@@ -436,10 +443,6 @@
                             # - Dmenu mode for scripted menus
                             # - Minimal dependencies, faster than wofi
 
-    hyprswitch               # Visual window switcher with live thumbnails
-                            # - GTK4-based Alt+Tab replacement
-                            # - Shows window previews across workspaces
-
     # ========================================
     # PRODUCTIVITY AND NOTES
     # ========================================
@@ -453,6 +456,21 @@
                             # - Full-featured code editor by Microsoft
                             # - Large extension ecosystem
                             # - Integrated debugging, git, and terminal
+
+    # ========================================
+    # DATABASE MANAGEMENT
+    # ========================================
+
+    tableplus                # GUI database manager
+                            # - Supports PostgreSQL, MySQL, SQLite, and more
+                            # - Query editor with syntax highlighting
+                            # - Data browsing and editing
+
+    android-studio           # Official Android IDE (JetBrains-based)
+                            # - For building and debugging Android apps
+    android-tools            # adb / fastboot CLI tools
+                            # - systemd 258+ handles uaccess udev rules
+                            #   automatically, so no adbusers group needed
  ];
 
   # ============================================================

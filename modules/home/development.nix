@@ -30,6 +30,7 @@
     # ========================================
     nodejs                           # Node.js runtime for JavaScript development
     yarn                             # Alternative package manager for Node.js (faster than npm)
+    playwright                       # Browser automation and end-to-end testing framework
 
     # ========================================
     # Rust Development Toolchain
@@ -45,12 +46,20 @@
     go                               # Go programming language - efficient and concurrent
 
     # ========================================
+    # Java Development Environment
+    # ========================================
+    jdk                              # Java Development Kit (latest LTS)
+    maven                            # Java build and dependency management tool
+    gradle                           # Flexible build automation for JVM projects
+
+    # ========================================
     # C/C++ Development Tools
     # ========================================
     gcc                              # GNU Compiler Collection - C/C++ compiler
     gdb                              # GNU Debugger - debugging C/C++ applications
     valgrind                         # Memory error detector and profiler for C/C++
     cmake                            # Cross-platform build system generator
+    gnumake                          # GNU Make - build automation tool
 
     # ========================================
     # Essential Development Utilities
@@ -76,6 +85,15 @@
     docker-compose                   # Multi-container Docker application orchestration
 
     # ========================================
+    # Infrastructure as Code & Kubernetes
+    # ========================================
+    terraform                        # HashiCorp Terraform - infrastructure provisioning (DOKS migration)
+    kubernetes-helm                  # Helm - Kubernetes package manager (provides `helm` binary)
+    kubectl                          # Kubernetes CLI - cluster operations
+    doctl                            # DigitalOcean CLI - DO API + Spaces + DOKS kubeconfig
+    rclone                           # rsync for cloud storage - Spaces media-backup CronJob testing
+
+    # ========================================
     # Database Development Tools
     # ========================================
     sqlite                           # Lightweight embedded database - development and testing
@@ -83,6 +101,12 @@
     pgadmin4                          # PostgreSQL management tool - GUI for PostgreSQL
 
 
+
+    # ========================================
+    # PHP Development
+    # ========================================
+    php                              # PHP interpreter
+    phpPackages.composer             # PHP dependency manager
 
     # ========================================
     # Version Control and Collaboration
@@ -101,13 +125,21 @@
   # Configure Git with user information and preferences for version control
   # This ensures consistent commits across all repositories
   
+  programs.gh = {
+    enable = true;
+    extensions = [
+      (pkgs.runCommand "gh-copilot" { } ''
+        mkdir -p $out/bin
+        ln -s ${pkgs.github-copilot-cli}/bin/copilot $out/bin/gh-copilot
+      '' // { pname = "gh-copilot"; })
+    ];
+  };
+
   programs.git = {
     enable = true;
     settings = {
       user.name = "jjkirkpatrick";
       user.email = "joshkirkpatrick12@gmail.com";
-      credential."https://github.com".helper = "!gh auth git-credential";
-      credential."https://gist.github.com".helper = "!gh auth git-credential";
     };
   };
 }
