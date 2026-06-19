@@ -160,9 +160,63 @@ let
       scan
     '';
   };
+
+  # Full "start my Eve session" macro (bound to a key): snap the clients,
+  # clear workspace 3, then open the wormhole map there in a fresh window.
+  eve-session = pkgs.writeShellApplication {
+    name = "eve-session";
+    # NB: no chrome in runtimeInputs on purpose -- we call the user's own
+    # google-chrome-stable via the ambient PATH so it talks to their already
+    # running instance. Bundling a (possibly different-version) chrome here
+    # hits Chrome's singleton profile lock and silently fails to open a window.
+    runtimeInputs = [ pkgs.jq hyprland ];
+    text = ''
+      ${placeLib}
+
+      URL="https://wormhole.systems/maps/wormageddon-490"
+
+      # 1. Snap the Eve clients to their slots FIRST. This moves any client
+      #    titled "EVE - <Char>" to ws5, so the ws3 purge below can never
+      #    close a game client that happens to be sitting on ws3.
+      scan
+
+      # 2. Close everything left on workspace 3 (EVE Launcher, strays) to
+      #    make room for a fresh map.
+      while IFS= read -r addr; do
+        [[ -n "$addr" ]] && hyprctl dispatch closewindow "address:$addr" >/dev/null || true
+      done < <(hyprctl clients -j | jq -r '.[] | select(.workspace.name=="3") | .address')
+
+      # 3. Open the wormhole map on ws3. A new browser window opens on the
+      #    ACTIVE workspace (which follows the mouse), so opening it blindly
+      #    makes it flash into the user's current layout before we could move
+      #    it. Instead we focus ws3 FIRST (it lives on the secondary monitor,
+      #    so the main view is untouched) -- the new window then opens on ws3
+      #    directly. We call the user's own google-chrome-stable (via PATH) so
+      #    it talks to the running instance and keeps their profile/login.
+      orig="$(hyprctl activeworkspace -j | jq -r '.name')"
+      hyprctl dispatch workspace 3 >/dev/null || true
+      google-chrome-stable --new-window "$URL" >/dev/null 2>&1 &
+      disown
+
+      # Belt-and-suspenders: if chrome reused a window that was elsewhere,
+      # pull whatever shows the map onto ws3 once it appears.
+      for _ in $(seq 40); do          # poll up to ~12s
+        addr="$(hyprctl clients -j | jq -r 'first(.[] | select(.title|test("wormhole|wormageddon";"i")) | .address) // empty')"
+        if [[ -n "$addr" ]]; then
+          hyprctl dispatch movetoworkspacesilent "3,address:$addr" >/dev/null || true
+          break
+        fi
+        read -t 0.3 -r _ </dev/null 2>/dev/null || true
+      done
+
+      # Return focus to wherever the user was, so the macro doesn't leave them
+      # parked on ws3.
+      hyprctl dispatch workspace "$orig" >/dev/null || true
+    '';
+  };
 in
 {
-  home.packages = [ eve-window-snap eve-window-place ];
+  home.packages = [ eve-window-snap eve-window-place eve-session ];
 
   systemd.user.services.eve-window-snap = {
     Unit = {
