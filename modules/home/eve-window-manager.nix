@@ -11,6 +11,11 @@
 # chosen to mimic tiled columns (bar- and gap-aware) so a centered, larger
 # main client can sit between two smaller alts -- which dwindle can't do.
 #
+# Two commands are produced from one shared layout table:
+#   eve-window-snap  -- the long-running daemon (event-driven + startup scan)
+#   eve-window-place -- a one-shot that snaps all current clients now; bound
+#                       to a key so the layout can be re-applied on demand.
+#
 # See: docs/superpowers/specs/2026-06-19-eve-window-snapping-design.md
 # ======================================================================
 { pkgs, lib, inputs, ... }:
@@ -43,56 +48,65 @@ let
       ''  ["${char}"]="${toString g.ws} ${toString g.x} ${toString g.y} ${toString g.w} ${toString g.h}"'')
     layout);
 
+  # Shared bash: the layout table, the placement guard, and snap()/scan().
+  # Used verbatim by both the daemon and the one-shot so there is a single
+  # source of truth for the character mapping and placement behaviour.
+  placeLib = ''
+    # Character -> "WS X Y W H" (Hyprland global coordinates)
+    declare -A LAYOUT=(
+    ${layoutLines}
+    )
+
+    # addr -> character already placed. In the daemon this prevents fighting
+    # a window the user has manually moved; it lives in the main shell (the
+    # read loop uses process substitution, not a pipe) so it survives socat
+    # reconnects. The one-shot starts with an empty guard, so it always
+    # (re)places every current client -- exactly what a manual trigger wants.
+    declare -A PLACED=()
+
+    re='^EVE - (.+)$'
+
+    snap() {
+      local addr="$1" char="$2"
+      local spec="''${LAYOUT[$char]:-}"
+      if [[ -z "$spec" ]]; then return 0; fi
+      if [[ "''${PLACED[$addr]:-}" == "$char" ]]; then return 0; fi
+      local ws x y w h
+      read -r ws x y w h <<<"$spec"
+      # Float and route to the workspace first.
+      hyprctl --batch "dispatch setfloating address:0x$addr ; dispatch movetoworkspacesilent $ws,address:0x$addr" >/dev/null || true
+      # Then size+position. The FIRST resize right after a float transition
+      # lands slightly off (window still settling), so apply it twice -- the
+      # second pass is exact. Cheap and idempotent.
+      for _ in 1 2; do
+        hyprctl --batch "dispatch resizewindowpixel exact $w $h,address:0x$addr ; dispatch movewindowpixel exact $x $y,address:0x$addr" >/dev/null || true
+      done
+      PLACED[$addr]="$char"
+      return 0
+    }
+
+    # Place every currently-open, already-titled Eve client. The daemon calls
+    # this on connect (startup / Hyprland-restart reconnect) so clients opened
+    # before it started get placed without a relog; the one-shot calls it to
+    # re-apply the layout on demand. Runs in the main shell (process
+    # substitution) so PLACED writes persist.
+    scan() {
+      while IFS=$'\t' read -r addr title; do
+        if [[ "$title" =~ $re ]]; then
+          snap "''${addr#0x}" "''${BASH_REMATCH[1]}"
+        fi
+      done < <(hyprctl clients -j | jq -r '.[] | "\(.address)\t\(.title)"')
+    }
+  '';
+
+  # Long-running daemon: react to live title changes, plus a startup scan.
   eve-window-snap = pkgs.writeShellApplication {
     name = "eve-window-snap";
     runtimeInputs = [ pkgs.socat pkgs.jq hyprland ];
     text = ''
       SOCK="$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock"
 
-      # Character -> "WS X Y W H" (Hyprland global coordinates)
-      declare -A LAYOUT=(
-      ${layoutLines}
-      )
-
-      # addr -> character already placed (avoids fighting manual moves).
-      # Lives in the main shell (the read loop below uses process
-      # substitution, not a pipe), so it persists across reconnects.
-      declare -A PLACED=()
-
-      re='^EVE - (.+)$'
-
-      snap() {
-        local addr="$1" char="$2"
-        local spec="''${LAYOUT[$char]:-}"
-        if [[ -z "$spec" ]]; then return 0; fi
-        if [[ "''${PLACED[$addr]:-}" == "$char" ]]; then return 0; fi
-        local ws x y w h
-        read -r ws x y w h <<<"$spec"
-        # Float and route to the workspace first.
-        hyprctl --batch "dispatch setfloating address:0x$addr ; dispatch movetoworkspacesilent $ws,address:0x$addr" >/dev/null || true
-        # Then size+position. The FIRST resize right after a float transition
-        # lands slightly off (window still settling), so apply it twice -- the
-        # second pass is exact. Cheap and idempotent.
-        for _ in 1 2; do
-          hyprctl --batch "dispatch resizewindowpixel exact $w $h,address:0x$addr ; dispatch movewindowpixel exact $x $y,address:0x$addr" >/dev/null || true
-        done
-        PLACED[$addr]="$char"
-        return 0
-      }
-
-      # Place any Eve clients that are ALREADY open (and already titled)
-      # when we connect -- e.g. daemon (re)start, or Eve launched before
-      # login. Event-driven snapping only fires on title CHANGES, so without
-      # this such windows would never be placed until a relog. Reuses snap(),
-      # so the PLACED guard still prevents fighting manual moves. Runs in the
-      # main shell (process substitution) so PLACED writes persist.
-      scan() {
-        while IFS=$'\t' read -r addr title; do
-          if [[ "$title" =~ $re ]]; then
-            snap "''${addr#0x}" "''${BASH_REMATCH[1]}"
-          fi
-        done < <(hyprctl clients -j | jq -r '.[] | "\(.address)\t\(.title)"')
-      }
+      ${placeLib}
 
       handle() {
         local line="$1"
@@ -135,9 +149,20 @@ let
       done
     '';
   };
+
+  # One-shot: snap all current Eve clients now, then exit. Bound to a key.
+  eve-window-place = pkgs.writeShellApplication {
+    name = "eve-window-place";
+    runtimeInputs = [ pkgs.jq hyprland ];
+    text = ''
+      ${placeLib}
+
+      scan
+    '';
+  };
 in
 {
-  home.packages = [ eve-window-snap ];
+  home.packages = [ eve-window-snap eve-window-place ];
 
   systemd.user.services.eve-window-snap = {
     Unit = {
