@@ -43,6 +43,7 @@ in
 
     # Reading and Audiobooks
     ./reading.nix                     # Audible CLI installation and configuration
+    ./eve-window-manager.nix          # Eve Online per-character window snapping
 
     # Hardware and Peripheral Configuration
   ];
