@@ -3,6 +3,31 @@
 **Date:** 2026-06-19
 **Host:** blue-pc · **User:** josh · **Compositor:** Hyprland 0.55.0 (Wayland)
 
+> **Revisions during implementation (2026-06-19).** The sections below describe
+> the original *floating + exact-geometry* design. Three things changed while
+> building and verifying it; the shipped module reflects these:
+>
+> 1. **socat must be unidirectional.** `socat - UNIX-CONNECT:…` is bidirectional
+>    stdio; under systemd a service's stdin is `/dev/null` → instant EOF → socat
+>    tears down the connection after its half-close timeout (~0.5s). The daemon
+>    listened only ~0.5s out of every ~2.5s and missed almost every event (it
+>    passed every interactive test, because a terminal stdin never EOFs). Fixed
+>    with `socat -u UNIX-CONNECT:$SOCK -`.
+> 2. **Floating geometry, corrected (we tried tiling and reverted).** The first
+>    floating attempt fought the 45px reserved waybar and applied geometry
+>    during the float transition, producing inconsistent sizes. We briefly
+>    switched to plain **tiling** so Hyprland would handle gaps/columns natively
+>    — but dwindle makes binary splits and *cannot* make the middle window the
+>    biggest, which the layout requires (Blue centered and largest). So the
+>    final design is floating with **bar- and gap-aware** coordinates that mimic
+>    tiled columns: usable area starts at y=1125 (below the bar), 10px outer and
+>    inter-window gaps, widths 1270 / 2540 / 1270. Reliability fix: the first
+>    `resizewindowpixel` right after `setfloating` lands slightly off, so snap
+>    applies size+position **twice** (the second pass is exact).
+> 3. **Startup scan added.** On connect (startup or Hyprland-restart reconnect)
+>    the daemon enumerates existing windows and places any already-titled Eve
+>    clients, so clients open before the daemon starts don't need a relog.
+
 ## Problem
 
 Eve Online benefits from each client launching at a consistent size and position.

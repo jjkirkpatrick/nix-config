@@ -6,9 +6,10 @@
 # AFTER login. Static Hyprland windowrules evaluate at open-time (title
 # is still "EVE"), so they cannot route by character. Instead this daemon
 # listens to Hyprland's event socket and, the moment a title becomes
-# "EVE - <Character>" for a known character, makes that window tiled and
-# moves it to the character's workspace -- the layout engine arranges it
-# alongside the other tiled windows (gaps, columns, reserved bar) natively.
+# "EVE - <Character>" for a known character, floats that window and snaps
+# it to the character's slot (workspace + position + size). Geometry is
+# chosen to mimic tiled columns (bar- and gap-aware) so a centered, larger
+# main client can sit between two smaller alts -- which dwindle can't do.
 #
 # See: docs/superpowers/specs/2026-06-19-eve-window-snapping-design.md
 # ======================================================================
@@ -18,23 +19,28 @@ let
   # modules/core/hyperland.nix) so the IPC protocol versions always match.
   hyprland = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
-  # Character -> workspace. Each known character is routed to its workspace
-  # as a TILED window; Hyprland's layout (dwindle) handles geometry, gaps,
-  # and the reserved bar -- so the clients look and behave like every other
-  # tiled window. On the 5120-wide DP-1 ultrawide, three tiled clients fall
-  # into three side-by-side columns automatically (windows stay wider than
-  # tall, so each dwindle split is vertical). Column order/ratio is
-  # dwindle-determined (open/focus order), not fixed.
-  # To add a character: copy a line. To move a character: change the number.
+  # Character -> workspace + floating geometry on Hyprland's GLOBAL coords.
+  # Floating (not tiled) because dwindle's binary splits can't make the
+  # MIDDLE window the biggest -- and Blue must be centered and largest.
+  # Coordinates are chosen to mimic tiled columns so they look native:
+  #   - DP-1 is 5120x1440 at global offset (0,1080); a 45px waybar is
+  #     reserved at the top, so usable y starts at 1080+45 = 1125.
+  #   - gaps_out=10 (screen edge) and 2*gaps_in=10 (between windows) are
+  #     baked in: top y=1135, height=1375, left x=10, right edge=5110.
+  #   - widths: Blue = half (2540), the two alts a quarter each (1270),
+  #     with 10px gaps: 10 +1270+10 +2540+10 +1270 = 5110 (= 5120 - 10).
+  # To add a character: copy a line. To resize a slot: edit the numbers.
   layout = {
-    "Test Coordinator" = 5;
-    "Blue Caloria"     = 5;
-    "CockMunch"        = 5;
+    "Test Coordinator" = { ws = 5; x = 10;   y = 1135; w = 1270; h = 1375; };
+    "Blue Caloria"     = { ws = 5; x = 1290; y = 1135; w = 2540; h = 1375; };
+    "CockMunch"        = { ws = 5; x = 3840; y = 1135; w = 1270; h = 1375; };
   };
 
-  # Render the attrset into bash associative-array lines: ["Blue Caloria"]="5"
+  # Render the attrset into bash associative-array lines:
+  #   ["Blue Caloria"]="5 1290 1135 2540 1375"
   layoutLines = lib.concatStringsSep "\n" (lib.mapAttrsToList
-    (char: ws: ''  ["${char}"]="${toString ws}"'')
+    (char: g:
+      ''  ["${char}"]="${toString g.ws} ${toString g.x} ${toString g.y} ${toString g.w} ${toString g.h}"'')
     layout);
 
   eve-window-snap = pkgs.writeShellApplication {
@@ -43,7 +49,7 @@ let
     text = ''
       SOCK="$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock"
 
-      # Character -> workspace
+      # Character -> "WS X Y W H" (Hyprland global coordinates)
       declare -A LAYOUT=(
       ${layoutLines}
       )
@@ -57,12 +63,19 @@ let
 
       snap() {
         local addr="$1" char="$2"
-        local ws="''${LAYOUT[$char]:-}"
-        if [[ -z "$ws" ]]; then return 0; fi
+        local spec="''${LAYOUT[$char]:-}"
+        if [[ -z "$spec" ]]; then return 0; fi
         if [[ "''${PLACED[$addr]:-}" == "$char" ]]; then return 0; fi
-        # Ensure tiled (Eve may open floating), then route to the workspace.
-        # The layout engine does the rest; we deliberately set no geometry.
-        hyprctl --batch "dispatch settiled address:0x$addr ; dispatch movetoworkspacesilent $ws,address:0x$addr" >/dev/null || true
+        local ws x y w h
+        read -r ws x y w h <<<"$spec"
+        # Float and route to the workspace first.
+        hyprctl --batch "dispatch setfloating address:0x$addr ; dispatch movetoworkspacesilent $ws,address:0x$addr" >/dev/null || true
+        # Then size+position. The FIRST resize right after a float transition
+        # lands slightly off (window still settling), so apply it twice -- the
+        # second pass is exact. Cheap and idempotent.
+        for _ in 1 2; do
+          hyprctl --batch "dispatch resizewindowpixel exact $w $h,address:0x$addr ; dispatch movewindowpixel exact $x $y,address:0x$addr" >/dev/null || true
+        done
         PLACED[$addr]="$char"
         return 0
       }
