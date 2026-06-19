@@ -87,11 +87,18 @@ let
 
       # Reconnect loop: survives Hyprland restarts. Process substitution
       # keeps the read loop (and PLACED) in the main shell.
+      #
+      # socat MUST be unidirectional (-u, socket -> stdout). With plain "-"
+      # (bidirectional stdio) socat also reads stdin, and under systemd a
+      # service's stdin is /dev/null -> immediate EOF -> socat tears down the
+      # connection after its half-close timeout (~0.5s). That made the daemon
+      # listen only ~0.5s out of every couple seconds and miss most events.
+      # We never write to the socket, so -u is both the fix and correct.
       while true; do
         if [[ -S "$SOCK" ]]; then
           while IFS= read -r line; do
             handle "$line"
-          done < <(socat - "UNIX-CONNECT:$SOCK" 2>/dev/null) || true
+          done < <(socat -u "UNIX-CONNECT:$SOCK" - 2>/dev/null) || true
         fi
         sleep 2
       done
