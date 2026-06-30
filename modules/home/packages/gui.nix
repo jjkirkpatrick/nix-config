@@ -14,6 +14,19 @@
 # ======================================================================
 
 { pkgs, ... }:
+let
+  # pyfa is a wxGTK app that crashes immediately on native Wayland with
+  # "Gdk-Message: Error 71 (Protocol error) dispatching to Wayland display".
+  # Force it through XWayland so it launches reliably.
+  pyfa = pkgs.symlinkJoin {
+    name = "pyfa";
+    paths = [ pkgs.pyfa ];
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      wrapProgram $out/bin/pyfa --set GDK_BACKEND x11
+    '';
+  };
+in
 {
   home.packages = with pkgs; [
     # ========================================
