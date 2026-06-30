@@ -45,6 +45,7 @@ in
     ./reading.nix                     # Audible CLI installation and configuration
     ./eve-window-manager.nix          # Eve Online per-character window snapping
     ./eve-o-preview.nix               # Eve Online live multibox thumbnail previews
+    ./clipboard-bridge.nix            # Mirror XWayland (Wine/EVE) clipboard -> Wayland clipboard
 
     # Hardware and Peripheral Configuration
   ];
