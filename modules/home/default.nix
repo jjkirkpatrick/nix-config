@@ -44,6 +44,7 @@ in
     # Reading and Audiobooks
     ./reading.nix                     # Audible CLI installation and configuration
     ./eve-window-manager.nix          # Eve Online per-character window snapping
+    ./eve-o-preview.nix               # Eve Online live multibox thumbnail previews
 
     # Hardware and Peripheral Configuration
   ];

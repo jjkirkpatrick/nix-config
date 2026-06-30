@@ -1,0 +1,119 @@
+--- a/eve_o_preview_linux.py	2026-06-21 09:23:07.815230984 +0100
++++ b/eve_o_preview_linux.py	2026-06-21 09:34:26.161192809 +0100
+@@ -124,6 +124,7 @@
+ gi.require_version('Gtk', '3.0')
+ gi.require_version('GtkLayerShell', '0.1')
+ from gi.repository import Gtk, Gdk, GdkPixbuf, GtkLayerShell, GLib
++import cairo
+ 
+ class _Thumb(Gtk.Window):
+     def __init__(self):
+@@ -135,6 +136,20 @@
+         GtkLayerShell.set_keyboard_mode(self, GtkLayerShell.KeyboardMode.NONE)
+         self.set_decorated(False)
+ 
++        # Transparent surface so a <100%-opacity thumbnail reveals the game
++        # behind it (the OVERLAY layer composites over the screen). Without an
++        # RGBA visual + app_paintable the window paints an opaque theme
++        # background and opacity has no visible effect -- the upstream bug.
++        self._opacity = 1.0
++        try:
++            _vis = self.get_screen().get_rgba_visual()
++            if _vis is not None:
++                self.set_visual(_vis)
++        except Exception:
++            pass
++        self.set_app_paintable(True)
++        self.connect("draw", self._clear_bg)
++
+         # Overlay: image + character name label
+         self._ov = Gtk.Overlay()
+         self._img = Gtk.Image()
+@@ -201,6 +216,22 @@
+         except Exception as e:
+             sys.stderr.write(f"frame: {e}\n")
+ 
++    def _clear_bg(self, w, cr):
++        # Clear the whole surface to fully transparent before children paint;
++        # standard GTK3 recipe for an RGBA / app-paintable window.
++        cr.save()
++        cr.set_operator(cairo.OPERATOR_CLEAR)
++        cr.paint()
++        cr.restore()
++        return False
++
++    def set_thumb_opacity(self, o):
++        try:
++            self._opacity = max(0.0, min(1.0, float(o)))
++            self._img.set_opacity(self._opacity)
++        except Exception:
++            pass
++
+     def set_active(self, is_active, color):
+         self._border_color = color if is_active else None
+         self.queue_draw()
+@@ -327,6 +358,8 @@
+                 GLib.idle_add(win.set_pos, int(parts[1]), int(parts[2]))
+             elif cmd == "SIZE" and len(parts) == 3:
+                 GLib.idle_add(win.resize, int(parts[1]), int(parts[2]))
++            elif cmd == "OPACITY" and len(parts) == 2:
++                GLib.idle_add(win.set_thumb_opacity, float(parts[1]))
+             elif cmd == "ACTIVE" and len(parts) == 3:
+                 GLib.idle_add(win.set_active, parts[1] == "1", parts[2])
+             elif cmd == "TITLE":
+@@ -353,7 +386,7 @@
+     """Manages a layer-shell subprocess OVERLAY window for one thumbnail."""
+ 
+     def __init__(self, x, y, w, h, click_cb, ctrl_click_cb, pos_cb,
+-                 enter_cb=None, leave_cb=None):
++                 enter_cb=None, leave_cb=None, opacity=1.0):
+         import sys as _sys
+         self._x, self._y = x, y
+         self._click_cb = click_cb
+@@ -383,6 +416,7 @@
+         _threading.Thread(target=self._writer, daemon=True).start()
+         self._ctrl_send(f"SIZE {w} {h}")
+         self._ctrl_send(f"POS {x} {y}")
++        self._ctrl_send(f"OPACITY {opacity}")
+ 
+     # ------------------------------------------------------------------
+     # Internal helpers — only called from the background _writer thread
+@@ -937,6 +971,30 @@
+                 xid = getattr(self, "_capture_xid", None) or self.wnck_window.get_xid()
+                 name = self.wnck_window.get_name()
+                 print(f"[click] activating '{name}' xid=0x{xid:x} (capture={xid!=self.wnck_window.get_xid()})", flush=True)
++                # --- Hyprland focus bridge -------------------------------------
++                # On Hyprland the X11 activation below (wmctrl/xdotool) cannot move
++                # the compositor's keyboard focus or switch workspace, and
++                # `xdotool windowactivate --sync` HANGS ~2s before timing out.
++                # Drive Hyprland directly: focuswindow by pid switches to the
++                # client's workspace AND focuses it. On success we return, skipping
++                # the broken/slow X11 path. (Falls through to X11 on non-Hyprland.)
++                try:
++                    _hpid = self.wnck_window.get_pid()
++                    if _hpid:
++                        import subprocess as _hsp
++                        _hr = _hsp.run(
++                            ["hyprctl", "dispatch", "focuswindow", "pid:%d" % _hpid],
++                            capture_output=True, timeout=2)
++                        if _hr.returncode == 0 and b"ok" in (_hr.stdout or b""):
++                            print("[click] hyprland focuswindow pid:%d ok" % _hpid, flush=True)
++                            return
++                        print("[click] hyprland focus rc=%s out=%r"
++                              % (_hr.returncode, _hr.stdout), flush=True)
++                except FileNotFoundError:
++                    pass  # not on Hyprland (or hyprctl missing) -> use X11 path
++                except Exception as _he:
++                    print("[click] hyprland focus error: %s" % _he, flush=True)
++                # --- end Hyprland focus bridge ---------------------------------
+ 
+                 # Get a real X11 server timestamp — use for all activation methods.
+                 try:
+@@ -1081,6 +1139,7 @@
+                 self._target_w, self._target_h,
+                 _click, _ctrl_click, self._on_ls_pos,
+                 _enter, _leave,
++                opacity=self.config.settings.get("opacity", 1.0),
+             )
+             self._ls_save_timer = None
+ 

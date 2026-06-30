@@ -169,7 +169,11 @@ let
     # google-chrome-stable via the ambient PATH so it talks to their already
     # running instance. Bundling a (possibly different-version) chrome here
     # hits Chrome's singleton profile lock and silently fails to open a window.
-    runtimeInputs = [ pkgs.jq hyprland ];
+    # procps for pgrep (the eve-o-preview guard). chrome/eve-o-preview are
+    # deliberately NOT in runtimeInputs -- see the chrome note above; we call
+    # both via the ambient session PATH (eve-o-preview lives in home.packages,
+    # see modules/home/eve-o-preview.nix).
+    runtimeInputs = [ pkgs.jq hyprland pkgs.procps ];
     text = ''
       ${placeLib}
 
@@ -179,6 +183,14 @@ let
       #    titled "EVE - <Char>" to ws5, so the ws3 purge below can never
       #    close a game client that happens to be sitting on ws3.
       scan
+
+      # 1b. Bring up the live thumbnail previewer, unless it's already running
+      #     (re-running the macro must not spawn duplicates). Called via ambient
+      #     PATH so eve-session keeps no cross-module build dependency on it.
+      if ! pgrep -f eve-o-preview >/dev/null 2>&1; then
+        eve-o-preview >/dev/null 2>&1 &
+        disown
+      fi
 
       # 2. Close everything left on workspace 3 (EVE Launcher, strays) to
       #    make room for a fresh map.
