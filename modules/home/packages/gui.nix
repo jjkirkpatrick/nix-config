@@ -218,6 +218,10 @@
                             # - Handled separately in gaming configuration
     
     path-of-building         # Path of Building 2 — offline build planner for Path of Exile
+    pyfa                     # Python Fitting Assistant — EVE Online ship fitting tool
+                            # - Offline ship fit planner and simulator
+                            # - Damage, tank, capacitor, and resource stats
+                            # - Imports/exports fits via EFT and clipboard
     runelite                 # Enhanced Old School RuneScape client
                             # - Third-party client with quality-of-life improvements
                             # - Plugin system for additional features
