@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-powered=$(bluetoothctl show | grep -i "powered:" | awk '{print $2}')
+powered=$(bluetoothctl show 2>/dev/null | grep -i "powered:" | awk '{print $2}')
 
 if [[ "$powered" != "yes" ]]; then
   echo '{"text": "󰂲", "tooltip": "Bluetooth off", "class": "off"}'

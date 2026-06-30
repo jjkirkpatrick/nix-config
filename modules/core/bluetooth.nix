@@ -9,9 +9,20 @@
     enable = true;
     
     # Bluetooth power-on behavior
-    # Set to false to prevent Bluetooth from auto-starting on boot
-    # Useful for battery conservation on laptops
-    powerOnBoot = false;
+    # blue-pc is a desktop (always powered), so keep the adapter on at boot.
+    # This avoids the Waybar cold-start race where a just-powered adapter has
+    # not yet re-exported its stored devices, leaving the menu's paired list
+    # empty and forcing a needless re-pair.
+    powerOnBoot = true;
+
+    # BlueZ daemon settings (rendered into /etc/bluetooth/main.conf)
+    settings = {
+      Policy = {
+        # Re-enable controllers on boot/resume and let trusted devices
+        # (e.g. headphones) reconnect automatically when they come online.
+        AutoEnable = true;
+      };
+    };
   };
 
   # Bluetooth management applications

@@ -1,22 +1,52 @@
 #!/usr/bin/env bash
 
-powered=$(bluetoothctl show | grep -i "powered:" | awk '{print $2}')
+is_powered() {
+  bluetoothctl show 2>/dev/null | grep -qi "powered: yes"
+}
+
+# Power the adapter on (if needed) and wait until BlueZ reports it ready, so the
+# rest of the menu queries a settled adapter rather than racing a cold start.
+ensure_powered() {
+  is_powered && return 0
+  bluetoothctl power on >/dev/null 2>&1
+  for _ in $(seq 1 15); do          # up to ~3s (15 * 0.2s)
+    is_powered && return 0
+    sleep 0.2
+  done
+  return 1
+}
+
+# List paired devices, retrying briefly: a just-powered adapter can take a moment
+# to re-export its stored devices on D-Bus, which previously left this empty and
+# forced a re-pair. Works for any paired device — nothing is hardcoded.
+paired_devices() {
+  local out
+  for _ in $(seq 1 10); do          # up to ~2s (10 * 0.2s)
+    out=$(bluetoothctl devices Paired 2>/dev/null | grep "Device")
+    [[ -n "$out" ]] && { printf '%s\n' "$out"; return 0; }
+    sleep 0.2
+  done
+  return 0                          # genuinely no paired devices
+}
+
+ensure_powered
 
 entries=""
-if [[ "$powered" == "yes" ]]; then
+if is_powered; then
   entries="󰂲  Power off\n"
   entries="${entries}󰂍  Scan for new devices\n"
 
   # Paired devices with connection status
   while IFS= read -r line; do
+    [[ -z "$line" ]] && continue
     mac=$(echo "$line" | awk '{print $2}')
     name=$(echo "$line" | cut -d' ' -f3-)
-    if bluetoothctl info "$mac" | grep -q "Connected: yes"; then
+    if bluetoothctl info "$mac" 2>/dev/null | grep -q "Connected: yes"; then
       entries="${entries}󰂱  Disconnect: $name|$mac\n"
     else
       entries="${entries}󰂯  Connect: $name|$mac\n"
     fi
-  done < <(bluetoothctl devices Paired 2>/dev/null | grep "Device")
+  done < <(paired_devices)
 else
   entries="󰂱  Power on\n"
 fi
@@ -28,7 +58,8 @@ if [[ "$choice" == *"Power off"* ]]; then
   bluetoothctl power off
 
 elif [[ "$choice" == *"Power on"* ]]; then
-  bluetoothctl power on
+  # Power on, wait for the adapter, then re-open so paired devices are listed.
+  ensure_powered && exec "$0"
 
 elif [[ "$choice" == *"Scan for new devices"* ]]; then
   # Scan for 8 seconds, collect discovered devices
