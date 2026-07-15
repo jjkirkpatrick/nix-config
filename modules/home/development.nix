@@ -21,6 +21,10 @@
     # Python Development Environment
     # ========================================
     python3                           # Python 3 interpreter - latest stable version
+    # The unsloth-studio venv (~/.unsloth/studio) is built against 3.13 and
+    # resolves its interpreter via /etc/profiles/per-user/josh/bin/python3.13,
+    # so keep 3.13 installed. lowPrio avoids bin/python collisions with python3.
+    (lib.lowPrio python313)
     python3Packages.pip              # Python package installer
     python3Packages.virtualenv       # Virtual environment management for Python projects
     python3Packages.requests         # Popular HTTP library for Python
