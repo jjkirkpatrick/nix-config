@@ -142,7 +142,12 @@
                             # - Real-time bandwidth usage per application
                             # - Helps identify network-heavy applications
                             # - Modern alternative to traditional network tools
-    
+
+    nettools                 # Classic network utilities (provides netstat)
+                            # - netstat for connections, routing, and stats
+                            # - Also includes ifconfig, route, arp
+                            # - Traditional tooling for network diagnostics
+
     # ========================================
     # DEVELOPMENT TOOLS
     # ========================================
