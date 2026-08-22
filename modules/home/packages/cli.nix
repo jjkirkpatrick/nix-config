@@ -148,6 +148,11 @@
                             # - Also includes ifconfig, route, arp
                             # - Traditional tooling for network diagnostics
 
+    iw                       # nl80211 WiFi configuration/diagnostic tool
+                            # - `iw dev wlp6s0 link` shows connected BSSID/SSID/freq/signal
+                            # - Reads association directly, no wpa_cli socket or sudo needed
+                            # - Useful for identifying which AP/band you're on
+
     # ========================================
     # DEVELOPMENT TOOLS
     # ========================================
@@ -189,6 +194,12 @@
                             # - Faster than command-line git for complex operations
                             # - Great for visual learners and git beginners
     
+    ansible                  # IT automation and configuration management
+                            # - Agentless orchestration over SSH
+                            # - Playbooks for provisioning and deployment
+                            # - Includes ansible-playbook, ansible-vault, etc.
+                            # - Idempotent config management across hosts
+
     azure-cli                # Microsoft Azure command-line interface
                             # - Manage Azure resources and services
                             # - Deploy and monitor cloud infrastructure
@@ -387,6 +398,8 @@
     llama-cpp-vulkan        # llama.cpp with Vulkan GPU acceleration (works with NVIDIA on Wayland)
 
     opencode
+
+    iperf3
   ];
 
   # ============================================================

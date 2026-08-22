@@ -49,6 +49,6 @@
     # Driver version selection
     # Use production/stable driver branch for maximum stability
     # Alternative options: beta, vulkan_beta, legacy_470, legacy_390
-    package = config.boot.kernelPackages.nvidiaPackages.production;
+    package = config.boot.kernelPackages.nvidiaPackages.latest;
   };
 }

@@ -43,6 +43,8 @@
     wget          # File downloader
     git           # Version control system
     home-manager  # User environment manager
+    lm_sensors    # Hardware monitoring: `sensors` reads CPU (k10temp), mobo, RAM temps
+    smartmontools # SSD/HDD health: `smartctl -H -A /dev/nvme0` for wear/SMART attrs
   ];
 
   # Create /bin/sh symlink for compatibility with non-NixOS applications

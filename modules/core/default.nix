@@ -21,6 +21,8 @@
     ./security.nix
     # System services and daemon configuration
     ./services.nix
+    # Remote access (SSH + Sunshine desktop streaming over the VPN)
+    ./remote-access.nix
     # Steam gaming platform configuration
     ./steam.nix
     # Core system settings (Nix configuration, locale, timezone)
@@ -35,6 +37,8 @@
     ./virtualization.nix
     # NVIDIA graphics driver configuration
     ./nvidia.nix
+    # Ollama local LLM runtime (CUDA-accelerated)
+    ./ollama.nix
     # Automatic system updates configuration
     ./auto-upgrade.nix
     # Nix store optimisation and garbage collection
