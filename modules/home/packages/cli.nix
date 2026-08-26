@@ -12,6 +12,11 @@
 # ======================================================================
 
 { pkgs, ... }:
+
+let
+  grok = pkgs.callPackage ../packages/grok.nix {};
+in
+
 {
   home.packages = with pkgs; [
     # ========================================
@@ -400,6 +405,10 @@
     opencode
 
     iperf3
+
+    grok                     # Grok Build - coding agent powered by Grok 4.6
+                            # - Terminal-based coding assistant
+                            # - Runs locally, early access via X AI
   ];
 
   # ============================================================
