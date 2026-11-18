@@ -1,5 +1,5 @@
 # Virtualization and containerization configuration
-{ pkgs, username, ... }:
+{ lib, pkgs, username, ... }:
 {
   virtualisation = {
     spiceUSBRedirection.enable = true;
@@ -13,6 +13,13 @@
       setSocketVariable = true;
     };
   };
+
+  # docker.rootless installs its systemd --user unit for every user session on
+  # the system, including SDDM's ephemeral greeter account, which has no
+  # subuid/subgid range and can never run it. The upstream module already
+  # excludes root (ConditionUser = "!root"); tighten it to just our user so
+  # it stops failing (and spamming the journal) on every login screen too.
+  systemd.user.services.docker.unitConfig.ConditionUser = lib.mkForce username;
 
   # Keep only kvm-amd
   boot.kernelModules = [ "kvm-amd" ];

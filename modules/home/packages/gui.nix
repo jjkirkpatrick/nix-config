@@ -26,6 +26,12 @@ let
       wrapProgram $out/bin/pyfa --set GDK_BACKEND x11
     '';
   };
+
+  grok-bot = pkgs.callPackage ./grok-bot.nix { };
+  cadcraft = pkgs.callPackage ./cadcraft.nix { };
+  chatgpt-desktop = pkgs.callPackage ./chatgpt-desktop.nix { };
+  project-cosmos = pkgs.callPackage ./project-cosmos.nix { };
+  detuks-client = pkgs.callPackage ./detuks-client.nix { };
 in
 {
   home.packages = with pkgs; [
@@ -34,15 +40,11 @@ in
     # ========================================
     # Privacy-focused browsers with enhanced security features
     
-    google-chrome            # Google Chrome browser
+    # XWayland: native-Wayland Chromium on NVIDIA renders DRM video (Netflix) black
+    (google-chrome.override { commandLineArgs = "--ozone-platform=x11"; })
 
-    brave                    # Privacy-focused Chromium-based browser
-                            # - Built-in ad blocking and tracker protection
-                            # - Tor integration for private browsing
-                            # - BAT (Basic Attention Token) rewards system
-                            # - Chromium compatibility for web development
-                            # - HTTPS Everywhere and fingerprinting protection
-    
+    tigervnc                 # VNC viewer: `vncviewer 192.168.1.55` to control the Pi
+
     # ========================================
     # MEDIA PLAYERS AND ENTERTAINMENT
     # ========================================
@@ -85,7 +87,11 @@ in
                             # - Slideshow functionality
                             # - Basic image operations (rotate, zoom)
                             # - Good integration with file managers
-    
+
+    blender                  # 3D creation suite (modeling, sculpting, animation, rendering)
+                            # - Stock nixpkgs build from the binary cache
+                            # - Cycles GPU rendering needs cudaSupport, which is a local rebuild
+
     # ========================================
     # OFFICE AND PRODUCTIVITY SUITE
     # ========================================
@@ -132,6 +138,18 @@ in
                             # - Advanced code completion and generation
                             # - Integration with large language models
                             # - Modern development workflow optimization
+
+    grok-bot                 # Grok Bot desktop agent
+    cadcraft                 # CADCraft CAD app + cadcraft-cli (MCP)
+                            # - Official Linux .deb from Cursor CDN (0.29.0)
+                            # - Sign in with SuperGrok Plus/Heavy or Cursor Pro+/Ultra
+
+    project-cosmos           # Project Cosmos MMO (Windows-only) - syncs game files + runs via Proton/umu
+    detuks-client            # Detuks OSRS client (AppImage w/ bundled Wine)
+
+    chatgpt-desktop          # Official ChatGPT desktop app (Chat + Work + Codex)
+                            # - Official Linux .deb from OpenAI (26.901.51231), binary `chatgpt`
+                            # - Bots run on a cloud computer; this app is the client
 
     # ========================================
     # SYSTEM UTILITIES AND CONTROL

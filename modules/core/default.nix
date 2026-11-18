@@ -35,6 +35,8 @@
     ./wayland.nix
     # Virtualization support (KVM, QEMU, containers)
     ./virtualization.nix
+    # GNS3 network simulator (GUI + local server, ubridge, dynamips, VPCS)
+    ./gns3.nix
     # NVIDIA graphics driver configuration
     ./nvidia.nix
     # Ollama local LLM runtime (CUDA-accelerated)

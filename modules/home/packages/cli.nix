@@ -400,7 +400,6 @@ in
                             # - Integration with Wayland compositors
                             # - Highly configurable appearance and functionality
   
-    llama-cpp-vulkan        # llama.cpp with Vulkan GPU acceleration (works with NVIDIA on Wayland)
 
     opencode
 

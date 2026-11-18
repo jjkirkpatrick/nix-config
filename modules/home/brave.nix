@@ -21,7 +21,7 @@
   # Install Brave browser package
   
   home.packages = with pkgs; [ 
-    brave                             # Brave browser - privacy-focused Chromium-based browser
+    (brave.override { commandLineArgs = "--ozone-platform=x11"; })  # x11: Netflix DRM video is black on NVIDIA Wayland. Brave browser - privacy-focused Chromium-based browser
                                      # Features:
                                      # - Built-in ad blocker (faster page loading)
                                      # - Tracker protection (enhanced privacy)

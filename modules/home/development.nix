@@ -43,11 +43,15 @@
     cargo                            # Rust package manager and build tool
     rustfmt                          # Code formatter for Rust - maintains consistent style
     clippy                           # Rust linter - catches common mistakes and improves code quality
+    lld                              # LLVM linker - needed to link wasm32 targets (e.g. SpacetimeDB modules)
+    binaryen                         # WebAssembly toolchain - provides wasm-opt for optimising wasm builds
 
     # ========================================
     # Go Development Environment
     # ========================================
     go                               # Go programming language - efficient and concurrent
+    gopls                            # Go language server - Nix-managed so GC can't strand its glibc
+    delve                            # Go debugger (dlv) - Nix-managed for the same reason
 
     # ========================================
     # Java Development Environment
@@ -116,6 +120,11 @@
     # Version Control and Collaboration
     # ========================================
     gh                               # GitHub CLI - repository management and workflow automation
+
+    # ========================================
+    # AI Coding Agents
+    # ========================================
+    codex                            # OpenAI Codex CLI - terminal coding agent (run `codex` and sign in with ChatGPT)
     # ========================================
     # Containers
     # ========================================

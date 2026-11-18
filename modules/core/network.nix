@@ -1,36 +1,40 @@
 # Network configuration - WiFi and firewall settings
 { pkgs, host, ... }:
 {
+  # wg / wg-quick CLI tools for connecting to the WireGuard VPN referenced
+  # in remote-access.nix (no local WireGuard server/interface is defined here).
+  environment.systemPackages = [ pkgs.wireguard-tools ];
+
   networking = {
     # Set system hostname dynamically based on the host parameter
     hostName = "${host}";
 
-    # Enable WiFi support using wpa_supplicant
-    wireless.enable = true;
+    # WiFi disabled - blue-pc is wired to ethernet full-time. Running WiFi
+    # alongside ethernet caused dual default routes, and WiFi power-save
+    # was intermittently stalling connections for several seconds even
+    # though ethernet should have been preferred. Simplest fix: don't
+    # bring the radio up at all.
+    wireless.enable = false;
 
-    # WiFi passphrase is loaded from a secrets file outside the repo.
-    # The wpa_supplicant service runs as the unprivileged `wpa_supplicant`
-    # user, so the file must be readable by that group (640), NOT root-only.
-    # Create it once (do not commit this file):
+    # WiFi passphrase was loaded from a secrets file outside the repo.
+    # Re-enable if WiFi is ever needed again:
     #   sudo bash -c 'echo "psk_TheDuke=your_passphrase" > /etc/nixos/wireless-secrets'
     #   sudo chown root:wpa_supplicant /etc/nixos/wireless-secrets
     #   sudo chmod 640 /etc/nixos/wireless-secrets
-    wireless.secretsFile = "/etc/nixos/wireless-secrets";
-
-    wireless.networks = {
-      # Home network - preferred when in range
-      "The Duke" = {
-        pskRaw = "ext:psk_TheDuke";
-        priority = 10;
-      };
-      # Phone hotspot - fallback when home network is unavailable
-      "Josh's S23 Ultra" = {
-        auth = ''
-          key_mgmt=NONE
-        '';
-        priority = 1;
-      };
-    };
+    # wireless.secretsFile = "/etc/nixos/wireless-secrets";
+    #
+    # wireless.networks = {
+    #   "The Duke" = {
+    #     pskRaw = "ext:psk_TheDuke";
+    #     priority = 10;
+    #   };
+    #   "Josh's S23 Ultra" = {
+    #     auth = ''
+    #       key_mgmt=NONE
+    #     '';
+    #     priority = 1;
+    #   };
+    # };
 
     # NetworkManager alternative (commented out in favor of wpa_supplicant)
     #networkmanager.enable = true;

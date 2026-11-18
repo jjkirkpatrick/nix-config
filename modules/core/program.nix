@@ -63,6 +63,11 @@
       xorg.libXrender
       xorg.libXtst
       xorg.libxcb
+      # Official blender.org builds (Cycles CUDA/OptiX GPU rendering, which the nixpkgs build lacks)
+      xorg.libSM
+      xorg.libICE
+      libglvnd
+      stdenv.cc.cc.lib
     ];
   };
 }

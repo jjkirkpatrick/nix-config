@@ -42,14 +42,17 @@ in
     
     # Hyprland window manager configuration - individual files
     # (hyprpaper.conf is managed by services.hyprpaper)
-    ".config/hypr/bind.conf".source = "${configDir}/hypr/bind.conf";
-    ".config/hypr/exec.conf".source = "${configDir}/hypr/exec.conf";
+    # Hyprland 0.56 dropped classic hyprlang (.conf) auto-discovery in favor
+    # of a Lua config; these are the ported equivalents, require()'d from
+    # hyprland.lua.
+    ".config/hypr/bind.lua".source = "${configDir}/hypr/bind.lua";
+    ".config/hypr/exec.lua".source = "${configDir}/hypr/exec.lua";
     ".config/hypr/hypridle.conf".source = "${configDir}/hypr/hypridle.conf";
-    ".config/hypr/hyprland.conf".source = "${configDir}/hypr/hyprland.conf";
-    ".config/hypr/input.conf".source = "${configDir}/hypr/input.conf";
-    ".config/hypr/monitor.conf".source = "${configDir}/hypr/monitor.conf";
-    ".config/hypr/window.conf".source = "${configDir}/hypr/window.conf";
-    ".config/hypr/windowrule.conf".source = "${configDir}/hypr/windowrule.conf";
+    ".config/hypr/hyprland.lua".source = "${configDir}/hypr/hyprland.lua";
+    ".config/hypr/input.lua".source = "${configDir}/hypr/input.lua";
+    ".config/hypr/monitor.lua".source = "${configDir}/hypr/monitor.lua";
+    ".config/hypr/window.lua".source = "${configDir}/hypr/window.lua";
+    ".config/hypr/windowrule.lua".source = "${configDir}/hypr/windowrule.lua";
 
     ".config/waybar".source = "${configDir}/waybar";
     # Waybar status bar configuration - Displays system information,

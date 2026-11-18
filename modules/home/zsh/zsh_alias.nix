@@ -99,6 +99,9 @@
     h = "history";          # View command history (shorter than typing 'history')
     c = "clear";            # Clear terminal screen (quick screen cleanup)
     q = "exit";             # Exit shell (faster than typing 'exit')
+
+    ssh = "TERM=xterm-256color ssh";
+    # Remote hosts lack kitty's terminfo ('xterm-kitty': unknown terminal type)
   };
 
   # ============================================================

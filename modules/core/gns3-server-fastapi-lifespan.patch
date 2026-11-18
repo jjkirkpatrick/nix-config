@@ -1,0 +1,30 @@
+--- a/gns3server/api/server.py	2026-09-30 15:31:39.919933090 +0100
++++ b/gns3server/api/server.py	2026-09-30 15:31:39.938418381 +0100
+@@ -19,6 +19,8 @@
+ FastAPI app
+ """
+ 
++from contextlib import asynccontextmanager
++
+ from fastapi import FastAPI, Request, HTTPException, status
+ from fastapi.middleware.cors import CORSMiddleware
+ from fastapi.responses import JSONResponse
+@@ -71,8 +73,16 @@
+         allow_headers=["*"],
+     )
+ 
+-    application.add_event_handler("startup", tasks.create_startup_handler(application))
+-    application.add_event_handler("shutdown", tasks.create_shutdown_handler(application))
++    startup_handler = tasks.create_startup_handler(application)
++    shutdown_handler = tasks.create_shutdown_handler(application)
++
++    @asynccontextmanager
++    async def lifespan(app: FastAPI):
++        await startup_handler()
++        yield
++        await shutdown_handler()
++
++    application.router.lifespan_context = lifespan
+     application.include_router(index.router, tags=["Index"])
+     application.include_router(controller.router, prefix="/v3")
+     application.mount("/static", StaticFiles(packages=[('gns3server', 'static')]), name="static")
