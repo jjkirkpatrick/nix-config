@@ -9,6 +9,17 @@
     # Set system hostname dynamically based on the host parameter
     hostName = "${host}";
 
+    dhcpcd = {
+      # Only the physical NIC should get a host address. Without this dhcpcd
+      # also leased an IP + a second default route on macvtap0 -- the
+      # vozora-tunnel VM's interface, using the VM's MAC -- and probed the
+      # disabled WiFi card. (gns3-oob is denied in gns3.nix; lists merge.)
+      denyInterfaces = [ "macvtap*" "vnet*" "virbr*" "veth*" "docker*" "wlp*" ];
+      # Don't hold boot on the DHCP lease (~9s on the critical path);
+      # units that need it order after network-online.target.
+      wait = "background";
+    };
+
     # WiFi disabled - blue-pc is wired to ethernet full-time. Running WiFi
     # alongside ethernet caused dual default routes, and WiFi power-save
     # was intermittently stalling connections for several seconds even

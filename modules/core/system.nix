@@ -45,17 +45,13 @@
   # Many applications (including Flatpaks) expect /bin/sh to exist
   environment.binsh = "${pkgs.dash}/bin/dash";
   
-  # System-wide environment variables
-  environment.sessionVariables = {
-    # Add Flatpak application directories to XDG_DATA_DIRS
-    # This ensures Flatpak applications appear in application menus
-    XDG_DATA_DIRS = [
-      "/var/lib/flatpak/exports/share"
-      "$HOME/.local/share/flatpak/exports/share"
-      "/usr/share"
-      "/run/current-system/sw/share"
-    ];
-  };
+  # (No custom XDG_DATA_DIRS: services.flatpak already adds both flatpak
+  # export dirs via environment.profiles, and re-listing
+  # /run/current-system/sw/share made dbus-broker log duplicate-service
+  # errors on every login.)
+
+  # Cap the persistent journal (it had grown to 3.3G unbounded).
+  services.journald.settings.Journal.SystemMaxUse = "1G";
 
   # Compressed swap in RAM, used before the disk swap partition (higher
   # priority). Much faster than paging to NVMe under memory pressure.
