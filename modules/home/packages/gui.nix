@@ -60,13 +60,6 @@ in
     # ========================================
     # Versatile media players for various formats and use cases
     
-    vlc                      # Universal media player with extensive codec support
-                            # - Plays virtually any audio/video format
-                            # - Network streaming capabilities (HTTP, RTSP, etc.)
-                            # - DVD/Blu-ray playback support
-                            # - Audio/video filters and effects
-                            # - Cross-platform and highly reliable
-    
     mpv                      # Lightweight, scriptable media player
                             # - Minimal interface with keyboard-driven controls
                             # - High-quality video rendering and scaling
@@ -141,8 +134,6 @@ in
     # ========================================
     # Code editors and integrated development environments
     
-    
-    
     code-cursor              # AI-powered code editor
                             # - Cursor-based AI assistance for coding
                             # - Advanced code completion and generation
@@ -205,22 +196,11 @@ in
                             # - Essential for modern GUI automation
                             # - Integration with system scripts
     
-    jaq                      # Rust-based JSON processor (faster jq alternative)
-                            # - Performance-optimized JSON processing
-                            # - Drop-in replacement for jq
-                            # - Better for high-performance scripting
-    
     socat                    # Socket communication utility
                             # - Network socket manipulation
                             # - Pipe and file descriptor management
                             # - Essential for system integration scripts
                             # - Debugging network communications
-    
-    networkmanager           # Network connection management
-                            # - GUI network configuration
-                            # - WiFi, Ethernet, VPN management
-                            # - Connection profiles and automation
-                            # - Essential for desktop networking
     
     # ========================================
     # ARCHIVE MANAGEMENT
@@ -258,7 +238,7 @@ in
                             # - Proton for Windows game compatibility
                             # - Handled separately in gaming configuration
     
-    path-of-building         # Path of Building 2 — offline build planner for Path of Exile
+    rusty-path-of-building         # Path of Building (Rust rewrite) — offline build planner for Path of Exile
     pyfa                     # Python Fitting Assistant — EVE Online ship fitting tool
                             # - Offline ship fit planner and simulator
                             # - Damage, tank, capacitor, and resource stats
@@ -329,13 +309,6 @@ in
     # ========================================
     # GUI applications for system performance monitoring
     
-    mission-center           # Modern system monitor with beautiful interface
-                            # - Real-time system resource monitoring
-                            # - CPU, memory, disk, and network usage
-                            # - Process management with detailed information
-                            # - Modern UI design with graphs and charts
-                            # - Alternative to traditional system monitors
-    
     # ========================================
     # DESKTOP WIDGETS AND CUSTOMIZATION
     # ========================================
@@ -356,12 +329,10 @@ in
                             # - Integration with system functions
                             # - Productivity enhancement for content creators
     
-     
     # ========================================
     # MUSIC AND AUDIO APPLICATIONS
     # ========================================
     # Applications for music streaming and audio management
-
 
     spotify                  # Popular music streaming service
                             # - Access to millions of songs and podcasts
@@ -369,13 +340,6 @@ in
                             # - Cross-device synchronization
                             # - Social features and music discovery
     
-    spotifyd                 # Lightweight Spotify daemon
-                            # - Spotify Connect client daemon
-                            # - Remote control from other devices
-                            # - Lower resource usage than full client
-                            # - Headless Spotify playback
-
-
     # ========================================
     # UTILITY APPLICATIONS
     # ========================================
@@ -505,11 +469,6 @@ in
     # ========================================
     # DATABASE MANAGEMENT
     # ========================================
-
-    tableplus                # GUI database manager
-                            # - Supports PostgreSQL, MySQL, SQLite, and more
-                            # - Query editor with syntax highlighting
-                            # - Data browsing and editing
 
     android-studio           # Official Android IDE (JetBrains-based)
                             # - For building and debugging Android apps

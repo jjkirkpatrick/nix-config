@@ -153,11 +153,6 @@ in
                             # - Also includes ifconfig, route, arp
                             # - Traditional tooling for network diagnostics
 
-    iw                       # nl80211 WiFi configuration/diagnostic tool
-                            # - `iw dev wlp6s0 link` shows connected BSSID/SSID/freq/signal
-                            # - Reads association directly, no wpa_cli socket or sudo needed
-                            # - Useful for identifying which AP/band you're on
-
     # ========================================
     # DEVELOPMENT TOOLS
     # ========================================

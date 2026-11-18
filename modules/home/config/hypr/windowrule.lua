@@ -46,7 +46,6 @@ local opaqueTargets = {
     { field = "class", pattern = "^(evince)$" },
     { field = "class", pattern = "^(discord)$" },
     { field = "class", pattern = "^(spotify)$" },
-    { field = "class", pattern = "^(vlc)$" },
 }
 for _, t in ipairs(opaqueTargets) do
     hl.window_rule({
