@@ -20,7 +20,9 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("swaync")
 
     -- Pin workspaces to monitors at startup
-    hl.exec_cmd("sleep 2 && hyprctl dispatch moveworkspacetomonitor 2 HDMI-A-1 && hyprctl dispatch moveworkspacetomonitor 3 HDMI-A-1 && hyprctl dispatch moveworkspacetomonitor 10 HDMI-A-1")
+    -- (moveworkspacetomonitor-style `hyprctl dispatch` is gone with the Lua
+    -- config; hl.timer would be nicer but a delayed eval keeps the old timing)
+    hl.exec_cmd([[sleep 2 && hyprctl eval 'for _, ws in ipairs({ 2, 3, 10 }) do hl.dispatch(hl.dsp.workspace.move({ workspace = ws, monitor = "HDMI-A-1" })) end']])
 
     hl.exec_cmd("waybar")
     hl.exec_cmd("wl-paste --watch cliphist store")

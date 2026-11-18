@@ -94,7 +94,7 @@
 +                    if _hpid:
 +                        import subprocess as _hsp
 +                        _hr = _hsp.run(
-+                            ["hyprctl", "dispatch", "focuswindow", "pid:%d" % _hpid],
++                            ["hyprctl", "dispatch", 'hl.dsp.focus({ window = "pid:%d" })' % _hpid],
 +                            capture_output=True, timeout=2)
 +                        if _hr.returncode == 0 and b"ok" in (_hr.stdout or b""):
 +                            print("[click] hyprland focuswindow pid:%d ok" % _hpid, flush=True)

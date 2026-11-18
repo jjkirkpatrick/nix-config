@@ -28,9 +28,6 @@ in
     # System Utilities and Monitoring
     # ========================================
     
-    ".config/neofetch".source = "${configDir}/neofetch";
-    # Neofetch system information display configuration
-    # Customizes the system info output format and ASCII art
 
     ".config/btop".source = "${configDir}/btop";
     # btop system monitor configuration - Modern replacement for htop
@@ -93,8 +90,9 @@ in
     # Hardware and Peripheral Control
     # ========================================
     
-    ".config/streamdeck".source = "${configDir}/streamdeck";
-    # StreamDeck configuration - Custom button layouts and macros
-    # for system management, development workflows, and application control
+    # StreamDeck button layouts. streamdeck-ui reads ~/.streamdeck_ui.json (it
+    # never looked at ~/.config/streamdeck). Read-only: edit the repo file,
+    # changes made in the streamdeck-ui window won't save.
+    ".streamdeck_ui.json".source = "${configDir}/streamdeck/config.json";
   };
 }

@@ -73,13 +73,16 @@ let
       if [[ "''${PLACED[$addr]:-}" == "$char" ]]; then return 0; fi
       local ws x y w h
       read -r ws x y w h <<<"$spec"
-      # Float and route to the workspace first.
-      hyprctl --batch "dispatch setfloating address:0x$addr ; dispatch movetoworkspacesilent $ws,address:0x$addr" >/dev/null || true
+      # Float and route to the workspace first. (Hyprland's Lua config: no
+      # more `hyprctl --batch "dispatch ..."`; run hl.dsp calls via eval.)
+      local win="window = \"address:0x$addr\""
+      hyprctl eval "hl.dispatch(hl.dsp.window.float({ action = \"on\", $win })); hl.dispatch(hl.dsp.window.move({ workspace = $ws, follow = false, $win }))" >/dev/null || true
       # Then size+position. The FIRST resize right after a float transition
       # lands slightly off (window still settling), so apply it twice -- the
       # second pass is exact. Cheap and idempotent.
       for _ in 1 2; do
-        hyprctl --batch "dispatch resizewindowpixel exact $w $h,address:0x$addr ; dispatch movewindowpixel exact $x $y,address:0x$addr" >/dev/null || true
+        # x/y without relative=true are exact size / global position
+        hyprctl eval "hl.dispatch(hl.dsp.window.resize({ x = $w, y = $h, $win })); hl.dispatch(hl.dsp.window.move({ x = $x, y = $y, $win }))" >/dev/null || true
       done
       PLACED[$addr]="$char"
       return 0
@@ -195,7 +198,7 @@ let
       # 2. Close everything left on workspace 3 (EVE Launcher, strays) to
       #    make room for a fresh map.
       while IFS= read -r addr; do
-        [[ -n "$addr" ]] && hyprctl dispatch closewindow "address:$addr" >/dev/null || true
+        [[ -n "$addr" ]] && hyprctl dispatch "hl.dsp.window.close({ window = \"address:$addr\" })" >/dev/null || true
       done < <(hyprctl clients -j | jq -r '.[] | select(.workspace.name=="3") | .address')
 
       # 3. Open the wormhole map on ws3. A new browser window opens on the
@@ -206,7 +209,7 @@ let
       #    directly. We call the user's own google-chrome-stable (via PATH) so
       #    it talks to the running instance and keeps their profile/login.
       orig="$(hyprctl activeworkspace -j | jq -r '.name')"
-      hyprctl dispatch workspace 3 >/dev/null || true
+      hyprctl dispatch 'hl.dsp.focus({ workspace = 3 })' >/dev/null || true
       google-chrome-stable --new-window "$URL" >/dev/null 2>&1 &
       disown
 
@@ -215,7 +218,7 @@ let
       for _ in $(seq 40); do          # poll up to ~12s
         addr="$(hyprctl clients -j | jq -r 'first(.[] | select(.title|test("wormhole|wormageddon";"i")) | .address) // empty')"
         if [[ -n "$addr" ]]; then
-          hyprctl dispatch movetoworkspacesilent "3,address:$addr" >/dev/null || true
+          hyprctl dispatch "hl.dsp.window.move({ workspace = 3, follow = false, window = \"address:$addr\" })" >/dev/null || true
           break
         fi
         read -t 0.3 -r _ </dev/null 2>/dev/null || true
@@ -223,7 +226,7 @@ let
 
       # Return focus to wherever the user was, so the macro doesn't leave them
       # parked on ws3.
-      hyprctl dispatch workspace "$orig" >/dev/null || true
+      hyprctl dispatch "hl.dsp.focus({ workspace = \"$orig\" })" >/dev/null || true
     '';
   };
 in

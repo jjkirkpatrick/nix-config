@@ -1,9 +1,17 @@
 #!/usr/bin/env bash
+# (Hyprland Lua config: `hyprctl dispatch` takes hl.dsp.* Lua, and
+# `hyprctl keyword` is gone -- settings go through `hyprctl eval`.)
+d()      { hyprctl dispatch "$1" >/dev/null; }
+luastr() { local s=${1//\\/\\\\}; printf '"%s"' "${s//\"/\\\"}"; }
+run()    { d "hl.dsp.exec_cmd($(luastr "$1"))"; }
+ws()     { d "hl.dsp.focus({ workspace = $1 })"; }
+to_ws()  { d "hl.dsp.window.move({ workspace = $1, follow = false, window = \"address:$2\" })"; }
+follow_mouse() { hyprctl eval "hl.config({ input = { follow_mouse = $1 } })" >/dev/null; }
 
-hyprctl keyword input:follow_mouse 0
+follow_mouse 0
 
 # Close windows on target workspaces
-hyprctl clients -j | jq -r '.[] | select(.workspace.id == 1 or .workspace.id == 2 or .workspace.id == 3 or .workspace.id == 10) | .address' | xargs -I {} hyprctl dispatch closewindow address:{}
+hyprctl clients -j | jq -r '.[] | select(.workspace.id == 1 or .workspace.id == 2 or .workspace.id == 3 or .workspace.id == 10) | .address' | while read -r a; do d "hl.dsp.window.close({ window = \"address:$a\" })"; done
 
 sleep 0.5
 
@@ -32,59 +40,59 @@ get_windows() {
 }
 
 ### Workspace 1 — Dev layout ###
-hyprctl dispatch workspace 1
+ws 1
 sleep 0.3
 
 before=$(get_windows)
-hyprctl dispatch exec "google-chrome-stable --new-window 'https://dev.azure.com/ans-devops/INT-RnD/_sprints/backlog/DevOps%20Team/INT-RnD' --new-tab 'https://github.com/'"
+run "google-chrome-stable --new-window 'https://dev.azure.com/ans-devops/INT-RnD/_sprints/backlog/DevOps%20Team/INT-RnD' --new-tab 'https://github.com/'"
 addr=$(wait_for_window "$before")
-[ -n "$addr" ] && hyprctl dispatch movetoworkspacesilent 1,address:$addr
+[ -n "$addr" ] && to_ws 1 "$addr"
 
 before=$(get_windows)
-hyprctl dispatch exec "code"
+run "code"
 addr=$(wait_for_window "$before")
-[ -n "$addr" ] && hyprctl dispatch movetoworkspacesilent 1,address:$addr
+[ -n "$addr" ] && to_ws 1 "$addr"
 
 before=$(get_windows)
-hyprctl dispatch exec "kitty"
+run "kitty"
 addr=$(wait_for_window "$before")
-[ -n "$addr" ] && hyprctl dispatch movetoworkspacesilent 1,address:$addr
+[ -n "$addr" ] && to_ws 1 "$addr"
 
 before=$(get_windows)
-hyprctl dispatch exec "kitty"
+run "kitty"
 addr=$(wait_for_window "$before")
-[ -n "$addr" ] && hyprctl dispatch movetoworkspacesilent 1,address:$addr
+[ -n "$addr" ] && to_ws 1 "$addr"
 
 ### Workspace 3 — lazydocker ###
 before=$(get_windows)
-hyprctl dispatch exec "kitty --hold -e lazydocker"
+run "kitty --hold -e lazydocker"
 addr=$(wait_for_window "$before")
-[ -n "$addr" ] && hyprctl dispatch movetoworkspacesilent 3,address:$addr
+[ -n "$addr" ] && to_ws 3 "$addr"
 
 ### Workspace 2 — Teams ###
 before=$(get_windows)
-hyprctl dispatch exec "google-chrome-stable --new-window 'https://teams.microsoft.com'"
+run "google-chrome-stable --new-window 'https://teams.microsoft.com'"
 addr=$(wait_for_window "$before")
-[ -n "$addr" ] && hyprctl dispatch movetoworkspacesilent 2,address:$addr
+[ -n "$addr" ] && to_ws 2 "$addr"
 
 ### Workspace 10 — Media ###
 before=$(get_windows)
-hyprctl dispatch exec "discord"
+run "discord"
 addr=$(wait_for_window "$before")
-[ -n "$addr" ] && hyprctl dispatch movetoworkspacesilent 10,address:$addr
+[ -n "$addr" ] && to_ws 10 "$addr"
 
 before=$(get_windows)
-hyprctl dispatch exec "spotify"
+run "spotify"
 addr=$(wait_for_window "$before")
-[ -n "$addr" ] && hyprctl dispatch movetoworkspacesilent 10,address:$addr
+[ -n "$addr" ] && to_ws 10 "$addr"
 
 before=$(get_windows)
-hyprctl dispatch exec "google-chrome-stable --new-window 'https://youtube.com'"
+run "google-chrome-stable --new-window 'https://youtube.com'"
 addr=$(wait_for_window "$before")
-[ -n "$addr" ] && hyprctl dispatch movetoworkspacesilent 10,address:$addr
+[ -n "$addr" ] && to_ws 10 "$addr"
 
 ### Return focus to primary ###
-hyprctl dispatch workspace 1
-hyprctl dispatch focusmonitor "desc:Samsung Electric Company LC49G95T"
+ws 1
+d 'hl.dsp.focus({ monitor = "desc:Samsung Electric Company LC49G95T" })'
 
-hyprctl keyword input:follow_mouse 1
+follow_mouse 1

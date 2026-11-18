@@ -11,7 +11,7 @@ hl.bind(mainMod .. " + S",              hl.dsp.exec_cmd("[workspace 2 silent] sp
 hl.bind(mainMod .. " + R",              hl.dsp.exec_cmd("pkill fuzzel || fuzzel"))
 hl.bind("F4",                           hl.dsp.exec_cmd("pkill fuzzel || fuzzel"))
 hl.bind(mainMod .. " + E",              hl.dsp.exec_cmd("nemo"))
-hl.bind("ALT + E",                      hl.dsp.exec_cmd("hyprctl dispatch exec '[float; size 1111 700] nemo'"))
+hl.bind("ALT + E",                      hl.dsp.exec_cmd("[float; size 1111 700] nemo"))
 
 hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd("dev-layout"))
 hl.bind(mainMod .. " + SHIFT + E", hl.dsp.exec_cmd("eve-session"))
@@ -28,7 +28,7 @@ hl.bind(mainMod .. " + X",         hl.dsp.layout("togglesplit")) -- dwindle only
 hl.bind(mainMod .. " + Escape",         hl.dsp.exec_cmd("hyprlock"))
 hl.bind("ALT + Escape",                 hl.dsp.exec_cmd("hyprlock"))
 hl.bind(mainMod .. " + SHIFT + Escape", hl.dsp.exec_cmd("wlogout"))
-hl.bind("CTRL + SHIFT + Escape",        hl.dsp.exec_cmd("hyprctl dispatch exec '[workspace 9] missioncenter'"))
+hl.bind("CTRL + SHIFT + Escape",        hl.dsp.exec_cmd("[workspace 9] kitty -e btop"))
 
 -- utilities
 hl.bind(mainMod .. " + slash", hl.dsp.exec_cmd([[hyprctl -j binds | jq -r '.[] | "\(if .modmask==64 then "SUPER" elif .modmask==65 then "SUPER+SHIFT" elif .modmask==68 then "SUPER+CTRL" elif .modmask==72 then "SUPER+ALT" elif .modmask==8 then "ALT" elif .modmask==5 then "CTRL+SHIFT" elif .modmask==12 then "ALT+CTRL" elif .modmask==0 then "     " else (.modmask|tostring) end) + \(.key)  →  \(.dispatcher) \(.arg)"' | fuzzel --dmenu --prompt="Keybinds: "]]))
@@ -63,15 +63,16 @@ hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "right" }))
 
 -- focus floating/tiled windows
-hl.bind("CTRL + ALT + up",   hl.dsp.exec_cmd("hyprctl dispatch focuswindow floating"))
-hl.bind("CTRL + ALT + down", hl.dsp.exec_cmd("hyprctl dispatch focuswindow tiled"))
+hl.bind("CTRL + ALT + up",   hl.dsp.window.cycle_next({ floating = true }))
+hl.bind("CTRL + ALT + down", hl.dsp.window.cycle_next({ tiled = true }))
 
 -- workspace switching (mainMod + [0-9])
 -- move active window to a workspace, silently (mainMod + SHIFT + [0-9])
+-- (0.57 has no `silent` key; `follow = false` is the silent form)
 for i = 1, 10 do
     local key = i % 10 -- 10 maps to key 0
     hl.bind(mainMod .. " + " .. key,         hl.dsp.focus({ workspace = i }))
-    hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i, silent = true }))
+    hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i, follow = false }))
 end
 hl.bind(mainMod .. " + CTRL + c", hl.dsp.window.move({ workspace = "empty" }))
 
@@ -85,25 +86,26 @@ hl.bind(mainMod .. " + SHIFT + j", hl.dsp.window.move({ direction = "down" }))
 hl.bind(mainMod .. " + SHIFT + k", hl.dsp.window.move({ direction = "up" }))
 hl.bind(mainMod .. " + SHIFT + l", hl.dsp.window.move({ direction = "right" }))
 
--- window resizing (hold to repeat)
-hl.bind(mainMod .. " + CTRL + left",  hl.dsp.window.resize({ x = -80, y = 0 }),   { repeating = true })
-hl.bind(mainMod .. " + CTRL + right", hl.dsp.window.resize({ x = 80,  y = 0 }),   { repeating = true })
-hl.bind(mainMod .. " + CTRL + up",    hl.dsp.window.resize({ x = 0,   y = -80 }), { repeating = true })
-hl.bind(mainMod .. " + CTRL + down",  hl.dsp.window.resize({ x = 0,   y = 80 }),  { repeating = true })
-hl.bind(mainMod .. " + CTRL + h", hl.dsp.window.resize({ x = -80, y = 0 }),   { repeating = true })
-hl.bind(mainMod .. " + CTRL + j", hl.dsp.window.resize({ x = 0,   y = 80 }),  { repeating = true })
-hl.bind(mainMod .. " + CTRL + k", hl.dsp.window.resize({ x = 0,   y = -80 }), { repeating = true })
-hl.bind(mainMod .. " + CTRL + l", hl.dsp.window.resize({ x = 80,  y = 0 }),   { repeating = true })
+-- window resizing (hold to repeat). `relative` defaults to false (absolute
+-- size/position) in the Lua API, so it must be set for nudges.
+hl.bind(mainMod .. " + CTRL + left",  hl.dsp.window.resize({ x = -80, y = 0, relative = true }),   { repeating = true })
+hl.bind(mainMod .. " + CTRL + right", hl.dsp.window.resize({ x = 80,  y = 0, relative = true }),   { repeating = true })
+hl.bind(mainMod .. " + CTRL + up",    hl.dsp.window.resize({ x = 0,   y = -80, relative = true }), { repeating = true })
+hl.bind(mainMod .. " + CTRL + down",  hl.dsp.window.resize({ x = 0,   y = 80, relative = true }),  { repeating = true })
+hl.bind(mainMod .. " + CTRL + h", hl.dsp.window.resize({ x = -80, y = 0, relative = true }),   { repeating = true })
+hl.bind(mainMod .. " + CTRL + j", hl.dsp.window.resize({ x = 0,   y = 80, relative = true }),  { repeating = true })
+hl.bind(mainMod .. " + CTRL + k", hl.dsp.window.resize({ x = 0,   y = -80, relative = true }), { repeating = true })
+hl.bind(mainMod .. " + CTRL + l", hl.dsp.window.resize({ x = 80,  y = 0, relative = true }),   { repeating = true })
 
 -- window positioning (hold to repeat)
-hl.bind(mainMod .. " + ALT + left",  hl.dsp.window.move({ x = -80, y = 0 }),   { repeating = true })
-hl.bind(mainMod .. " + ALT + right", hl.dsp.window.move({ x = 80,  y = 0 }),   { repeating = true })
-hl.bind(mainMod .. " + ALT + up",    hl.dsp.window.move({ x = 0,   y = -80 }), { repeating = true })
-hl.bind(mainMod .. " + ALT + down",  hl.dsp.window.move({ x = 0,   y = 80 }),  { repeating = true })
-hl.bind(mainMod .. " + ALT + h", hl.dsp.window.move({ x = -80, y = 0 }),  { repeating = true })
-hl.bind(mainMod .. " + ALT + j", hl.dsp.window.move({ x = 0,   y = 80 }),  { repeating = true })
-hl.bind(mainMod .. " + ALT + k", hl.dsp.window.move({ x = 0,   y = -80 }), { repeating = true })
-hl.bind(mainMod .. " + ALT + l", hl.dsp.window.move({ x = 0,   y = 80 }),  { repeating = true })
+hl.bind(mainMod .. " + ALT + left",  hl.dsp.window.move({ x = -80, y = 0, relative = true }),   { repeating = true })
+hl.bind(mainMod .. " + ALT + right", hl.dsp.window.move({ x = 80,  y = 0, relative = true }),   { repeating = true })
+hl.bind(mainMod .. " + ALT + up",    hl.dsp.window.move({ x = 0,   y = -80, relative = true }), { repeating = true })
+hl.bind(mainMod .. " + ALT + down",  hl.dsp.window.move({ x = 0,   y = 80, relative = true }),  { repeating = true })
+hl.bind(mainMod .. " + ALT + h", hl.dsp.window.move({ x = -80, y = 0, relative = true }),  { repeating = true })
+hl.bind(mainMod .. " + ALT + j", hl.dsp.window.move({ x = 0,   y = 80, relative = true }),  { repeating = true })
+hl.bind(mainMod .. " + ALT + k", hl.dsp.window.move({ x = 0,   y = -80, relative = true }), { repeating = true })
+hl.bind(mainMod .. " + ALT + l", hl.dsp.window.move({ x = 80,  y = 0, relative = true }),   { repeating = true })
 
 -- media controls
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"))

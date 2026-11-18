@@ -16,7 +16,7 @@
 # PATCH: upstream click-to-focus uses wmctrl (a silent no-op on Hyprland)
 # and `xdotool windowactivate --sync` (HANGS ~2s on Hyprland, never focuses).
 # eve-o-preview-hyprland-focus.patch makes a click drive Hyprland directly
-# via `hyprctl dispatch focuswindow pid:<pid>`, which both switches to the
+# via `hyprctl dispatch 'hl.dsp.focus({ window = "pid:<pid>" })'`, which both switches to the
 # client's workspace AND focuses it. Falls through to X11 off Hyprland.
 #
 # Config lives at ~/.config/eve-o-preview-linux/config.json (auto-created
