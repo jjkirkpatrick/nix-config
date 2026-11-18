@@ -42,8 +42,9 @@ let
         # two sides compare apples-to-apples. Empty / no-owner -> xclip fails
         # and we simply skip this tick (never clobbering the Wayland side).
         if x11="$(xclip -selection clipboard -o 2>/dev/null)" && [[ -n "$x11" ]]; then
-          sig="$(printf '%s' "$x11" | md5sum)"
-          if [[ "$sig" != "$last" ]]; then
+          # Plain string compare (no md5sum fork): one xclip per tick is all
+          # the steady state costs.
+          if [[ "$x11" != "$last" ]]; then
             # Only push when Wayland doesn't already have this exact content.
             # When a native-Wayland app copies, Hyprland mirrors it Wayland->X11,
             # so x11 would already equal the Wayland clipboard -- skipping then
@@ -54,10 +55,11 @@ let
             if [[ "$x11" != "$wl" ]]; then
               printf '%s' "$x11" | wl-copy
             fi
-            last="$sig"
+            last="$x11"
           fi
         fi
-        sleep 0.5
+        # 1s is still well under the time it takes to alt-tab and paste.
+        sleep 1
       done
     '';
   };

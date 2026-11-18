@@ -7,9 +7,6 @@
   # Nix package manager configuration
   nix = {
     settings = {
-      # Automatically optimize the Nix store by hardlinking identical files
-      auto-optimise-store = true;
-      
       # Enable experimental Nix features for flakes and new CLI
       experimental-features = [
         "nix-command"  # New nix CLI commands
@@ -20,14 +17,12 @@
       substituters = [
         "https://nix-community.cachix.org"  # Community packages cache
         "https://hyprland.cachix.org"       # Hyprland compositor cache
-        "https://ghostty.cachix.org"        # Ghostty terminal cache
       ];
       
       # Public keys for verifying binary cache integrity
       trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-        "ghostty.cachix.org-1:QB389yTa6gTyneehvqG58y0WnHjQOqgnA+wBnpWWxns="
       ];
     };
   };
@@ -42,7 +37,6 @@
   environment.systemPackages = with pkgs; [
     wget          # File downloader
     git           # Version control system
-    home-manager  # User environment manager
     lm_sensors    # Hardware monitoring: `sensors` reads CPU (k10temp), mobo, RAM temps
     smartmontools # SSD/HDD health: `smartctl -H -A /dev/nvme0` for wear/SMART attrs
   ];
@@ -61,6 +55,14 @@
       "/usr/share"
       "/run/current-system/sw/share"
     ];
+  };
+
+  # Compressed swap in RAM, used before the disk swap partition (higher
+  # priority). Much faster than paging to NVMe under memory pressure.
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+    memoryPercent = 25;
   };
 
   # System timezone configuration

@@ -1,73 +1,90 @@
-# Automatic system upgrade configuration
-{ username, ... }:
+# Weekly automatic update, keeping the repo and the running system in sync.
+#
+# Replaces system.autoUpgrade, which built against an unpinned nixpkgs
+# (--update-input --no-write-lock-file) so the system silently drifted from
+# flake.lock, and failed for weeks without anyone noticing.
+#
+# Flow (as ${username} unless noted):
+#   1. skip (and notify) if the checkout is dirty or not on main
+#   2. git pull --ff-only, nix flake update
+#   3. build the system; on failure restore flake.lock and notify
+#   4. commit + push flake.lock
+#   5. (root) register the build as the next boot generation
+#
+# "boot", not "switch": a live NVIDIA driver bump breaks the CDI generator and
+# aborts activation, so updates land on the next reboot.
+#
+# Run by hand:  sudo systemctl start nix-config-update
+# Logs:         journalctl -u nix-config-update
+{ pkgs, username, host, ... }:
 
 let
-  # Absolute path to this flake's checkout.
-  # The upgrade service runs as root with no working directory of its own, so
-  # this must be an absolute path to the real repo. It previously pointed at
-  # "/etc/nixos", which on this machine holds only a stale configuration.nix
-  # and no flake.nix -- every weekly run died with "could not find a flake.nix".
   flakePath = "/home/${username}/nix-config";
+  uid = "1000";
+
+  update = pkgs.writeShellApplication {
+    name = "nix-config-update";
+    runtimeInputs = with pkgs; [ git nix util-linux libnotify coreutils gh ];
+    text = ''
+      repo=${flakePath}
+      as_user() {
+        runuser -u ${username} -- env HOME=/home/${username} \
+          XDG_RUNTIME_DIR=/run/user/${uid} \
+          DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/${uid}/bus "$@"
+      }
+      notify() { as_user notify-send -a "nix-config-update" "$@" || true; }
+      g() { as_user git -C "$repo" "$@"; }
+
+      if [ "$(g rev-parse --abbrev-ref HEAD)" != main ] || [ -n "$(g status --porcelain)" ]; then
+        notify -u normal "System update skipped" "nix-config has uncommitted changes or isn't on main."
+        exit 0
+      fi
+
+      g pull --ff-only
+      as_user nix flake update --flake "$repo"
+
+      if g diff --quiet flake.lock; then
+        echo "flake.lock unchanged; nothing to do"
+        exit 0
+      fi
+
+      if ! out=$(as_user nix build --no-link --print-out-paths --print-build-logs \
+            "$repo#nixosConfigurations.${host}.config.system.build.toplevel"); then
+        g checkout -- flake.lock
+        notify -u critical "System update FAILED" "Build broke after flake update. See: journalctl -u nix-config-update"
+        exit 1
+      fi
+
+      g commit -m "flake.lock: automatic weekly update" -- flake.lock
+      g push || notify -u normal "System update: push failed" "flake.lock committed locally but not pushed."
+
+      nix-env -p /nix/var/nix/profiles/system --set "$out"
+      "$out/bin/switch-to-configuration" boot
+      notify -u normal "System update ready" "New generation staged; reboot to apply."
+    '';
+  };
 in
-
 {
-  # Automated NixOS system upgrades
-  # NOTE: This only handles NixOS system packages and configuration
-  # For comprehensive upgrades including cargo/npm/pip packages, Docker containers,
-  # and other system components, use the `topgrade` CLI utility manually
-  # Recommended: Run `topgrade` weekly or monthly for complete system maintenance
-
-  # The upgrade service runs as root against a repo owned by ${username}.
-  # Without this exemption git treats the checkout as having "dubious ownership"
-  # and refuses to read it.
-  # Note: programs.git.config only writes /etc/gitconfig when the module is
-  # enabled, so this must stay switched on for the exemption below to apply.
+  # git refuses to read a repo owned by another user unless it's marked safe.
   programs.git.enable = true;
   programs.git.config.safe.directory = [ flakePath ];
 
-  system.autoUpgrade = {
-    # Enable automatic system upgrades
-    enable = true;
+  systemd.services.nix-config-update = {
+    description = "Update flake inputs, build, commit and stage nix-config";
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${update}/bin/nix-config-update";
+    };
+  };
 
-    # Upgrade operation type
-    # "switch": Apply updates immediately after download
-    # "boot": Only apply updates after next reboot (safer for servers)
-    #
-    # Deliberately "boot": activating a new NVIDIA driver on a running system
-    # makes nvidia-container-toolkit-cdi-generator.service fail, which aborts
-    # the whole switch and leaves no new generation. Staging for the next boot
-    # sidesteps live-activation failures entirely on this machine.
-    operation = "boot";
-
-    # Path to the NixOS flake configuration
-    flake = flakePath;
-
-    # Additional flags for the upgrade process
-    flags = [
-      # Build against the latest nixpkgs rather than the pinned lock file
-      "--update-input" "nixpkgs"
-      # Resolve the updated input in memory only. Without this, root rewrites
-      # flake.lock inside ${username}'s repo and the file ends up root-owned,
-      # breaking subsequent `nix flake update` runs by the user.
-      # (Deliberately NOT --commit-lock-file: root has no git identity
-      # configured, so committing would fail and take the upgrade down with it.)
-      "--no-write-lock-file"
-      # Full build logs in the journal, so failures are diagnosable after the fact
-      "--print-build-logs"
-    ];
-
-    # Upgrade schedule
-    # Options: "daily", "weekly", "monthly", or systemd timer format
-    dates = "weekly";
-
-    # Spread the run out so it does not fire the instant the timer elapses
-    randomizedDelaySec = "45min";
-
-    # Catch up on a missed run if the machine was powered off at the scheduled time
-    persistent = true;
-
-    # Legacy channel-based updates (commented out)
-    # Modern flake-based systems use the flake input instead
-    # channel = "https://nixos.org/channels/nixos-unstable";
+  systemd.timers.nix-config-update = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "weekly";
+      RandomizedDelaySec = "45min";
+      Persistent = true;
+    };
   };
 }

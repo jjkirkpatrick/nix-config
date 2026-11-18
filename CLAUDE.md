@@ -9,16 +9,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 sudo nixos-rebuild switch --flake .#blue-pc
 ```
 
-### Rebuild and switch (home-manager only)
-```bash
-home-manager switch --flake .#josh
-```
-
 ### Using nh (NixOS helper — preferred)
 ```bash
 nh os switch .          # system rebuild with diff preview
-nh home switch .        # home-manager rebuild with diff preview
-nh os boot .            # build for next boot only
+nh os boot .            # build for next boot only (use for NVIDIA driver bumps)
 nh clean all            # garbage collect old generations
 ```
 
@@ -50,15 +44,11 @@ This is a modular NixOS configuration using **Nix Flakes**. There is one host (`
 
 ### Flake structure
 
-`flake.nix` defines two outputs:
-- `nixosConfigurations.blue-pc` — system-level NixOS config
-- `homeConfigurations.josh` — user-level Home Manager config
-
-Both are `x86_64-linux`. Unfree packages are allowed globally (needed for NVIDIA, Steam, etc.).
+`flake.nix` defines one output, `nixosConfigurations.blue-pc` (`x86_64-linux`). Home Manager runs inside it as a NixOS module (`modules/core/user.nix`), so `nh os switch .` updates system and user environment together; there is no standalone `homeConfigurations`. Unfree packages are allowed globally (needed for NVIDIA, Steam, etc.).
 
 ### Module split: core vs home
 
-**`modules/core/`** — system-wide NixOS modules (hardware, networking, audio, NVIDIA, Steam, virtualization, Wayland/Hyprland, security, auto-upgrade, garbage collection). All imported via `modules/core/default.nix`.
+**`modules/core/`** — system-wide NixOS modules (hardware, networking, audio, NVIDIA, Steam, virtualization, Wayland/Hyprland, security, weekly auto-update timer, garbage collection). All imported via `modules/core/default.nix`.
 
 **`modules/home/`** — Home Manager modules for the `josh` user (shell, dotfiles, fonts, dev tools, GUI apps). All imported via `modules/home/default.nix`. Dotfiles are managed declaratively here — no manual symlinks needed.
 
@@ -75,10 +65,9 @@ Both are `x86_64-linux`. Unfree packages are allowed globally (needed for NVIDIA
 | `nixpkgs` | unstable channel — all packages |
 | `home-manager` | user environment management |
 | `hyprland` | Wayland compositor |
-| `catppuccin` | theme system (applied to both system and home) |
-| `ghostty` | terminal emulator (from source) |
 | `nur` | Nix User Repository (extra packages) |
 | `nix-flatpak` | declarative Flatpak management |
+| `osrs-login` | Jagex-account launcher for OSRS |
 
 ### Adding a new host
 
@@ -95,3 +84,7 @@ Both are `x86_64-linux`. Unfree packages are allowed globally (needed for NVIDIA
 ### Dotfiles / application config
 
 Hyprland, Waybar, Kitty, Zsh, and other app configs live under `modules/home/config/`. They are written declaratively via Home Manager's `home.file` or program options.
+
+### Updates
+
+`modules/core/auto-upgrade.nix` defines `nix-config-update.timer` (weekly): it runs `nix flake update`, builds, commits + pushes `flake.lock`, and stages the build for next boot. It skips (with a desktop notification) if the checkout is dirty or not on `main`. Run it now with `sudo systemctl start nix-config-update`.

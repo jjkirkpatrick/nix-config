@@ -223,14 +223,9 @@ The configuration features a centralized **Dark Space** theme system inspired by
    # Update username if different from "josh"
    ```
 
-5. **Build and switch:**
+5. **Build and switch** (Home Manager is a NixOS module, so this sets up the user environment too):
    ```bash
    sudo nixos-rebuild switch --flake .#your-hostname
-   ```
-
-6. **Apply home-manager configuration:**
-   ```bash
-   home-manager switch --flake .#your-username
    ```
 
 ### Automated Installation Script
@@ -238,15 +233,12 @@ The configuration features a centralized **Dark Space** theme system inspired by
 Use the provided installation script for guided setup:
 
 ```bash
-./install.sh --setup-wifi
+./install.sh                # build blue-pc, activate on next boot
+./install.sh -H mybox -s    # scaffold/build another host and switch now
+./install.sh --wifi         # also write the WiFi secrets file (root:wpa_supplicant 640)
 ```
 
-The script provides:
-- Interactive configuration prompts
-- WiFi setup assistance
-- Host configuration creation
-- Validation and error checking
-- Dry-run option for testing
+See `./install.sh --help`. From the installer ISO, use `nixos-install --flake .#<host>`.
 
 ## 🔧 Configuration
 
@@ -261,7 +253,7 @@ The script provides:
 
 1. Edit colors in `modules/home/themes/dark-space/colors.nix`
 2. Modify application themes in respective config files
-3. Rebuild with `home-manager switch --flake .#username`
+3. Rebuild with `nh os switch .`
 
 ### Managing Packages
 
@@ -275,9 +267,8 @@ Convenient aliases for NixOS management:
 
 | Alias              | Command                                        | Purpose                           |
 | ------------------ | ---------------------------------------------- | --------------------------------- |
-| `rebuild`          | `sudo nixos-rebuild switch --flake .`         | Rebuild system configuration     |
-| `fullRebuild`      | `rebuild && home-manager switch --flake .`    | Rebuild system + home-manager    |
-| `homeRebuild`      | `home-manager switch --flake .`               | Rebuild only home-manager        |
+| `rebuild`          | `nh os switch ~/nix-config`                   | Rebuild system + home-manager    |
+| `update-rebuild`   | `sudo systemctl start nix-config-update`      | Run the weekly auto-update now   |
 | `fullClean`        | `sudo nix-collect-garbage -d`                 | Clean old generations            |
 | `nixClean`         | `nix-collect-garbage -d`                      | Clean user profile garbage       |
 | `listGens`         | `sudo nix-env --list-generations --profile /nix/var/nix/profiles/system` | List system generations |

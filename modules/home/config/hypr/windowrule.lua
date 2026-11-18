@@ -57,7 +57,6 @@ for _, t in ipairs(opaqueTargets) do
 end
 
 -- workspace assignments
-hl.window_rule({ name = "brave-workspace",   match = { class = "^(brave-browser)$" }, workspace = "1 silent" })
 hl.window_rule({ name = "discord-workspace", match = { class = "^(discord)$" },       workspace = "2 silent" })
 hl.window_rule({ name = "evince-workspace",  match = { class = "^(evince)$" },        workspace = "3" })
 

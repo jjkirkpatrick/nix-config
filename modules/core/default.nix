@@ -39,9 +39,7 @@
     ./gns3.nix
     # NVIDIA graphics driver configuration
     ./nvidia.nix
-    # Ollama local LLM runtime (CUDA-accelerated)
-    ./ollama.nix
-    # Automatic system updates configuration
+    # Weekly flake update + build + commit, staged for next boot
     ./auto-upgrade.nix
     # Nix store optimisation and garbage collection
     ./gc.nix
@@ -51,16 +49,4 @@
     ./theme.nix
   ];
 
-  # Nixpkgs configuration - allow insecure packages when necessary
-  nixpkgs.config = {
-    # Allow specific insecure packages that are still needed
-    # OpenSSL 1.1.1w is required by some packages (e.g., Steam games)
-    # even though it has reached end-of-life
-    permittedInsecurePackages = [
-      "openssl-1.1.1w"
-      # Pulled in transitively by android-studio; upstream qt5 qtwebengine
-      # is unmaintained since April 2025 but still required by the IDE.
-      "qtwebengine-5.15.19"
-    ];
-  };
 }

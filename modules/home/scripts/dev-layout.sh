@@ -36,7 +36,7 @@ hyprctl dispatch workspace 1
 sleep 0.3
 
 before=$(get_windows)
-hyprctl dispatch exec "brave --new-window 'https://dev.azure.com/ans-devops/INT-RnD/_sprints/backlog/DevOps%20Team/INT-RnD' --new-tab 'https://github.com/'"
+hyprctl dispatch exec "google-chrome-stable --new-window 'https://dev.azure.com/ans-devops/INT-RnD/_sprints/backlog/DevOps%20Team/INT-RnD' --new-tab 'https://github.com/'"
 addr=$(wait_for_window "$before")
 [ -n "$addr" ] && hyprctl dispatch movetoworkspacesilent 1,address:$addr
 
@@ -63,7 +63,7 @@ addr=$(wait_for_window "$before")
 
 ### Workspace 2 — Teams ###
 before=$(get_windows)
-hyprctl dispatch exec "brave --new-window 'https://teams.microsoft.com'"
+hyprctl dispatch exec "google-chrome-stable --new-window 'https://teams.microsoft.com'"
 addr=$(wait_for_window "$before")
 [ -n "$addr" ] && hyprctl dispatch movetoworkspacesilent 2,address:$addr
 
@@ -79,7 +79,7 @@ addr=$(wait_for_window "$before")
 [ -n "$addr" ] && hyprctl dispatch movetoworkspacesilent 10,address:$addr
 
 before=$(get_windows)
-hyprctl dispatch exec "brave --new-window 'https://youtube.com'"
+hyprctl dispatch exec "google-chrome-stable --new-window 'https://youtube.com'"
 addr=$(wait_for_window "$before")
 [ -n "$addr" ] && hyprctl dispatch movetoworkspacesilent 10,address:$addr
 

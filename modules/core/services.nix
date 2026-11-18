@@ -1,5 +1,5 @@
 # System services configuration - Display manager and related services
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   # Display manager configuration
@@ -19,16 +19,11 @@
   # into /run/current-system/sw/share/sddm/themes/ where SDDM looks for themes
   environment.systemPackages = [ pkgs.sddm-astronaut ];
 
-  # At cold boot the NVIDIA driver can still be link-training the DP/HDMI
-  # outputs when SDDM's weston-based greeter starts, so every connector
-  # reports "disconnected" and weston dies with "Could not enable any
-  # output" -- leaving a blank screen with no greeter and no auto-retry.
-  # Waiting for udev to settle (plus a short safety margin) gives the
-  # outputs time to come up before the greeter tries to bind them.
-  systemd.services.display-manager = {
-    after = [ "systemd-udev-settle.service" ];
-    wants = [ "systemd-udev-settle.service" ];
-    serviceConfig.ExecStartPre = [ "${pkgs.coreutils}/bin/sleep 2" ];
-  };
+  # At cold boot the NVIDIA driver can still be link-training the outputs
+  # when SDDM's weston greeter starts ("Could not enable any output").
+  # NixOS already sets Restart=always on the display manager; instead of the
+  # deprecated udev-settle + sleep, space the retries out (default 200ms) so
+  # the outputs come up before the start-limit burst is used up.
+  systemd.services.display-manager.serviceConfig.RestartSec = lib.mkForce "3s";
 
 }

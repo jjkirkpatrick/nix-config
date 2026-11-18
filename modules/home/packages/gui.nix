@@ -15,12 +15,22 @@
 
 { pkgs, ... }:
 let
+  # pyfa pulls in python-jose (marked insecure in nixpkgs, which blocks
+  # evaluation) only to validate the EVE SSO JWT in service/esiAccess.py.
+  # Swap it for PyJWT, which does the same RS256 + issuer check.
+  pyfa-unwrapped = pkgs.pyfa.overridePythonAttrs (old: {
+    patches = (old.patches or [ ]) ++ [ ./pyfa-pyjwt.patch ];
+    dependencies =
+      builtins.filter (d: (d.pname or "") != "python-jose") old.dependencies
+      ++ [ pkgs.python3Packages.pyjwt ];
+  });
+
   # pyfa is a wxGTK app that crashes immediately on native Wayland with
   # "Gdk-Message: Error 71 (Protocol error) dispatching to Wayland display".
   # Force it through XWayland so it launches reliably.
   pyfa = pkgs.symlinkJoin {
     name = "pyfa";
-    paths = [ pkgs.pyfa ];
+    paths = [ pyfa-unwrapped ];
     nativeBuildInputs = [ pkgs.makeWrapper ];
     postBuild = ''
       wrapProgram $out/bin/pyfa --set GDK_BACKEND x11

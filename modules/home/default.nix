@@ -23,17 +23,11 @@ in
   # organized and maintainable.
 
   imports = [
-    # Theme Management
-    inputs.catppuccin.homeModules.catppuccin  # Catppuccin color scheme integration
-
     # Core System Configuration
     ./config.nix                      # Application configuration files (dotfiles)
     ./packages                        # Software packages (CLI tools, GUI applications)
     ./fonts.nix                       # Font installation and configuration
     ./development.nix                 # Programming languages, development tools, and environments
-
-    # Web Browsers and Applications
-    ./brave.nix                       # Brave browser installation
 
     # Shell and Terminal Environment
     ./p10k/p10k.nix                  # Powerlevel10k shell prompt theme
@@ -61,7 +55,7 @@ in
     username = username;                    # Username from flake parameter
     homeDirectory = "/home/${username}";    # Home directory path
     stateVersion = "25.05";                # Home Manager version for compatibility
-    sessionPath = [ "$HOME/.local/bin" ];  # User-local binaries (e.g. nemoclaw)
+    sessionPath = [ "$HOME/.local/bin" ];  # User-local binaries
   };
 
   # ============================================================

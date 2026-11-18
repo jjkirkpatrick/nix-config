@@ -31,14 +31,7 @@
     
     # User-specific Home Manager configuration
     users.${username} = {
-      # Import different home configurations based on host type
-      imports =
-        if (host == "desktop") then
-          # Desktop-specific home configuration
-          [ ./../home/default.desktop.nix ]
-        else
-          # Default home configuration for other hosts
-          [ ./../home ];
+      imports = [ ./../home ];
       
       # Basic Home Manager settings
       home.username = "${username}";
@@ -64,16 +57,12 @@
     
     # Additional groups for user permissions
     extraGroups = [
-      # Network configuration permissions
-      "networkmanager"
       # Administrative privileges (sudo access)
       "wheel"
       # Audio device access for PipeWire
       "audio"
       # GPU passthrough for virtual machines
       "kvm"
-      # VFIO group for GPU passthrough
-      "vfio"
       # IOMMU group for GPU passthrough
       "libvirtd"
     ];

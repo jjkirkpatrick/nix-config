@@ -14,9 +14,9 @@
   # This enables hardware acceleration in graphical applications
   services.xserver.videoDrivers = ["nvidia"];
 
-  # Container GPU access configuration
-  # Enable NVIDIA Container Toolkit for GPU access in containers
-  # Allows Docker/Podman containers to use GPU acceleration
+  # Container GPU access (CDI specs for Docker/Podman --device nvidia.com/gpu).
+  # Its CDI generator fails on a live driver bump, so apply driver updates
+  # with `nh os boot .` + reboot (the auto-update timer already does).
   hardware.nvidia-container-toolkit.enable = true;
 
   # NVIDIA driver configuration options
@@ -26,19 +26,14 @@
     # Enables the kernel to directly control display modes
     modesetting.enable = true;
     
-    # Power management configuration
-    # NVIDIA power management is experimental and may cause issues
-    # Enable this if you experience graphical corruption after suspend/resume
-    # When enabled, saves entire VRAM to /tmp/ instead of just essentials
-    # Currently disabled to avoid potential sleep/suspend failures
-    powerManagement.enable = false;
+    # Save/restore VRAM across suspend (nvidia-suspend/resume services).
+    # Without it, Wayland sessions come back with corrupted graphics.
+    powerManagement.enable = true;
 
-    # Kernel module selection
-    # Choose between open-source and proprietary NVIDIA kernel modules
-    # Open-source module supports Turing+ architectures (GTX 16xx, RTX 20xx+)
+    # Open kernel modules: NVIDIA's recommended module for Turing and newer
+    # (this is an RTX 3080 Ti, Ampere).
     # See: https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
-    # Set to false to use proprietary module for better compatibility
-    open = false;
+    open = true;
 
     # NVIDIA Settings application
     # Enable the NVIDIA control panel GUI application
@@ -46,9 +41,7 @@
     # Provides GPU monitoring, overclocking, and display configuration
     nvidiaSettings = true;
 
-    # Driver version selection
-    # Use production/stable driver branch for maximum stability
-    # Alternative options: beta, vulkan_beta, legacy_470, legacy_390
+    # Driver branch: newest release (other options: stable/production, beta).
     package = config.boot.kernelPackages.nvidiaPackages.latest;
   };
 }

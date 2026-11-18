@@ -6,6 +6,15 @@
     
     libvirtd = {
       enable = true;
+      # At power-off, shut guests down cleanly (in parallel) instead of saving
+      # their RAM to disk: resuming those save files failed for every VM on
+      # 2026-11-14 (libvirt_iohelper SIGPIPE) and they lost their state.
+      onShutdown = "shutdown";
+      parallelShutdown = 10;
+      shutdownTimeout = 180;
+      # At boot, only VMs marked with `virsh autostart <name>` start
+      # (libvirtd handles that itself); libvirt-guests doesn't restart others.
+      onBoot = "ignore";
     };
     
     docker.rootless = {

@@ -17,26 +17,19 @@ in
       # Ensures compatibility with Hyprland's rendering requirements
       package = hyprland-pkgs.mesa;
       
-      # Additional packages for video acceleration and codec support
-      extraPackages = with pkgs; [
-        # Intel media driver for modern Intel GPUs (Broadwell and newer)
-        intel-media-driver
-        
-        # Intel VAAPI driver with hybrid codec support
-        # Enables hardware-accelerated video decode/encode for Intel graphics
-        (intel-vaapi-driver.override { enableHybridCodec = true; })
-        
-        # VAAPI driver for VDPAU backend
-        # Provides video acceleration compatibility layer
-        libva-vdpau-driver
-        
-        # VDPAU driver for VA-GL backend
-        # Another compatibility layer for video acceleration
-        libvdpau-va-gl
-      ];
+      # VA-API on NVIDIA (NVDEC-backed) for browsers/mpv hardware decoding.
+      # This is an AMD CPU (no iGPU) + NVIDIA box, so no Intel drivers.
+      extraPackages = with pkgs; [ nvidia-vaapi-driver ];
     };
   };
   
+  # Point libva at the NVIDIA (NVDEC) backend; the direct backend is the
+  # only one that works with the current driver.
+  environment.sessionVariables = {
+    LIBVA_DRIVER_NAME = "nvidia";
+    NVD_BACKEND = "direct";
+  };
+
   # Enable proprietary firmware for hardware devices
   # Required for many WiFi cards, Bluetooth adapters, and other hardware
   # This includes firmware that's not open source but necessary for functionality

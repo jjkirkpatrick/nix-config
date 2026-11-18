@@ -78,29 +78,12 @@
         # - Real-time monitoring and configuration
         pkgs.alsa-scarlett-gui
         
-        # PulseAudio utilities for compatibility and control
-        # Includes essential tools:
-        # - pavucontrol: GUI volume control and device management
-        # - pactl: Command-line audio control utility
-        # - pamixer: Command-line mixer interface
-        # These tools work with PipeWire's PulseAudio compatibility layer
-        pkgs.pulseaudioFull
+        # pactl/pacmd CLI (talks to PipeWire's PulseAudio layer; the daemon in
+        # this package is never started). pavucontrol/pamixer are in gui.nix.
+        pkgs.pulseaudio
     ];
     
-    # ========================================
-    # USB AUDIO INTERFACE CONFIGURATION
-    # ========================================
-    # Kernel module configuration for professional USB audio devices
-    # Specifically optimized for Focusrite Scarlett series interfaces
-    boot.extraModprobeConfig = ''
-      # Focusrite Scarlett USB audio interface optimization
-      # vid=0x1235: Focusrite vendor ID
-      # pid=0x8212: Scarlett device product ID (adjust for your model)
-      # device_setup=1: Enables advanced features including:
-      #   - Individual input/output control
-      #   - Hardware monitoring capabilities
-      #   - Low-latency direct monitoring
-      #   - Enhanced routing and mixing options
-      options snd_usb_audio vid=0x1235 pid=0x8212 device_setup=1
-    '';
+    # Focusrite Scarlett 2i2 Gen 3 (1235:8210): the kernel's Scarlett mixer
+    # driver is enabled by default since 6.7, so no snd_usb_audio
+    # device_setup quirk is needed (the old one targeted pid 0x8212, a 4i4).
 }

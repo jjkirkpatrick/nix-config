@@ -1,0 +1,37 @@
+--- a/service/esiAccess.py
++++ b/service/esiAccess.py
+@@ -10,8 +10,8 @@
+ import secrets
+ import hashlib
+ import json
+-from jose import jwt
+-from jose.exceptions import ExpiredSignatureError, JWTError, JWTClaimsError
++import jwt
++from jwt.exceptions import ExpiredSignatureError, InvalidIssuerError as JWTClaimsError, PyJWTError as JWTError
+ import os
+ import datetime
+ from service.const import EsiSsoMode, EsiEndpoints
+@@ -256,19 +256,19 @@
+         try:
+             return jwt.decode(
+                 jwt_token,
+-                jwk_set,
+-                algorithms=jwk_set["alg"],
++                jwt.PyJWK(jwk_set).key,
++                algorithms=[jwk_set["alg"]],
+                 issuer=[self.server_base.sso, "https://%s" % self.server_base.sso],
+                 # ignore "aud" claim: https://tweetfleet.slack.com/archives/C30KX8UUX/p1648495011905969
+                 options={"verify_aud": False, "verify_exp": self.settings.get("enforceJwtExpiration")}
+             )
+         except ExpiredSignatureError as e:
+             raise GenericSsoError("The JWT token has expired: {}".format(str(e)))
+-        except JWTError as e:
+-            raise GenericSsoError("The JWT signature was invalid: {}".format(str(e)))
+         except JWTClaimsError as e:
+             raise GenericSsoError("The issuer claim was not from login.eveonline.com or "
+                 "https://login.eveonline.com: {}".format(str(e)))
++        except JWTError as e:
++            raise GenericSsoError("The JWT signature was invalid: {}".format(str(e)))
+ 
+     def _before_request(self, ssoChar):
+         if ssoChar:

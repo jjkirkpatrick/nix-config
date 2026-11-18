@@ -21,7 +21,7 @@
 { pkgs, lib, inputs, ... }:
 let
   # hyprctl from the SAME flake input as the running compositor (see
-  # modules/core/hyperland.nix) so the IPC protocol versions always match.
+  # modules/core/wayland.nix) so the IPC protocol versions always match.
   hyprland = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
   # Character -> workspace + floating geometry on Hyprland's GLOBAL coords.

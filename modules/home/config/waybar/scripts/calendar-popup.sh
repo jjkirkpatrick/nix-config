@@ -16,7 +16,7 @@ gsimplecal &
     done
 
     # Close when focus moves to any other window
-    socat - "UNIX-CONNECT:$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock" 2>/dev/null \
+    socat -u "UNIX-CONNECT:$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock" - 2>/dev/null \
     | while IFS= read -r line; do
         [[ "$line" == activewindow\>* ]] || continue
         class=$(hyprctl activewindow -j 2>/dev/null | jq -r '.class // ""')

@@ -39,24 +39,9 @@
     # NetworkManager alternative (commented out in favor of wpa_supplicant)
     #networkmanager.enable = true;
 
-    # Firewall configuration for network security
-    firewall = {
-      # Enable the firewall for network protection
-      enable = true;
-      # Allow incoming TCP connections on specific ports
-      allowedTCPPorts = [
-        22      # SSH remote access
-        80      # HTTP web traffic
-        443     # HTTPS secure web traffic
-        59010   # Custom application port
-        59011   # Custom application port
-      ];
-      # Allow incoming UDP connections on specific ports
-      allowedUDPPorts = [
-        59010   # Custom application port
-        59011   # Custom application port
-      ];
-    };
+    # Firewall: default-deny inbound. Service modules open what they need
+    # (Sunshine in remote-access.nix, Steam Remote Play in steam.nix).
+    firewall.enable = true;
   };
 
 }

@@ -47,7 +47,7 @@
         "format": "{}",
         "return-type": "json",
         "exec": "~/.config/waybar/scripts/bluetooth.sh",
-        "interval": 3,
+        "interval": 10,
         "on-click": "~/.config/waybar/scripts/bluetooth-menu.sh",
         "on-click-right": "bash -c 'bluetoothctl show | grep -q \"Powered: yes\" && bluetoothctl power off || bluetoothctl power on'"
     },
@@ -69,7 +69,7 @@
     },
     "custom/gpu": {
         "format": "󰿵 {}",
-        "interval": 5,
+        "interval": 10,
         "exec": "~/.config/waybar/scripts/gpu.sh",
         "return-type": "json"
     },

@@ -26,8 +26,6 @@
   # suspend the USB ports, and they fail to re-enumerate when switching back.
   boot.kernelParams = [ "usbcore.autosuspend=-1" ];
 
-  # Filesystem support
-  # Enable NTFS support for reading Windows partitions
-  # Useful for dual-boot systems or external drives
-  boot.supportedFilesystems = [ "ntfs" ];
+  # NTFS: the Windows partitions are mounted with the in-kernel ntfs3 driver
+  # (see hosts/blue-pc), so no ntfs-3g/FUSE support is needed.
 }

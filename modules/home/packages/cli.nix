@@ -356,39 +356,11 @@ in
                             # - Essential for script notifications
                             # - Used by notify-send command
     
-    swaynotificationcenter   # Notification daemon with control panel (replaces mako)
-    
-    qt5.qtwayland            # Qt5 Wayland platform plugin
-                            # - Enable Qt5 applications on Wayland
-                            # - Proper window management and input handling
-                            # - Essential for Qt-based applications
-    
-    qt6.qtwayland            # Qt6 Wayland platform plugin
-                            # - Enable Qt6 applications on Wayland
-                            # - Future-proof support for newer Qt applications
-                            # - Improved Wayland integration over Qt5
-    
-    swayidle                 # Idle management daemon for Wayland
-                            # - Automatic screen locking and power management
-                            # - Customizable idle actions
-                            # - Integration with screen lockers
-                            # - Battery life optimization
-    
-    hyprlock                 # Screen locker for Hyprland (replaces swaylock-effects)
-    
-    wlogout                  # Logout menu for Wayland
-                            # - Graphical logout/shutdown interface
-                            # - Session management options
-                            # - Integration with Wayland session
-                            # - User-friendly power management
-    
     wl-clipboard             # Wayland clipboard utilities
                             # - Copy/paste operations in Wayland
                             # - Command-line clipboard access
                             # - Essential for clipboard automation
                             # - Replaces xclip/xsel for Wayland
-    
-    fuzzel                   # Fast Wayland-native application launcher (replaces wofi)
     
     hyprkeys                 # Keybind retrieval utility for Hyprland
                             # - Lists all registered keybinds
@@ -400,7 +372,6 @@ in
                             # - Integration with Wayland compositors
                             # - Highly configurable appearance and functionality
   
-
     opencode
 
     iperf3
@@ -431,6 +402,3 @@ in
   # These tools work together to create a powerful CLI environment
   # that enhances productivity while maintaining Unix philosophy.
 }
-
-
-

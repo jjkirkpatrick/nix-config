@@ -35,25 +35,16 @@ stdenv.mkDerivation {
     sha256 = hashes."${platform}" or (throw "Unsupported platform: ${platform}");
   };
 
-  phases = [ "unpackPhase" "installPhase" ];
-
-  sourceRoot = ".";
-
-  unpackPhase = ''
-    cp $src grok
-    chmod +x grok
-  '';
+  # Upstream ships a static-pie binary: no interpreter or shared libs to
+  # patch, so it runs without nix-ld. It's already stripped upstream.
+  dontUnpack = true;
+  dontStrip = true;
 
   installPhase = ''
-    mkdir -p $out/bin
-    cp grok $out/bin/
-    chmod +x $out/bin/grok
-
+    install -Dm755 $src $out/bin/grok
     # Create agent symlink (the binary is the same for both)
     ln -s $out/bin/grok $out/bin/agent
   '';
-
-  dontStrip = false;
 
   meta = with lib; {
     description = "Grok Build - coding agent powered by Grok 4.6";

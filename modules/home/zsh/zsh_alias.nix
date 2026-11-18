@@ -66,11 +66,12 @@
     rebuild = "nh os switch ~/nix-config";
     # Rebuild and switch to new NixOS system configuration using nh
 
-    home-rebuild = "nh home switch ~/nix-config";
-    # Rebuild home-manager configuration for user environment using nh
+    home-rebuild = "nh os switch ~/nix-config";
+    # Home Manager runs as a NixOS module, so this is the same as rebuild
 
-    update-rebuild = "cd ~/nix-config && nix flake update && nh os switch .";
-    # Update all flake inputs then rebuild and switch the system
+    update-rebuild = "sudo systemctl start nix-config-update";
+    # Run the weekly auto-update now (flake update, build, commit+push,
+    # stage for next boot). Logs: journalctl -u nix-config-update
 
     # ========================================
     # DEVELOPMENT ENVIRONMENT SHORTCUTS
