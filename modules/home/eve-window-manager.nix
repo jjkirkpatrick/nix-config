@@ -28,7 +28,8 @@ let
   # Floating (not tiled) because dwindle's binary splits can't make the
   # MIDDLE window the biggest -- and Blue must be centered and largest.
   # Coordinates are chosen to mimic tiled columns so they look native:
-  #   - DP-1 is 5120x1440 at global offset (0,1080); a 45px waybar is
+  #   - DP-1 is 5120x1440 at global offset (0,1080) (kept from the old
+  #     two-monitor layout so these coordinates stay valid); a 45px waybar is
   #     reserved at the top, so usable y starts at 1080+45 = 1125.
   #   - gaps_out=10 (screen edge) and 2*gaps_in=10 (between windows) are
   #     baked in: top y=1135, height=1375, left x=10, right edge=5110.
@@ -204,9 +205,9 @@ let
       # 3. Open the wormhole map on ws3. A new browser window opens on the
       #    ACTIVE workspace (which follows the mouse), so opening it blindly
       #    makes it flash into the user's current layout before we could move
-      #    it. Instead we focus ws3 FIRST (it lives on the secondary monitor,
-      #    so the main view is untouched) -- the new window then opens on ws3
-      #    directly. We call the user's own google-chrome-stable (via PATH) so
+      #    it. Instead we focus ws3 FIRST so the new window opens there
+      #    directly (single monitor now, so ws3 shows only until the map
+      #    window appears, then we switch straight back). We call the user's own google-chrome-stable (via PATH) so
       #    it talks to the running instance and keeps their profile/login.
       orig="$(hyprctl activeworkspace -j | jq -r '.name')"
       hyprctl dispatch 'hl.dsp.focus({ workspace = 3 })' >/dev/null || true

@@ -66,7 +66,6 @@ in
     settings = {
       splash = false;
       wallpaper = [
-        { monitor = "HDMI-A-1";                                       path = wallpaper; }
         { monitor = "desc:Samsung Electric Company LC49G95T"; path = wallpaper; }
       ];
     };
